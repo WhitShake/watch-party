@@ -18,9 +18,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "rootDir": "./src", 
+    "sourceMap": true, 
+    "noEmitOnError": true, 
+    // "noUnusedLocals": true,                           /* Enable error reporting when local variables aren't read. */
+    "noUnusedParameters": true, 
+    "noImplicitReturns": true, 
   },
-  "include": [
-    "src"
-  ]
+
 }
+
