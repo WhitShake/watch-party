@@ -3,6 +3,9 @@ import './App.css';
 import { SideBar } from './components/sidebar/SideBar';
 import { db } from './firebase_setup/firebase';
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import Home from './pages/Home';
+import Search from './pages/Search';
+import { Routes, Route } from 'react-router-dom';
 
 // const userColRef = collection(db, 'users')
 // const userDocs = await getDocs(userColRef);
@@ -31,6 +34,10 @@ const App = () => {
       <div className="sidebar">
         <SideBar signedInStatus={true} playlists={playlists}/>
       </div>
+      <Routes>
+        <Home></Home>
+        <Search></Search>
+      </Routes>
     </div>
   );
 };
