@@ -29,6 +29,16 @@ shelfDocs.forEach((doc) => {
 
 
 const App = () => {
+
+const Elizabeth = {
+  firstName: 'Elizabeth',
+  lastName: 'Example',
+  image: 'https://i.natgeofe.com/n/9135ca87-0115-4a22-8caf-d1bdef97a814/75552.jpg',
+  quote: 'I\'ll be back',
+  recentlyWatched: ['/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg', '/t7Pv44sBcxhc47kNNDDafNAgr7Y.jpg', '/8AwVTcgpTnmeOs4TdTWqcFDXEsA.jpg', '/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg'],
+  friendsList: ['Alyssa', 'Jackie', 'Whitney']
+}
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -37,7 +47,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
           <Route path="/authentication" element={<Authentication />} /> 
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile userData={Elizabeth}/>} />
             {/* need to add profile button to sidebar (maybe smol prof pic icon?) */}
         </Routes>
       </BrowserRouter>

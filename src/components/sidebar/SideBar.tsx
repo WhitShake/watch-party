@@ -48,6 +48,9 @@ export const SideBar = (props: SideBarProps) => {
           <li>
             <Link to="/authentication">{props.signedInStatus ? "Sign Out" : "Sign In"}</Link>
           </li>
+          <li>
+            <Link to='/profile'>Profile</Link>
+          </li>
         </ul>
       </nav>
   )
