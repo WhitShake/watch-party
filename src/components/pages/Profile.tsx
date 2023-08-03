@@ -17,7 +17,7 @@ type ProfileProps = {
 export const Profile = (props: ProfileProps) => {
     const {firstName, lastName, image, quote, recentlyWatched, friendsList} = props.userData
     return (
-    <div>
+    <div className="profile">
         <div>
             <img src={image} alt="avatar" className="avatar"/>
             <h1>{firstName} {lastName}</h1>

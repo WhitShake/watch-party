@@ -5,9 +5,12 @@ import { db } from './firebase_setup/firebase';
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from './components/pages/Home';
-import { Search } from './components/pages/Search';
+import { Search } from './components/pages/search_pages/Search';
 import { Authentication } from './components/pages/Authentication';
 import { Profile } from './components/pages/Profile';
+
+const apiKey = process.env.REACT_APP_API;
+const BASE_URL = 'https://api.themoviedb.org/';
 
 // const userColRef = collection(db, 'users')
 // const userDocs = await getDocs(userColRef);
@@ -30,14 +33,25 @@ shelfDocs.forEach((doc) => {
 
 const App = () => {
 
-const Elizabeth = {
-  firstName: 'Elizabeth',
-  lastName: 'Example',
-  image: 'https://i.natgeofe.com/n/9135ca87-0115-4a22-8caf-d1bdef97a814/75552.jpg',
-  quote: 'I\'ll be back',
-  recentlyWatched: ['/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg', '/t7Pv44sBcxhc47kNNDDafNAgr7Y.jpg', '/8AwVTcgpTnmeOs4TdTWqcFDXEsA.jpg', '/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg'],
-  friendsList: ['Alyssa', 'Jackie', 'Whitney']
-}
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const Elizabeth = {
+    firstName: 'Elizabeth',
+    lastName: 'Example',
+    image: 'https://i.natgeofe.com/n/9135ca87-0115-4a22-8caf-d1bdef97a814/75552.jpg',
+    quote: 'I\'ll be back',
+    recentlyWatched: ['/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg', '/t7Pv44sBcxhc47kNNDDafNAgr7Y.jpg', '/8AwVTcgpTnmeOs4TdTWqcFDXEsA.jpg', '/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg'],
+    friendsList: ['Alyssa', 'Jackie', 'Whitney']
+  }
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const searchUrl = (`${BASE_URL}3/search/movie?api_key=${apiKey}&query=${searchTerm}`)
+  }
 
   return (
     <div className="App">
@@ -45,7 +59,7 @@ const Elizabeth = {
         <SideBar signedInStatus={true} playlists={playlists} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search />} />
+          <Route path="/search" element={<Search handleChange={handleChange} handleSubmit={handleSubmit}/>} />
           <Route path="/authentication" element={<Authentication />} /> 
           <Route path="/profile" element={<Profile userData={Elizabeth}/>} />
             {/* need to add profile button to sidebar (maybe smol prof pic icon?) */}

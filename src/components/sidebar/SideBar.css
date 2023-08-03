@@ -1,5 +1,6 @@
 .sidebar {
-  width: 30vw;
+  max-width: 30vw;
+  min-width: 20vw;
   height: 100vh;
   align-items: left;
   background-color: transparent;
