@@ -14,21 +14,3 @@ export const Movie = (props: MovieProps) => {
       </div>
   )
 }
-
-// const Movie = ({ image }) => {
-//   return (
-//     <div className="card-container">
-//       <div className="card">
-//         {/* <div className="image"> */}
-//         {/* v if poster_path aka image is null, display default image, else display image v*/}
-//         {image === null ? <img src={'https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg'} alt="card" className="default"/> : <img src={`http://image.tmdb.org/t/p/w185${image}`} alt="card"/>}
-//         {/* </div> */}
-//         <div className="card-content">
-//           <p><a href="#">View Details</a></p>
-//         </div>
-//       </div>
-//     </div>
-//   )
-// };
-
-// export default Movie;
