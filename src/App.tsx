@@ -3,9 +3,11 @@ import './App.css';
 import { SideBar } from './components/sidebar/SideBar';
 import { db } from './firebase_setup/firebase';
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
-import Home from './pages/Home';
-import Search from './pages/Search';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Home } from './components/pages/Home';
+import { Search } from './components/pages/Search';
+import { Authentication } from './components/pages/Authentication';
+import { Profile } from './components/pages/Profile';
 
 // const userColRef = collection(db, 'users')
 // const userDocs = await getDocs(userColRef);
@@ -26,18 +28,19 @@ shelfDocs.forEach((doc) => {
 });
 
 
-
-
 const App = () => {
   return (
     <div className="App">
-      <div className="sidebar">
-        <SideBar signedInStatus={true} playlists={playlists}/>
-      </div>
-      <Routes>
-        <Home></Home>
-        <Search></Search>
-      </Routes>
+      <BrowserRouter>
+        <SideBar signedInStatus={true} playlists={playlists} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/authentication" element={<Authentication />} /> 
+          <Route path="/profile" element={<Profile />} />
+            {/* need to add profile button to sidebar (maybe smol prof pic icon?) */}
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };
