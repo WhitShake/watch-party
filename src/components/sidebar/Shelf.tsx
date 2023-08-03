@@ -1,15 +1,23 @@
 import React from "react";
 import './Shelf.css'
+import { Playlist } from "./Playlist";
 
-export const Shelf = () => {
+type ShelfProps = {
+  playlists: string[]
+}
+
+export const Shelf = (props: ShelfProps) => {
   return (
     <div>
       <p>Your Shelf: </p>
       <ul>
-        <li>Horror</li>
-        <li>Comedy</li>
-        <li>Romance</li>
-        <li>Sci-fi</li>
+        {props.playlists.map((playlist, i) => {
+          return (
+            <li key={i}>
+              <Playlist title={playlist} />
+            </li>
+          )
+        })}
       </ul>
     </div>
   )

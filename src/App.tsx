@@ -2,23 +2,26 @@ import React, { useState }from 'react';
 import './App.css';
 import { SideBar } from './components/sidebar/SideBar';
 import { db } from './firebase_setup/firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 
-const userColRef = collection(db, 'users')
-const userDocs = await getDocs(userColRef);
+// const userColRef = collection(db, 'users')
+// const userDocs = await getDocs(userColRef);
 
-console.log('userDocs:', userDocs)
-userDocs.forEach((doc) => {
-  console.log("userDocs doc data:", doc.data());
-})
+// console.log('userDocs:', userDocs)
+// userDocs.forEach((doc) => {
+//   console.log("userDocs doc data:", doc.data());
+// })
 
-const shelfRef = collection(db, 'users', 'mhSMG6jTIsi8tmjyhtPp', 'shelf')
-console.log("shelf reference:", shelfRef)
+const shelfRef = collection(db, 'users', 'mhSMG6jTIsi8tmjyhtPp', 'Shelf');
+console.log("shelf reference:", shelfRef);
 
-const shelfDocs = await getDocs(shelfRef)
+const shelfDocs = await getDocs(shelfRef);
+
+let playlists: string[] = []; 
 shelfDocs.forEach((doc) => {
-  console.log("shelf doc data:", doc.data())
-})
+  playlists.push(doc.id);
+});
+
 
 
 
@@ -26,10 +29,10 @@ const App = () => {
   return (
     <div className="App">
       <div className="sidebar">
-        <SideBar signedInStatus={true}/>
+        <SideBar signedInStatus={true} playlists={playlists}/>
       </div>
     </div>
   );
-}
+};
 
 export default App;

@@ -5,7 +5,7 @@ import './SideBar.css'
 
 type SideBarProps = {
   signedInStatus: boolean
-
+  playlists: string[]
 }
 
 export const SideBar = (props: SideBarProps) => {
@@ -19,7 +19,7 @@ export const SideBar = (props: SideBarProps) => {
             <a href='#'>Search</a>
           </li>
           <li>
-            <Shelf />
+            <Shelf playlists={props.playlists}/>
           </li>
           <li>
             <a href='#' className="login">{props.signedInStatus ? "Sign Out" : "Sign In"}</a>
