@@ -4,16 +4,22 @@ import { SideBar } from './components/sidebar/SideBar';
 import { db } from './firebase_setup/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
-const colRef = collection(db, 'users')
+const userColRef = collection(db, 'users')
+const userDocs = await getDocs(userColRef);
 
-const docSnap = await getDocs(colRef);
-
-console.log('docSnap:', docSnap)
-docSnap.forEach((doc) => {
-  console.log("docSnap doc data:", doc.data());
+console.log('userDocs:', userDocs)
+userDocs.forEach((doc) => {
+  console.log("userDocs doc data:", doc.data());
 })
 
 const shelfRef = collection(db, 'users', 'mhSMG6jTIsi8tmjyhtPp', 'shelf')
+console.log("shelf reference:", shelfRef)
+
+const shelfDocs = await getDocs(shelfRef)
+shelfDocs.forEach((doc) => {
+  console.log("shelf doc data:", doc.data())
+})
+
 
 
 const App = () => {
