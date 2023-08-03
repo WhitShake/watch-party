@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useState }from 'react';
 import './App.css';
 import { SideBar } from './components/sidebar/SideBar';
 
-
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <div>
+      <div className="sidebar">
         <SideBar signedInStatus={true}/>
       </div>
     </div>

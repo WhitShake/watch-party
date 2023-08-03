@@ -1,0 +1,28 @@
+.sidebar {
+  width: 30vw;
+  height: 100vh;
+  align-items: left;
+  background-color: black;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  position: fixed;
+}
+
+
+.sidebar-elements {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 20vw;
+  height: 100vh;
+  align-items: left;
+  color: white;
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}

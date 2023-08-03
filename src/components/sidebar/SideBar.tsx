@@ -1,5 +1,7 @@
 import React from "react"
-import { Shelf } from "./shelf"
+import { Shelf } from "./Shelf"
+import './SideBar.css'
+
 
 type SideBarProps = {
   signedInStatus: boolean
@@ -8,9 +10,8 @@ type SideBarProps = {
 
 export const SideBar = (props: SideBarProps) => {
   return (
-    <div>
-      <nav>
-        <ul>
+      <nav className="sidebar">
+        <ul className="sidebar-elements">
           <li>
             <a href='#'>Home</a>
           </li>
@@ -21,10 +22,9 @@ export const SideBar = (props: SideBarProps) => {
             <Shelf />
           </li>
           <li>
-            <a href='#'>{props.signedInStatus ? "Sign Out" : "Sign In"}</a>
+            <a href='#' className="login">{props.signedInStatus ? "Sign Out" : "Sign In"}</a>
           </li>
         </ul>
       </nav>
-    </div>
   )
 }
