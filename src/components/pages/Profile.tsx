@@ -9,7 +9,10 @@ type ProfileProps = {
         lastName: string
         image: string
         quote: string
-        recentlyWatched: string[]
+        recentlyWatched: {
+            id: number
+            posterPath: string
+        }[]
         friendsList: string[]
     }
 }
