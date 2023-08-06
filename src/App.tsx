@@ -35,6 +35,7 @@ const App = () => {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<{id: number; posterPath: string}[]>([]);
+  const [selectedSearchForm, setSelectedSearchForm] = useState<string>("");
 
   const Elizabeth = {
     firstName: 'Elizabeth',
@@ -72,6 +73,14 @@ const App = () => {
     fetchData(searchUrl)
   }
 
+  // const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  //   //routing logic goes here
+  // };
+
+  const handleSearchSelection = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedSearchForm(event.currentTarget.value);
+  };  
+
   type MovieObject = {
     id: number
     original_language: string
@@ -96,14 +105,14 @@ const App = () => {
       .then(response => response.json())
       .then(data => {
         if (data.results.length > 0) {
-          {data.results.map((movie: MovieObject) => (
+          data.results.map((movie: MovieObject) => (
             idsAndPosterPaths.push(
               {
                 id: movie.id,
                 posterPath: movie.poster_path
               }
             )
-          ))}
+          ))
         console.log("ids and poster paths:", idsAndPosterPaths);
         setSearchResults(idsAndPosterPaths);
         }
@@ -116,7 +125,7 @@ const App = () => {
         <SideBar signedInStatus={true} playlists={playlists} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search handleChange={handleChange} handleSubmit={handleSubmit} results={searchResults}/>} />
+          <Route path="/search" element={<Search handleChange={handleChange} handleSubmit={handleSubmit} handleSearchSelection={handleSearchSelection} results={searchResults} selectedSearchForm={selectedSearchForm}/>} />
           {/* pass search results onto search page; render if searchResults is truthy? */}
 
           <Route path="/authentication" element={<Authentication />} /> 
