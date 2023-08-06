@@ -2,25 +2,62 @@ import React, { useState, useEffect }from 'react';
 import './App.css';
 import { SideBar } from './components/sidebar/SideBar';
 import { db } from './firebase_setup/firebase';
-import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc, setDoc } from 'firebase/firestore';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from './components/pages/Home';
 import { Search } from './components/pages/search_pages/Search';
 import { Authentication } from './components/pages/Authentication';
 import { Profile } from './components/pages/Profile';
 
+// import { seedData, testSeed } from './firebase_setup/seedData';
+
 const apiKey = process.env.REACT_APP_tmdb_apiKey;
 const BASE_URL = 'https://api.themoviedb.org/';
 
-// const userColRef = collection(db, 'users')
-// const userDocs = await getDocs(userColRef);
+// code below is for seeding 
+// type MovieObject = {
+//   id: number
+//   original_language: string
+//   overview: string
+//   popularity: number
+//   poster_path: string
+//   release_date: string
+//   title: string
+//   video: boolean
+//   vote_average: number
+//   vote_count: number
+// }
 
-// console.log('userDocs:', userDocs)
-// userDocs.forEach((doc) => {
-//   console.log("userDocs doc data:", doc.data());
-// })
+// // fetchMovies acts similarly to fetchData, just grabs ids and poster paths
+// const fetchMovies = (url: string) => {
+//   let idsAndPosterPaths: {id: number; posterPath: string}[] = [] 
+//   fetch(url)
+//     .then(response => response.json())
+//     .then(data=> {
+//       if (data.results.length > 0) {
+//         {data.results.map((movie: MovieObject) => (
+//           idsAndPosterPaths.push(
+//             {
+//               id: movie.id,
+//               posterPath: movie.poster_path
+//             }
+//           )
+//         ))}
+//       }
+//       console.log("ids and poster paths:", idsAndPosterPaths);
+//       return idsAndPosterPaths
+//     })
+//     .then(idsAndPosterPaths => {
+//       seedData(idsAndPosterPaths)
+//     })
+// }
 
-const shelfRef = collection(db, 'users', 'mhSMG6jTIsi8tmjyhtPp', 'Shelf');
+
+// // fetches popular movies 
+// fetchMovies(`${BASE_URL}3/movie/popular?api_key=${apiKey}`) 
+// end of seed code 
+
+const shelfRef = collection(db, 'users', 'testUser123', 'Shelf');
 console.log("shelf reference:", shelfRef);
 
 const shelfDocs = await getDocs(shelfRef);
@@ -29,6 +66,7 @@ let playlists: string[] = [];
 shelfDocs.forEach((doc) => {
   playlists.push(doc.id);
 });
+
 
 
 const App = () => {
