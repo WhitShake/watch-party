@@ -1,9 +1,8 @@
 import React from 'react';
-// import { MovieList } from '../../movie_data/MovieList';
+import { MovieList } from '../../movie_data/MovieList';
 // import { Movie } from '../../movie_data/Movie';
 import { TitleSearch } from './TitleSearch';
 import { PersonSearch } from './PersonSearch';
-import { ProductionSearch } from './ProductionSearch';
 import { GetRelatedSearch } from './GetRelatedSearch';
 import { WatchProviderSearch } from './WatchProviderSearch';
 import './Search.css'
@@ -32,29 +31,50 @@ export const Search = (props: SearchProps) => {
                         <option value="placeholder">Select Search Option</option>
                         <option value="title">Search by Title</option>
                         <option value="person">Search by Person</option>
-                        <option value="production">Search Production Company</option>
-                        <option value="related">Search by Related Media</option>
+                        <option value="related">Search for Similar</option>
                         <option value="watch-provider">Search by Streaming Service/Advanced</option>
                     </select>
                 </div>
                 <div>
+                    <div>
                     {props.selectedSearchForm === 'title' && (
-                    <TitleSearch handleChange={props.handleChange} handleSubmit={props.handleSubmit} results={props.results} />
+                        <>
+                        <TitleSearch
+                            handleChange={props.handleChange}
+                            handleSubmit={props.handleSubmit}
+                            results={props.results}
+                        />
+                        <button type="submit" value="Search Movies">
+                            Search Movies
+                        </button>
+                        </>
                     )}
+                    </div>
+                    <div>
                     {props.selectedSearchForm === 'person' && (
-                    <PersonSearch handleChange={props.handleChange} handleSubmit={props.handleSubmit} results={props.results} />
+                        <>
+                        <PersonSearch
+                            handleChange={props.handleChange}
+                            handleSubmit={props.handleSubmit}
+                            results={props.results}
+                        />
+                        <button type="submit" value="Search People">
+                            Search People
+                        </button>
+                        </>
                     )}
-                    {props.selectedSearchForm === 'related' && (
-                    <GetRelatedSearch handleChange={props.handleChange} handleSubmit={props.handleSubmit} results={props.results} />
-                    )}
-                    {props.selectedSearchForm === 'production' && (
-                    <ProductionSearch handleChange={props.handleChange} handleSubmit={props.handleSubmit} results={props.results} />
-                    )}
+                    </div>
+                    <div>
+                        {props.selectedSearchForm === 'related' && (
+                        <GetRelatedSearch handleChange={props.handleChange} handleSubmit={props.handleSubmit} results={props.results} />
+                        )}
+                    </div>
                     {props.selectedSearchForm === 'watch-provider' && (
                     <WatchProviderSearch handleChange={props.handleChange} handleSubmit={props.handleSubmit} results={props.results} />
                     )}
                 </div>
             </form>
+            <MovieList movies={props.results}/>
         </div>
     )
 };

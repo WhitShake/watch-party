@@ -11,15 +11,11 @@ type PersonSearchProps = {
 
 export const PersonSearch = (props: PersonSearchProps) => {
   return (
-    <form className="search-form" onSubmit={props.handleSubmit}>
       <div>
-        <label>
-        <input type="text" name="person" placeholder="Search for a person" onChange={props.handleChange}/>
+        <label htmlFor="person">
+        <input type="text" id="person" name="person" placeholder="Search for a person" onChange={props.handleChange}/>
         </label>
       </div>
-      <div>
-        <input type="submit" value="Search People"></input>
-      </div>
-    </form>
+
   )
 }

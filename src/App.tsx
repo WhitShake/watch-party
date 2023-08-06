@@ -10,7 +10,7 @@ import { Authentication } from './components/pages/Authentication';
 import { Profile } from './components/pages/Profile';
 
 const apiKey = process.env.REACT_APP_tmdb_apiKey;
-const BASE_URL = 'https://api.themoviedb.org/';
+const BASE_URL = 'https://api.themoviedb.org/'; 
 
 // const userColRef = collection(db, 'users')
 // const userDocs = await getDocs(userColRef);
@@ -69,13 +69,23 @@ const App = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const searchUrl = (`${BASE_URL}3/search/movie?api_key=${apiKey}&query=${searchTerm}`)
+    const formattedSearchTerm = encodeURIComponent(searchTerm);
+    // console.log(formattedSearchTerm)
+    if (selectedSearchForm === "title") {
+    const searchUrl = (`${BASE_URL}3/search/movie?api_key=${apiKey}&query=${formattedSearchTerm}`)
+    
     fetchData(searchUrl)
-  }
+    } else if (selectedSearchForm === "person") {
+      const searchUrl = (`${BASE_URL}3/search/person?api_key=${apiKey}&query=${formattedSearchTerm}`)
 
-  // const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   //routing logic goes here
-  // };
+      fetchId(searchUrl);
+      } else if (selectedSearchForm === "related") {
+        const searchUrl = (`${BASE_URL}3/search/company?api_key=${apiKey}&query=${formattedSearchTerm}`)
+
+        fetchId(searchUrl)
+      }
+    };
+
 
   const handleSearchSelection = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSearchForm(event.currentTarget.value);
@@ -92,12 +102,24 @@ const App = () => {
     video: boolean
     vote_average: number
     vote_count: number
-  }
+  };
 
   // type idsAndPosterPathsObject = {
   //   id: number
   //   posterPath: string
   // }
+
+  const fetchId = (url: string) => {
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        const personId: number = data.results[0].id
+        fetchPersonById(personId);
+      })
+      .catch(error => {
+        console.error('Error fetching person ID:', error);
+      });
+    };
 
   const fetchData = (url: string) => {
     let idsAndPosterPaths: {id: number; posterPath: string}[] = [] 
@@ -110,14 +132,39 @@ const App = () => {
               {
                 id: movie.id,
                 posterPath: movie.poster_path
-              }
-            )
-          ))
+              })
+          ));
         console.log("ids and poster paths:", idsAndPosterPaths);
         setSearchResults(idsAndPosterPaths);
         }
       })
-  }
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  };
+
+  const fetchPersonById = (id: number) => {
+    let idsAndPosterPaths: {id: number; posterPath: string}[] = []
+    const url = `${BASE_URL}3/person/${id}/movie_credits?api_key=${apiKey}`
+    // console.log(url)
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if (data.cast && data.cast.length > 0) {
+          data.cast.forEach((movie: MovieObject) => {
+            idsAndPosterPaths.push({
+              id: movie.id,
+              posterPath: movie.poster_path
+            });
+          });
+      console.log("ids and poster paths:", idsAndPosterPaths);
+      setSearchResults(idsAndPosterPaths);
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching person data:', error);
+    });
+};
 
   return (
     <div className="App">
@@ -125,7 +172,13 @@ const App = () => {
         <SideBar signedInStatus={true} playlists={playlists} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search handleChange={handleChange} handleSubmit={handleSubmit} handleSearchSelection={handleSearchSelection} results={searchResults} selectedSearchForm={selectedSearchForm}/>} />
+          <Route path="/search" element={<Search 
+                                            handleChange={handleChange} 
+                                            handleSubmit={handleSubmit} 
+                                            handleSearchSelection={handleSearchSelection} 
+                                            results={searchResults} 
+                                            selectedSearchForm={selectedSearchForm}
+                                            />} />
           {/* pass search results onto search page; render if searchResults is truthy? */}
 
           <Route path="/authentication" element={<Authentication />} /> 

@@ -11,15 +11,12 @@ type GetRelatedSearchProps = {
 
 export const GetRelatedSearch = (props: GetRelatedSearchProps) => {
   return (
-    <form className="search-form" onSubmit={props.handleSubmit}>
+    <div>
       <div>
-        <label>
-        <input type="text" name="related" placeholder="Enter a Title" onChange={props.handleChange}/>
+        <label htmlFor="related">
+        <input type="text" id="related" name="related" placeholder="Enter a Title" onChange={props.handleChange}/>
         </label>
       </div>
-      <div>
-        <input type="submit" value="Get Similar"></input>
-      </div>
-    </form>
+    </div>
   )
 }
