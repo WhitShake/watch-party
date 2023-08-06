@@ -1,38 +1,26 @@
 import React from 'react';
 import { MovieList } from '../movie_data/MovieList';
 import { FriendsList } from '../users/FriendsList'
+import { ProfileProps } from './Profile.types';
 import './Profile.css'
 
-type ProfileProps = {
-    userData: {
-        firstName: string
-        lastName: string
-        image: string
-        quote: string
-        recentlyWatched: {
-            id: number
-            posterPath: string
-        }[]
-        friendsList: string[]
-    }
-}
 
 export const Profile = (props: ProfileProps) => {
-    const {firstName, lastName, image, quote, recentlyWatched, friendsList} = props.userData
+    const {firstName, lastName, profilePic, quote} = props.userData
     return (
     <div className="profile">
         <div>
-            <img src={image} alt="avatar" className="avatar"/>
+            <img src={profilePic} alt="avatar" className="avatar"/>
             <h1>{firstName} {lastName}</h1>
             <h4>{quote}</h4>
         </div>
         <div>
             <h4>Recently Watched</h4>
-            <MovieList movies={recentlyWatched}/>
+            {/* <MovieList movies={recentlyWatched}/> */}
         </div>
         <div>
             <h4>Friends List</h4>
-            <FriendsList friends={friendsList}/>
+            {/* <FriendsList friends={friendsList}/> */}
         </div>
 
     </div>)

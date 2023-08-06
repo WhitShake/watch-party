@@ -87,6 +87,10 @@ export const seedData = async (movieList) => {
             title: 'Dramas',
             movieObject: {movies: []}
         },
+        {
+            title: 'Watched',
+            movieObject: {movies: []}
+        },
     ]
 
     // movieList gets passed in as an argument, which is the results of fetchMovies in App.tsx (uses popular movies endpoint)
