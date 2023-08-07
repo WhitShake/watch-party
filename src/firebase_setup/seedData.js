@@ -206,7 +206,7 @@ export const testSeed = (movieList) => {
         movieList.forEach(movie => {
             playlist.movies.push({
                 ...movie,
-                addedOn: serverTimestamp()
+                // addedOn: serverTimestamp() -- can't add serverTimestamp() into an object at this moment
             })
         })
         return playlist
