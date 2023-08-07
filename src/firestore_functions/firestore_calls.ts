@@ -18,6 +18,7 @@ export const getUserData = async (username: string) => {
     }
 };
 
+
 export const getFriendsList = async (username: string) => {
     const userFriendsRef = doc(db, 'users', username, 'Friends', 'Friends List');
 
@@ -45,7 +46,7 @@ export const fetchFriendData = async (friends: string[]) => {
                     profilePic: data.profilePic as string
                 }
             }
-            return null; // Return null if data doesn't exist
+            return null; 
         })
     );
     return friendData

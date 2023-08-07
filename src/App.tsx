@@ -82,8 +82,6 @@ const App = () => {
       getUserData(username)
       .then(data => setUserData(data as userProfileData))
 
-      // getFriendsList(username)
-      // .then(data => setFriendsData(data.friends as string[]))
       getFriendsList(username)
       .then(async data => {
         console.log(data)
@@ -138,8 +136,6 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search handleChange={handleChange} handleSubmit={handleSubmit} results={searchResults}/>} />
-          {/* pass search results onto search page; render if searchResults is truthy? */}
-
           <Route path="/authentication" element={<Authentication />} /> 
           <Route path="/profile" element={<Profile userData={userData} friends={friendsData}/>} />
             {/* need to add profile button to sidebar (maybe smol prof pic icon?) */}
