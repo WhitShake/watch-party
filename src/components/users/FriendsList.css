@@ -1,5 +1,14 @@
 .friend-display {
-  width: 100%;
   display: flex;
-  justify-content: space-around;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 825px;;
+  overflow: scroll;
+  gap: 25px;
+  /* position: relative; */
+  top: 250px;
+  left: 400px;
 }
+
+

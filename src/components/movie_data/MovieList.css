@@ -1,4 +1,4 @@
-/* .card-display {
+.card-display {
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-start;
@@ -6,10 +6,10 @@
   width: 825px;;
   overflow: scroll;
   gap: 25px;
-  position: relative;
+  /* position: relative; */
   top: 250px;
   left: 400px;
-} */
+}
 
 
 .container {
@@ -17,9 +17,3 @@
   margin-right: 0;
 }
 
-.card-display {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  overflow: scroll;
-}

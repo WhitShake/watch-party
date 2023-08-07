@@ -1,8 +1,8 @@
 .avatar {
   width: 200px;
   height: 200px;
-  margin: 20px 20px;  
-  margin-right: 40px;  
+  /* margin: 20px 20px;   */
+  /* margin-right: 40px;   */
 }
 
 .profile {
@@ -11,12 +11,19 @@
   background-color: black;
   color: white;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
 }
 
 .profile-info {
   display: flex;
+  margin: 30px;
 }
 
+.user-info {
+  margin-left: 30px;
+}
 .watched-and-friends {
   display: flex;
   flex-direction: column;
