@@ -7,16 +7,18 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from './components/pages/Home';
 import { Search } from './components/pages/search_pages/Search';
 import { Authentication } from './components/pages/Authentication';
-import { Profile, ProfileProps } from './components/pages/Profile';
+import { Profile } from './components/pages/Profile';
+import { ProfileProps } from './components/pages/Profile.types';
 import { MovieProps, MovieObject } from './components/movie_data/Movie.types';
+import { getUserData } from './firestore_functions/firestore_calls';
 
 // import { seedData, testSeed } from './firebase_setup/seedData';
 
 const apiKey = process.env.REACT_APP_tmdb_apiKey;
 const BASE_URL = 'https://api.themoviedb.org/';
 
-// code below is for seeding 
 
+// code below is for seeding. uncomment the import of seedData 
 // // fetchMovies acts similarly to fetchData, just grabs ids and poster paths
 // const fetchMovies = (url: string) => {
 //   let idsAndPosterPaths: {id: number; posterPath: string}[] = [] 
@@ -46,7 +48,7 @@ const BASE_URL = 'https://api.themoviedb.org/';
 // end of seed code 
 
 const shelfRef = collection(db, 'users', 'testUser123', 'Shelf');
-console.log("shelf reference:", shelfRef);
+// console.log("shelf reference:", shelfRef);
 
 const shelfDocs = await getDocs(shelfRef);
 
@@ -55,16 +57,7 @@ shelfDocs.forEach((doc) => {
   playlists.push(doc.id);
 });
 
-// const elizabethRef = doc(db, 'users', 'elizabeth123')
-// const elizabethData = await getDoc(elizabethRef)
-// console.log("data", elizabethData.data())
 
-
-
-// console.log(elizabethDoc.data())
-// const elizabethData = {
-//   userData: elizabethDoc.data()
-// }
 
 // state for user name and for user data? 
 // use effect to set user data whenever changes to user name are made? 
@@ -80,13 +73,24 @@ const App = () => {
   const [username, setUsername] = useState<string | null>(null);
   const [userData, setUserData] = useState<ProfileProps | null>(null);
 
-  setUsername('elizabeth123')
+  if (username === null) {
+    setUsername('elizabeth123')
+  }
 
   useEffect(() => {
-    
-    
+    console.log(username)
+    if (username !== null) {
+      getUserData(username)
+      .then(data => {
+        setUserData(data as ProfileProps)
+      })
+    }
   },[username])
-  
+
+  useEffect(() => {
+    console.log("data:", userData)
+  }, [userData])
+
 
 
   const Elizabeth = {
@@ -158,7 +162,7 @@ const App = () => {
           {/* pass search results onto search page; render if searchResults is truthy? */}
 
           <Route path="/authentication" element={<Authentication />} /> 
-          <Route path="/profile" element={<Profile userData={Elizabeth}/>} />
+          <Route path="/profile" element={<Profile userData={userData?.userData}/>} />
             {/* need to add profile button to sidebar (maybe smol prof pic icon?) */}
         </Routes>
       </BrowserRouter>

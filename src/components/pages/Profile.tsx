@@ -6,7 +6,13 @@ import './Profile.css'
 
 
 export const Profile = (props: ProfileProps) => {
+
+    if (!props.userData) {
+        return (<div>Log in to see your profile!</div>)
+    }
+
     const {firstName, lastName, profilePic, quote} = props.userData
+
     return (
     <div className="profile">
         <div>

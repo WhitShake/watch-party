@@ -6,6 +6,6 @@ export type ProfileProps = {
         lastName: string
         quote: string
         profilePic: string
-    };
+    } | undefined;
 };
 
