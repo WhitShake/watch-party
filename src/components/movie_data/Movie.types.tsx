@@ -3,7 +3,7 @@ import React from 'react';
 export type MovieProps = {
     id: number
     posterPath: string
-}
+};
 
 export type MovieObject = {
     id: number
@@ -16,4 +16,4 @@ export type MovieObject = {
     video: boolean
     vote_average: number
     vote_count: number
-}
+};

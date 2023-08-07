@@ -41,7 +41,6 @@ const BASE_URL = 'https://api.themoviedb.org/';
 //     })
 // }
 
-
 // // fetches popular movies 
 // fetchMovies(`${BASE_URL}3/movie/popular?api_key=${apiKey}`) 
 // end of seed code 
@@ -78,8 +77,15 @@ const App = () => {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<MovieProps[]>([]);
+  const [username, setUsername] = useState<string | null>(null);
+  const [userData, setUserData] = useState<ProfileProps | null>(null);
 
+  setUsername('elizabeth123')
 
+  useEffect(() => {
+    
+    
+  },[username])
   
 
 
