@@ -8,8 +8,8 @@ import { Home } from './components/pages/Home';
 import { Search } from './components/pages/search_pages/Search';
 import { Authentication } from './components/pages/Authentication';
 import { Profile } from './components/pages/Profile';
-import { ProfileProps, MovieObject, MovieProps } from './components/prop_types/propsTypes';
-import { getUserData, getFriendsList } from './firestore_functions/firestore_calls';
+import { MovieObject, MovieProps, FriendsListProps, userProfileData } from './components/prop_types/propsTypes';
+import { getUserData, getFriendsList, fetchFriendData } from './firestore_functions/firestore_calls';
 
 // import { seedData, testSeed } from './firebase_setup/seedData';
 
@@ -70,8 +70,8 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<MovieProps[]>([]);
   const [username, setUsername] = useState<string | null>(null);
-  const [userData, setUserData] = useState<ProfileProps | null>(null);
-  const [userFriends, setUserFriends] = useState<string[] | null>(null);
+  const [userData, setUserData] = useState<userProfileData | null>(null);
+  const [friendsData, setFriendsData] = useState<{id: string; profilePic: string}[] | null>(null);
 
   if (username === null) {
     setUsername('elizabeth123')
@@ -79,41 +79,26 @@ const App = () => {
 
   useEffect(() => {
     if (username !== null) {
-
       getUserData(username)
-      .then(data => setUserData(data as ProfileProps))
+      .then(data => setUserData(data as userProfileData))
 
       // getFriendsList(username)
-      // .then(data => setUserFriends(data))
+      // .then(data => setFriendsData(data.friends as string[]))
+      getFriendsList(username)
+      .then(async data => {
+        console.log(data)
+        const friendData = await fetchFriendData(data.friends as string[])
+        setFriendsData(friendData as {id: string, profilePic: string}[])
+      })
     }
   },[username])
 
 
-  const Elizabeth = {
-    firstName: 'Elizabeth',
-    lastName: 'Example',
-    profilePic: 'https://i.natgeofe.com/n/9135ca87-0115-4a22-8caf-d1bdef97a814/75552.jpg',
-    quote: 'I\'ll be back',
-    // recentlyWatched: [
-    //   {
-    //       id: 1, 
-    //       posterPath: '/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg'
-    //   },
-    //   {
-    //       id: 2, 
-    //       posterPath: '/t7Pv44sBcxhc47kNNDDafNAgr7Y.jpg'
-    //   },
-    //   {
-    //       id: 3, 
-    //       posterPath: '/8AwVTcgpTnmeOs4TdTWqcFDXEsA.jpg'
-    //   },
-    //   {
-    //       id: 4, 
-    //       posterPath: '/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg'
-    //   },
-    // ],
-    // friendsList: ['Alyssa', 'Jackie', 'Whitney']
-  }
+  // useEffect(() => {
+  //   console.log("friends:", friendsData)
+  //   console.log("user", userData)
+  // }, [friendsData, userData])
+
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -125,8 +110,6 @@ const App = () => {
     fetchData(searchUrl)
   }
 
-
-  
 
   const fetchData = (url: string) => {
     let idsAndPosterPaths: MovieProps[] = [] 
@@ -158,7 +141,7 @@ const App = () => {
           {/* pass search results onto search page; render if searchResults is truthy? */}
 
           <Route path="/authentication" element={<Authentication />} /> 
-          <Route path="/profile" element={<Profile userData={userData?.userData}/>} />
+          <Route path="/profile" element={<Profile userData={userData} friends={friendsData}/>} />
             {/* need to add profile button to sidebar (maybe smol prof pic icon?) */}
         </Routes>
       </BrowserRouter>

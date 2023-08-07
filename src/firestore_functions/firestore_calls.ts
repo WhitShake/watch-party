@@ -1,5 +1,5 @@
 import { db } from "../firebase_setup/firebase"
-import { doc, getDoc } from "firebase/firestore"
+import { doc, getDoc, DocumentData } from "firebase/firestore"
 
 
 export const getUserData = async (username: string) => {
@@ -8,7 +8,7 @@ export const getUserData = async (username: string) => {
     try {
         const docUserData = await getDoc(userDocRef);
         if (docUserData.exists()) {
-            return { userData: docUserData.data() }
+            return docUserData.data()
         } else {
             throw new Error('User not found');
         }
@@ -24,7 +24,7 @@ export const getFriendsList = async (username: string) => {
     try {
         const userFriendsList = await getDoc(userFriendsRef);
         if (userFriendsList.exists()) {
-            return { friends: userFriendsList.data()}
+            return userFriendsList.data()
         } else{
             throw new Error('User not found');
         }
@@ -34,3 +34,19 @@ export const getFriendsList = async (username: string) => {
     }
 }
 
+
+export const fetchFriendData = async (friends: string[]) => {
+    const friendData = await Promise.all(
+        friends.map(async (friend: string) => {
+            const data = await getUserData(friend);
+            if (data) {
+                return {
+                    id: friend,
+                    profilePic: data.profilePic as string
+                }
+            }
+            return null; // Return null if data doesn't exist
+        })
+    );
+    return friendData
+}

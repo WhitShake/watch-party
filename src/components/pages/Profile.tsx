@@ -8,7 +8,7 @@ import './Profile.css'
 export const Profile = (props: ProfileProps) => {
 
     if (!props.userData) {
-        return (<div>Log in to see your profile!</div>)
+        return (<div className="profile">Log in to see your profile!</div>)
     }
 
     const {firstName, lastName, profilePic, quote} = props.userData
@@ -26,7 +26,7 @@ export const Profile = (props: ProfileProps) => {
         </div>
         <div>
             <h4>Friends List</h4>
-            {/* <FriendsList friends={friendsList}/> */}
+            <FriendsList friends={props.friends}/>
         </div>
 
     </div>)

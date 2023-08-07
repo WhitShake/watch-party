@@ -1,15 +1,22 @@
+import { DocumentData } from "firebase/firestore";
+
+export type userProfileData = DocumentData & {
+    firstName: string
+    lastName: string
+    quote: string
+    profilePic: string
+}
+
 export type ProfileProps = {
-    userData: {
-        firstName: string
-        lastName: string
-        quote: string
+    userData: userProfileData | null | undefined
+    friends: {
+        id: string
         profilePic: string
-    } | undefined;
+    }[] | null
 };
 
-export type FriendsListProps = {
-    friends: string[]
-}
+export type FriendsListProps = Pick<ProfileProps, 'friends'>;
+
 
 export type MovieProps = {
     id: number
