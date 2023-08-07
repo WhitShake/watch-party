@@ -6,8 +6,8 @@
 }
 
 .profile {
-  margin-left: 330px;
-  padding-left: 50px;
+  margin-left: 328px;
+  padding-left: 10px;
   background-color: black;
   color: white;
   height: 100vh;
@@ -18,7 +18,7 @@
 
 .profile-info {
   display: flex;
-  margin: 30px;
+  margin: 50px 30px;
 }
 
 .user-info {
