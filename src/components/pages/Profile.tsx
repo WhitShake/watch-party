@@ -15,19 +15,22 @@ export const Profile = (props: ProfileProps) => {
 
     return (
     <div className="profile">
-        <div>
+        <div className="profile-info">
             <img src={profilePic} alt="avatar" className="avatar"/>
-            <h1>{firstName} {lastName}</h1>
-            <h4>{quote}</h4>
+            <div className="user-info">
+                <h1 className="name">{firstName} {lastName}</h1>
+                <h4>{quote}</h4>
+            </div>
         </div>
-        <div>
-            <h4>Recently Watched</h4>
-            {/* <MovieList movies={recentlyWatched}/> */}
+        <div className="watched-and-friends">
+            <div>
+                <h4>Recently Watched</h4>
+                <MovieList movies={props.watchedMovies}/>
+            </div>
+            <div>
+                <h4>Friends List</h4>
+                <FriendsList friends={props.friends}/>
+            </div>
         </div>
-        <div>
-            <h4>Friends List</h4>
-            <FriendsList friends={props.friends}/>
-        </div>
-
     </div>)
 };

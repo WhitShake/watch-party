@@ -1,11 +1,10 @@
 import React from 'react';
 import { Movie } from './Movie'
+import { MovieProps } from '../prop_types/propsTypes';
+import './MovieList.css';
 
 type MovieListProps = {
-    movies: {
-        id: number
-        posterPath: string
-    }[]
+    movies: MovieProps[]
 }
 
 export const MovieList = (props: MovieListProps) => {

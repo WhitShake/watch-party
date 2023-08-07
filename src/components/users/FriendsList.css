@@ -1,9 +1,5 @@
-.friends-container {
-  text-align: center;
-  background-color: black;
-}
-
 .friend-display {
-  text-align: center;
   width: 100%;
+  display: flex;
+  justify-content: space-around;
 }

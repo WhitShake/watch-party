@@ -2,14 +2,14 @@ import React, { useState, useEffect }from 'react';
 import './App.css';
 import { SideBar } from './components/sidebar/SideBar';
 import { db } from './firebase_setup/firebase';
-import { collection, getDocs, doc, getDoc, DocumentSnapshot } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc, DocumentSnapshot, DocumentData } from 'firebase/firestore';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from './components/pages/Home';
 import { Search } from './components/pages/search_pages/Search';
 import { Authentication } from './components/pages/Authentication';
 import { Profile } from './components/pages/Profile';
 import { MovieObject, MovieProps, FriendsListProps, userProfileData } from './components/prop_types/propsTypes';
-import { getUserData, getFriendsList, fetchFriendData } from './firestore_functions/firestore_calls';
+import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies } from './firestore_functions/firestore_calls';
 
 // import { seedData, testSeed } from './firebase_setup/seedData';
 
@@ -72,10 +72,11 @@ const App = () => {
   const [username, setUsername] = useState<string | null>(null);
   const [userData, setUserData] = useState<userProfileData | null>(null);
   const [friendsData, setFriendsData] = useState<{id: string; profilePic: string}[] | null>(null);
+  const [recentlyWatchedData, setRecentlyWatchedData] = useState<MovieProps[]>([]);
 
   if (username === null) {
-    setUsername('elizabeth123')
-  }
+    setUsername('elizabeth123');
+  };
 
   useEffect(() => {
     if (username !== null) {
@@ -84,18 +85,34 @@ const App = () => {
 
       getFriendsList(username)
       .then(async data => {
-        console.log(data)
         const friendData = await fetchFriendData(data.friends as string[])
         setFriendsData(friendData as {id: string, profilePic: string}[])
       })
+
+      fetchWatchedMovies(username)
+      .then(data => {
+        if (data && data.movies) {
+          const movies = data.movies
+          console.log("all the movies:", data.movies)
+          let recentlyWatched = []
+          for (let i = movies.length - 1; i >= Math.max(movies.length - 10, 0); i--) {
+            recentlyWatched.push(movies[i])
+          }
+          setRecentlyWatchedData(recentlyWatched)
+        } else {
+          console.log("There was an issue fetching the movies!")
+        }
+      })
     }
-  },[username])
+  },[username]);
 
-
-  // useEffect(() => {
-  //   console.log("friends:", friendsData)
-  //   console.log("user", userData)
-  // }, [friendsData, userData])
+  
+  // this is just to view the state variables, delete later 
+  useEffect(() => {
+    console.log("friends:", friendsData)
+    console.log("user", userData)
+    console.log("recently watched movies", recentlyWatchedData)
+  }, [friendsData, userData, recentlyWatchedData])
 
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -137,7 +154,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search handleChange={handleChange} handleSubmit={handleSubmit} results={searchResults}/>} />
           <Route path="/authentication" element={<Authentication />} /> 
-          <Route path="/profile" element={<Profile userData={userData} friends={friendsData}/>} />
+          <Route path="/profile" element={<Profile userData={userData} friends={friendsData} watchedMovies={recentlyWatchedData}/>} />
             {/* need to add profile button to sidebar (maybe smol prof pic icon?) */}
         </Routes>
       </BrowserRouter>

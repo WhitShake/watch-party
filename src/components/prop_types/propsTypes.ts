@@ -13,6 +13,7 @@ export type ProfileProps = {
         id: string
         profilePic: string
     }[] | null
+    watchedMovies: MovieProps[] 
 };
 
 export type FriendsListProps = Pick<ProfileProps, 'friends'>;

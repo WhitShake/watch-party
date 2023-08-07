@@ -51,3 +51,19 @@ export const fetchFriendData = async (friends: string[]) => {
     );
     return friendData
 }
+
+export const fetchWatchedMovies = async (username: string) => {
+    const watchedRef = doc(db, 'users', username, 'Shelf', 'Watched');
+    
+    try {
+        const watchedMoviesList = await getDoc(watchedRef);
+        if (watchedMoviesList.exists()) {
+            return watchedMoviesList.data()
+        }  else{
+            throw new Error('User not found');
+        }
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+        throw error;
+    }
+}

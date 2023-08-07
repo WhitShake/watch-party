@@ -1,4 +1,4 @@
-.card-display {
+/* .card-display {
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-start;
@@ -9,10 +9,17 @@
   position: relative;
   top: 250px;
   left: 400px;
-}
+} */
 
 
 .container {
   width: 80vw;
   margin-right: 0;
+}
+
+.card-display {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  overflow: scroll;
 }
