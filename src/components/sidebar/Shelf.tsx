@@ -9,7 +9,7 @@ type ShelfProps = {
 export const Shelf = (props: ShelfProps) => {
   return (
     <div>
-      <p>Your Shelf: </p>
+      <p>Your Shelf</p>
       <ul>
         {props.playlists.map((playlist, i) => {
           return (
