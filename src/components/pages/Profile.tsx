@@ -1,7 +1,7 @@
 import React from 'react';
 import { MovieList } from '../movie_data/MovieList';
 import { FriendsList } from '../users/FriendsList'
-import { ProfileProps } from './Profile.types';
+import { ProfileProps } from '../prop_types/propsTypes';
 import './Profile.css'
 
 

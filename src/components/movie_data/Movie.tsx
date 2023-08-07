@@ -1,5 +1,5 @@
 import React from "react";
-import { MovieProps } from "./Movie.types";
+import { MovieProps } from "../prop_types/propsTypes";
 import './Movie.css'
 
 

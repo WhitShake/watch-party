@@ -8,9 +8,8 @@ import { Home } from './components/pages/Home';
 import { Search } from './components/pages/search_pages/Search';
 import { Authentication } from './components/pages/Authentication';
 import { Profile } from './components/pages/Profile';
-import { ProfileProps } from './components/pages/Profile.types';
-import { MovieProps, MovieObject } from './components/movie_data/Movie.types';
-import { getUserData } from './firestore_functions/firestore_calls';
+import { ProfileProps, MovieObject, MovieProps } from './components/prop_types/propsTypes';
+import { getUserData, getFriendsList } from './firestore_functions/firestore_calls';
 
 // import { seedData, testSeed } from './firebase_setup/seedData';
 
@@ -72,25 +71,22 @@ const App = () => {
   const [searchResults, setSearchResults] = useState<MovieProps[]>([]);
   const [username, setUsername] = useState<string | null>(null);
   const [userData, setUserData] = useState<ProfileProps | null>(null);
+  const [userFriends, setUserFriends] = useState<string[] | null>(null);
 
   if (username === null) {
     setUsername('elizabeth123')
   }
 
   useEffect(() => {
-    console.log(username)
     if (username !== null) {
+
       getUserData(username)
-      .then(data => {
-        setUserData(data as ProfileProps)
-      })
+      .then(data => setUserData(data as ProfileProps))
+
+      // getFriendsList(username)
+      // .then(data => setUserFriends(data))
     }
   },[username])
-
-  useEffect(() => {
-    console.log("data:", userData)
-  }, [userData])
-
 
 
   const Elizabeth = {
