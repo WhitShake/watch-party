@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MovieList } from '../../movie_data/MovieList';
 // import { Movie } from '../../movie_data/Movie';
 import { TitleSearch } from './TitleSearch';
 import { PersonSearch } from './PersonSearch';
 import { GetRelatedSearch } from './GetRelatedSearch';
-import { WatchProviderSearch } from './WatchProviderSearch';
+import { AdvancedSearch } from './Advanced';
 import './Search.css'
 
 type SearchProps = {
@@ -32,7 +32,7 @@ export const Search = (props: SearchProps) => {
                         <option value="title">Search by Title</option>
                         <option value="person">Search by Person</option>
                         <option value="related">Search for Similar</option>
-                        <option value="watch-provider">Search by Streaming Service/Advanced</option>
+                        <option value="watch-provider">Advanced Search</option>
                     </select>
                 </div>
                 <div>
@@ -70,7 +70,7 @@ export const Search = (props: SearchProps) => {
                     )}
                     </div>
                     {props.selectedSearchForm === 'watch-provider' && (
-                    <WatchProviderSearch handleChange={props.handleChange} handleSubmit={props.handleSubmit} results={props.results} />
+                    <AdvancedSearch handleChange={props.handleChange} handleSubmit={props.handleSubmit} results={props.results} />
                     )}
                     <button type="submit" value="Search People">
                             Search for Movies

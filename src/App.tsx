@@ -37,6 +37,13 @@ const App = () => {
   const [searchResults, setSearchResults] = useState<{id: number; posterPath: string}[]>([]);
   const [selectedSearchForm, setSelectedSearchForm] = useState<string>("");
 
+  const searchUrls = {
+    title: `${BASE_URL}3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(searchTerm)}`,
+    person: `${BASE_URL}3/search/person?api_key=${apiKey}&query=${encodeURIComponent(searchTerm)}`,
+    related: `${BASE_URL}3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(searchTerm)}`,
+  }
+
+
   const Elizabeth = {
     firstName: 'Elizabeth',
     lastName: 'Example',
@@ -63,11 +70,6 @@ const App = () => {
     friendsList: ['Alyssa', 'Jackie', 'Whitney']
   }
 
-  // const searchUrls = {
-  //   title: (`${BASE_URL}3/search/movie?api_key=${apiKey}&query=${formattedSearchTerm}`),
-  //   person: (`${BASE_URL}3/search/person?api_key=${apiKey}&query=${formattedSearchTerm}`),
-  //   related: (`${BASE_URL}3/search/company?api_key=${apiKey}&query=${formattedSearchTerm}`),
-  // }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -75,12 +77,12 @@ const App = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formattedSearchTerm = encodeURIComponent(searchTerm);
-    const searchUrls = {
-      title: (`${BASE_URL}3/search/movie?api_key=${apiKey}&query=${formattedSearchTerm}`),
-      person: (`${BASE_URL}3/search/person?api_key=${apiKey}&query=${formattedSearchTerm}`),
-      related: (`${BASE_URL}3/search/company?api_key=${apiKey}&query=${formattedSearchTerm}`),
-    }
+    // const formattedSearchTerm = encodeURIComponent(searchTerm);
+    // const searchUrls = {
+    //   title: `${BASE_URL}3/search/movie?api_key=${apiKey}&query=${formattedSearchTerm}`,
+    //   person: `${BASE_URL}3/search/person?api_key=${apiKey}&query=${formattedSearchTerm}`,
+    //   related: `${BASE_URL}3/search/movie?api_key=${apiKey}&query=${formattedSearchTerm}`,
+    // }
 
     if (selectedSearchForm === "title") {
     const url = searchUrls.title
@@ -99,6 +101,7 @@ const App = () => {
 
   const handleSearchSelection = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSearchForm(event.currentTarget.value);
+    setSearchResults([]);
   };  
 
   type MovieObject = {
@@ -121,7 +124,7 @@ const App = () => {
   // }
 
   const fetchId = (url: string) => {
-    
+    console.log(url)
     fetch(url)
       .then(response => response.json())
       .then(data => {
@@ -161,14 +164,15 @@ const App = () => {
 
     const searchByIdUrl = {
       person: `${BASE_URL}3/person/${id}/movie_credits?api_key=${apiKey}`,
-      related: `${BASE_URL}3/movie/${id}/similar?api_key=${apiKey}`,
+      related: `${BASE_URL}3/movie/${id}/similar?language=en-US&page=1&api_key=${apiKey}`,
     };
-
+    
+    console.log(searchByIdUrl.related)
     if (selectedSearchForm === "person") {
       const url = searchByIdUrl.person;
       fetch(url)
       .then(response => response.json())
-      .then(data => {
+      .then((data) => {
         if (data.cast && data.cast.length > 0) {
           data.cast.forEach((movie: MovieObject) => {
             idsAndPosterPaths.push({
@@ -176,20 +180,19 @@ const App = () => {
               posterPath: movie.poster_path
             });
           });
+          setSearchResults(idsAndPosterPaths);
         }
-        console.log("ids and poster paths:", idsAndPosterPaths);
-        setSearchResults(idsAndPosterPaths);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error fetching person data:', error);
       });
-          
+
     } else if (selectedSearchForm === "related") {
       const url = searchByIdUrl.related;
-
+      console.log(url)
       fetch(url)
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => response.json())
+        .then((data) => {
           if (data.results && data.results.length > 0) {
             data.results.forEach((movie: MovieObject) => {
               idsAndPosterPaths.push({
@@ -197,15 +200,24 @@ const App = () => {
                 posterPath: movie.poster_path
               });
             });
+            setSearchResults(idsAndPosterPaths);
           }
-      console.log("ids and poster paths:", idsAndPosterPaths);
-      setSearchResults(idsAndPosterPaths);
-    })
+        })
     .catch(error => {
       console.error('Error fetching person data:', error);
     });
   }
 };
+
+  // const handleAdvancedCast = () => {
+  //   const castUrl = 
+  //   fetchData(searchUrls.person)
+  // }
+
+  // const handleCheckboxSelection = () => {
+  //   const genreUrl = "";
+
+  // }
 
   return (
     <div className="App">

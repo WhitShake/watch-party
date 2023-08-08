@@ -9,14 +9,9 @@ type WatchProviderSearchProps = {
   }[]
 }
 
-export const WatchProviderSearch = (props: WatchProviderSearchProps) => {
+export const AdvancedSearch = (props: WatchProviderSearchProps) => {
   return (
-    <form className="search-form" onSubmit={props.handleSubmit}>
-      <div>
-        <label>
-          <input type="text" name="watch-provider" placeholder="Enter Streaming Service" onChange={props.handleChange}/>
-        </label>
-      </div>
+    <div className="search-form">
       <div>
         <label>
           <input type="text" name="cast" placeholder="Enter Cast or Crew" onChange={props.handleChange}/>
@@ -33,7 +28,7 @@ export const WatchProviderSearch = (props: WatchProviderSearchProps) => {
               <label htmlFor="adventure">Adventure</label>
             </div>
             <div>
-              <input type="checkbox" id="animation" name="genre" value="animation" />
+              <input type="checkbox" id="animation" name="genre" value="animation"/>
               <label htmlFor="animation">Animation</label>
             </div>
             <div>
@@ -101,9 +96,15 @@ export const WatchProviderSearch = (props: WatchProviderSearchProps) => {
               <label htmlFor="western">Western</label>
             </div>
         </fieldset>
+        <div>
+        <label htmlFor="keyword">
+          Enter keywords separated by commas. (Ex: fashion, italy)
+          <input type="text" name="keyword" placeholder="Enter Keywords" onChange={props.handleChange}/>
+        </label>
+      </div>
       <div>
         <input type="submit" value="Search Movies"></input>
       </div>
-    </form>
+    </div>
   )
 }
