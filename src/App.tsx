@@ -6,7 +6,7 @@ import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from './components/pages/Home';
 import { Search } from './components/pages/search_pages/Search';
-import { Profile } from './components/pages/Profile';
+import { Profile } from './components/users/Profile';
 import { MovieObject, MovieProps, FriendsListProps, userProfileData } from './components/prop_types/propsTypes';
 import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies } from './firestore_functions/firestore_calls';
 import { Login } from './components/sidebar/Login';

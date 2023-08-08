@@ -1,11 +1,16 @@
 import React from 'react';
 import { MovieList } from '../movie_data/MovieList';
-import { FriendsList } from '../users/FriendsList'
+import { FriendsList } from './FriendsList'
 import { ProfileProps } from '../prop_types/propsTypes';
+import { auth } from '../../firebase_setup/firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
 import './Profile.css'
 
 
 export const Profile = (props: ProfileProps) => {
+
+    const [user] = useAuthState(auth);
 
     if (!props.userData) {
         return (<div className="profile">Log in to see your profile!</div>)

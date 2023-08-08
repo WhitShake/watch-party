@@ -35,20 +35,20 @@ export const SideBar = (props: SideBarProps) => {
             <Link to="/search">Search</Link>
           </li>
           <li>
+            {user ? 
             <Shelf playlists={props.playlists}/>
+            : "Log in to view your Shelf!"}
           </li>
-          <li>
-            <Link to='/profile'>Profile</Link>
-          </li>
-          <li>
-            {user ? (
-            <>
+          {user ? 
+          (
+            <li>
               <p>{auth.currentUser?.displayName}</p>
               <img src={auth.currentUser?.photoURL || ""} alt = "avatar" width="50" height="50"/>
               <button onClick={signUserOut}>Log Out</button>
-            </>
-            ) : <Login />}
-          </li>
+              <Link to='/profile'>Profile</Link>  
+            </li>
+          ) : <Login />
+          }
         </ul>
       </nav>
   )
