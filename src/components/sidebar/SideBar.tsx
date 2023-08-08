@@ -2,6 +2,11 @@ import React from "react"
 import { Shelf } from "./Shelf"
 import './SideBar.css'
 import { Link } from "react-router-dom"
+import { Login } from "./Login"
+import { auth } from "../../firebase_setup/firebase"
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { signOut } from 'firebase/auth'
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -11,6 +16,15 @@ type SideBarProps = {
 }
 
 export const SideBar = (props: SideBarProps) => {
+
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
+
+  const signUserOut = async () => {
+    await signOut(auth);
+    navigate("/");
+  };
+
   return (
       <nav className="sidebar">
         <ul className="sidebar-elements">
@@ -24,10 +38,16 @@ export const SideBar = (props: SideBarProps) => {
             <Shelf playlists={props.playlists}/>
           </li>
           <li>
-            <Link to="/authentication">{props.signedInStatus ? "Sign Out" : "Sign In"}</Link>
+            <Link to='/profile'>Profile</Link>
           </li>
           <li>
-            <Link to='/profile'>Profile</Link>
+            {user ? (
+            <>
+              <p>{auth.currentUser?.displayName}</p>
+              <img src={auth.currentUser?.photoURL || ""} alt = "avatar" width="50" height="50"/>
+              <button onClick={signUserOut}>Log Out</button>
+            </>
+            ) : <Login />}
           </li>
         </ul>
       </nav>
