@@ -12,7 +12,7 @@ import { Profile } from './components/pages/Profile';
 // import { seedData, testSeed } from './firebase_setup/seedData';
 
 const apiKey = process.env.REACT_APP_tmdb_apiKey;
-const BASE_URL = 'https://api.themoviedb.org/';
+const BASE_URL = 'https://api.themoviedb.org/'; 
 
 // code below is for seeding 
 // type MovieObject = {
@@ -73,6 +73,14 @@ const App = () => {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<{id: number; posterPath: string}[]>([]);
+  const [selectedSearchForm, setSelectedSearchForm] = useState<string>("");
+
+  const searchUrls = {
+    title: `${BASE_URL}3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(searchTerm)}`,
+    person: `${BASE_URL}3/search/person?api_key=${apiKey}&query=${encodeURIComponent(searchTerm)}`,
+    related: `${BASE_URL}3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(searchTerm)}`,
+  }
+
 
   const Elizabeth = {
     firstName: 'Elizabeth',
@@ -100,15 +108,39 @@ const App = () => {
     friendsList: ['Alyssa', 'Jackie', 'Whitney']
   }
 
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const searchUrl = (`${BASE_URL}3/search/movie?api_key=${apiKey}&query=${searchTerm}`)
-    fetchData(searchUrl)
-  }
+    // const formattedSearchTerm = encodeURIComponent(searchTerm);
+    // const searchUrls = {
+    //   title: `${BASE_URL}3/search/movie?api_key=${apiKey}&query=${formattedSearchTerm}`,
+    //   person: `${BASE_URL}3/search/person?api_key=${apiKey}&query=${formattedSearchTerm}`,
+    //   related: `${BASE_URL}3/search/movie?api_key=${apiKey}&query=${formattedSearchTerm}`,
+    // }
+
+    if (selectedSearchForm === "title") {
+    const url = searchUrls.title
+    fetchData(url)
+
+    } else if (selectedSearchForm === "person") {
+      const url = searchUrls.person;
+      fetchId(url);
+
+      } else if (selectedSearchForm === "related") {
+        const url = searchUrls.related;
+        fetchId(url)
+      }
+    };
+
+
+  const handleSearchSelection = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedSearchForm(event.currentTarget.value);
+    setSearchResults([]);
+  };  
 
   type MovieObject = {
     id: number
@@ -121,12 +153,26 @@ const App = () => {
     video: boolean
     vote_average: number
     vote_count: number
-  }
+  };
 
+  
   // type idsAndPosterPathsObject = {
   //   id: number
   //   posterPath: string
   // }
+
+  const fetchId = (url: string) => {
+    console.log(url)
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        const personId: number = data.results[0].id
+        fetchById(personId, selectedSearchForm);
+      })
+      .catch(error => {
+        console.error('Error fetching person ID:', error);
+      });
+    };
 
   const fetchData = (url: string) => {
     let idsAndPosterPaths: {id: number; posterPath: string}[] = [] 
@@ -134,19 +180,82 @@ const App = () => {
       .then(response => response.json())
       .then(data => {
         if (data.results.length > 0) {
-          {data.results.map((movie: MovieObject) => (
+          data.results.map((movie: MovieObject) => (
             idsAndPosterPaths.push(
               {
                 id: movie.id,
                 posterPath: movie.poster_path
-              }
-            )
-          ))}
+              })
+          ));
         console.log("ids and poster paths:", idsAndPosterPaths);
         setSearchResults(idsAndPosterPaths);
         }
       })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  };
+
+  const fetchById = (id: number, selectedSearchForm: string) => {
+
+    let idsAndPosterPaths: {id: number; posterPath: string}[] = []
+
+    const searchByIdUrl = {
+      person: `${BASE_URL}3/person/${id}/movie_credits?api_key=${apiKey}`,
+      related: `${BASE_URL}3/movie/${id}/similar?language=en-US&page=1&api_key=${apiKey}`,
+    };
+    
+    console.log(searchByIdUrl.related)
+    if (selectedSearchForm === "person") {
+      const url = searchByIdUrl.person;
+      fetch(url)
+      .then(response => response.json())
+      .then((data) => {
+        if (data.cast && data.cast.length > 0) {
+          data.cast.forEach((movie: MovieObject) => {
+            idsAndPosterPaths.push({
+              id: movie.id,
+              posterPath: movie.poster_path
+            });
+          });
+          setSearchResults(idsAndPosterPaths);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching person data:', error);
+      });
+
+    } else if (selectedSearchForm === "related") {
+      const url = searchByIdUrl.related;
+      console.log(url)
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.results && data.results.length > 0) {
+            data.results.forEach((movie: MovieObject) => {
+              idsAndPosterPaths.push({
+                id: movie.id,
+                posterPath: movie.poster_path
+              });
+            });
+            setSearchResults(idsAndPosterPaths);
+          }
+        })
+    .catch(error => {
+      console.error('Error fetching person data:', error);
+    });
   }
+};
+
+  // const handleAdvancedCast = () => {
+  //   const castUrl = 
+  //   fetchData(searchUrls.person)
+  // }
+
+  // const handleCheckboxSelection = () => {
+  //   const genreUrl = "";
+
+  // }
 
   return (
     <div className="App">
@@ -154,7 +263,13 @@ const App = () => {
         <SideBar signedInStatus={true} playlists={playlists} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search handleChange={handleChange} handleSubmit={handleSubmit} results={searchResults}/>} />
+          <Route path="/search" element={<Search 
+                                            handleChange={handleChange} 
+                                            handleSubmit={handleSubmit} 
+                                            handleSearchSelection={handleSearchSelection} 
+                                            results={searchResults} 
+                                            selectedSearchForm={selectedSearchForm}
+                                            />} />
           {/* pass search results onto search page; render if searchResults is truthy? */}
 
           <Route path="/authentication" element={<Authentication />} /> 
