@@ -6,7 +6,6 @@ import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from './components/pages/Home';
 import { Search } from './components/pages/search_pages/Search';
-import { Authentication } from './components/pages/Authentication';
 import { Profile } from './components/pages/Profile';
 import { MovieObject, MovieProps, FriendsListProps, userProfileData } from './components/prop_types/propsTypes';
 import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies } from './firestore_functions/firestore_calls';
@@ -47,11 +46,10 @@ const BASE_URL = 'https://api.themoviedb.org/';
 // fetchMovies(`${BASE_URL}3/movie/popular?api_key=${apiKey}`) 
 // end of seed code 
 
+// change this code after shelf is linked to user 
 const shelfRef = collection(db, 'users', 'testUser123', 'Shelf');
 // console.log("shelf reference:", shelfRef);
-
 const shelfDocs = await getDocs(shelfRef);
-
 let playlists: string[] = []; 
 shelfDocs.forEach((doc) => {
   playlists.push(doc.id);
@@ -68,6 +66,7 @@ const App = () => {
   const [friendsData, setFriendsData] = useState<{id: string; profilePic: string}[] | null>(null);
   const [recentlyWatchedData, setRecentlyWatchedData] = useState<MovieProps[]>([]);
 
+  // temporary use of dummy data 
   if (username === null) {
     setUsername('elizabeth123');
   };
@@ -112,8 +111,6 @@ const App = () => {
     person: `${BASE_URL}3/search/person?api_key=${apiKey}&query=${encodeURIComponent(searchTerm)}`,
     related: `${BASE_URL}3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(searchTerm)}`,
   }
-
-
 
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
