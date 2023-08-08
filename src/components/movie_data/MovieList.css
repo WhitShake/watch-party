@@ -6,7 +6,7 @@
   width: 825px;;
   overflow: scroll;
   gap: 25px;
-  position: relative;
+  /* position: relative; */
   top: 250px;
   left: 400px;
 }
@@ -16,3 +16,4 @@
   width: 80vw;
   margin-right: 0;
 }
+

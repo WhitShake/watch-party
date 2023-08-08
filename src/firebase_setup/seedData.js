@@ -87,6 +87,10 @@ export const seedData = async (movieList) => {
             title: 'Dramas',
             movieObject: {movies: []}
         },
+        {
+            title: 'Watched',
+            movieObject: {movies: []}
+        },
     ]
 
     // movieList gets passed in as an argument, which is the results of fetchMovies in App.tsx (uses popular movies endpoint)
@@ -202,7 +206,7 @@ export const testSeed = (movieList) => {
         movieList.forEach(movie => {
             playlist.movies.push({
                 ...movie,
-                addedOn: serverTimestamp()
+                // addedOn: serverTimestamp() -- can't add serverTimestamp() into an object at this moment
             })
         })
         return playlist

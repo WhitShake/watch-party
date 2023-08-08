@@ -1,9 +1,17 @@
-type FriendProps = { friend: string }
+import './Friend.css'
 
-export const Friend = (props:FriendProps)  => {
+type FriendProps = { 
+    id: string 
+    profilePic: string
+}
+
+export const Friend = ({profilePic}: FriendProps)  => {
     return (
         <div className="friend">
-            {props.friend}
+            <img className="friend-card" src={profilePic === null 
+                ? 'https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg'
+                : profilePic} />
         </div>
     )
 }
+

@@ -1,11 +1,14 @@
-.friends-container {
-  text-align: center;
-  background-color: black;
-
-}
-
 .friend-display {
-  text-align: center;
-  width: 100%;
-
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 825px;;
+  overflow: scroll;
+  gap: 25px;
+  /* position: relative; */
+  top: 250px;
+  left: 400px;
 }
+
+
