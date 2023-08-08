@@ -8,6 +8,8 @@ type MovieListProps = {
     }[]
 }
 
+
+
 export const MovieList = (props: MovieListProps) => {
     return (
         <div className="container">

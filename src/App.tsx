@@ -63,6 +63,12 @@ const App = () => {
     friendsList: ['Alyssa', 'Jackie', 'Whitney']
   }
 
+  // const searchUrls = {
+  //   title: (`${BASE_URL}3/search/movie?api_key=${apiKey}&query=${formattedSearchTerm}`),
+  //   person: (`${BASE_URL}3/search/person?api_key=${apiKey}&query=${formattedSearchTerm}`),
+  //   related: (`${BASE_URL}3/search/company?api_key=${apiKey}&query=${formattedSearchTerm}`),
+  // }
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
@@ -70,19 +76,23 @@ const App = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formattedSearchTerm = encodeURIComponent(searchTerm);
-    // console.log(formattedSearchTerm)
+    const searchUrls = {
+      title: (`${BASE_URL}3/search/movie?api_key=${apiKey}&query=${formattedSearchTerm}`),
+      person: (`${BASE_URL}3/search/person?api_key=${apiKey}&query=${formattedSearchTerm}`),
+      related: (`${BASE_URL}3/search/company?api_key=${apiKey}&query=${formattedSearchTerm}`),
+    }
+
     if (selectedSearchForm === "title") {
-    const searchUrl = (`${BASE_URL}3/search/movie?api_key=${apiKey}&query=${formattedSearchTerm}`)
-    
-    fetchData(searchUrl)
+    const url = searchUrls.title
+    fetchData(url)
+
     } else if (selectedSearchForm === "person") {
-      const searchUrl = (`${BASE_URL}3/search/person?api_key=${apiKey}&query=${formattedSearchTerm}`)
+      const url = searchUrls.person;
+      fetchId(url);
 
-      fetchId(searchUrl);
       } else if (selectedSearchForm === "related") {
-        const searchUrl = (`${BASE_URL}3/search/company?api_key=${apiKey}&query=${formattedSearchTerm}`)
-
-        fetchId(searchUrl)
+        const url = searchUrls.related;
+        fetchId(url)
       }
     };
 
@@ -104,17 +114,19 @@ const App = () => {
     vote_count: number
   };
 
+  
   // type idsAndPosterPathsObject = {
   //   id: number
   //   posterPath: string
   // }
 
   const fetchId = (url: string) => {
+    
     fetch(url)
       .then(response => response.json())
       .then(data => {
         const personId: number = data.results[0].id
-        fetchPersonById(personId);
+        fetchById(personId, selectedSearchForm);
       })
       .catch(error => {
         console.error('Error fetching person ID:', error);
@@ -143,11 +155,18 @@ const App = () => {
       });
   };
 
-  const fetchPersonById = (id: number) => {
+  const fetchById = (id: number, selectedSearchForm: string) => {
+
     let idsAndPosterPaths: {id: number; posterPath: string}[] = []
-    const url = `${BASE_URL}3/person/${id}/movie_credits?api_key=${apiKey}`
-    // console.log(url)
-    fetch(url)
+
+    const searchByIdUrl = {
+      person: `${BASE_URL}3/person/${id}/movie_credits?api_key=${apiKey}`,
+      related: `${BASE_URL}3/movie/${id}/similar?api_key=${apiKey}`,
+    };
+
+    if (selectedSearchForm === "person") {
+      const url = searchByIdUrl.person;
+      fetch(url)
       .then(response => response.json())
       .then(data => {
         if (data.cast && data.cast.length > 0) {
@@ -157,13 +176,35 @@ const App = () => {
               posterPath: movie.poster_path
             });
           });
+        }
+        console.log("ids and poster paths:", idsAndPosterPaths);
+        setSearchResults(idsAndPosterPaths);
+      })
+      .catch(error => {
+        console.error('Error fetching person data:', error);
+      });
+          
+    } else if (selectedSearchForm === "related") {
+      const url = searchByIdUrl.related;
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data.results && data.results.length > 0) {
+            data.results.forEach((movie: MovieObject) => {
+              idsAndPosterPaths.push({
+                id: movie.id,
+                posterPath: movie.poster_path
+              });
+            });
+          }
       console.log("ids and poster paths:", idsAndPosterPaths);
       setSearchResults(idsAndPosterPaths);
-      }
     })
     .catch(error => {
       console.error('Error fetching person data:', error);
     });
+  }
 };
 
   return (

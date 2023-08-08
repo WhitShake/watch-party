@@ -44,9 +44,6 @@ export const Search = (props: SearchProps) => {
                             handleSubmit={props.handleSubmit}
                             results={props.results}
                         />
-                        <button type="submit" value="Search Movies">
-                            Search Movies
-                        </button>
                         </>
                     )}
                     </div>
@@ -58,20 +55,26 @@ export const Search = (props: SearchProps) => {
                             handleSubmit={props.handleSubmit}
                             results={props.results}
                         />
-                        <button type="submit" value="Search People">
-                            Search People
-                        </button>
                         </>
                     )}
                     </div>
                     <div>
                         {props.selectedSearchForm === 'related' && (
-                        <GetRelatedSearch handleChange={props.handleChange} handleSubmit={props.handleSubmit} results={props.results} />
-                        )}
+                        <>
+                        <GetRelatedSearch 
+                            handleChange={props.handleChange} 
+                            handleSubmit={props.handleSubmit} 
+                            results={props.results} 
+                        />
+                        </>
+                    )}
                     </div>
                     {props.selectedSearchForm === 'watch-provider' && (
                     <WatchProviderSearch handleChange={props.handleChange} handleSubmit={props.handleSubmit} results={props.results} />
                     )}
+                    <button type="submit" value="Search People">
+                            Search for Movies
+                    </button>
                 </div>
             </form>
             <MovieList movies={props.results}/>
