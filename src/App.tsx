@@ -1,7 +1,7 @@
 import React, { useState, useEffect }from 'react';
 import './App.css';
 import { SideBar } from './components/sidebar/SideBar';
-import { db } from './firebase_setup/firebase';
+import { db, auth } from './firebase_setup/firebase';
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from './components/pages/Home';
@@ -9,6 +9,7 @@ import { Search } from './components/pages/search_pages/Search';
 import { Profile } from './components/users/Profile';
 import { MovieObject, MovieProps, FriendsListProps, userProfileData } from './components/prop_types/propsTypes';
 import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies } from './firestore_functions/firestore_calls';
+import { onAuthStateChanged } from 'firebase/auth';
 import { Login } from './components/sidebar/Login';
 
 // import { seedData, testSeed } from './firebase_setup/seedData';
@@ -61,28 +62,35 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<{id: number; posterPath: string}[]>([]);
   const [selectedSearchForm, setSelectedSearchForm] = useState<string>("");
-  const [username, setUsername] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
   const [userData, setUserData] = useState<userProfileData | null>(null);
   const [friendsData, setFriendsData] = useState<{id: string; profilePic: string}[] | null>(null);
   const [recentlyWatchedData, setRecentlyWatchedData] = useState<MovieProps[]>([]);
 
   // temporary use of dummy data 
-  if (username === null) {
-    setUsername('elizabeth123');
-  };
+  // if (userId === null) {
+  //   setUserId('elizabeth123');
+  // };
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log(user.uid)
+      setUserId(user.uid)
+    }
+  })
 
   useEffect(() => {
-    if (username !== null) {
-      getUserData(username)
+    if (userId !== null) {
+      getUserData(userId)
       .then(data => setUserData(data as userProfileData))
 
-      getFriendsList(username)
+      getFriendsList(userId)
       .then(async data => {
         const friendData = await fetchFriendData(data.friends as string[])
         setFriendsData(friendData as {id: string, profilePic: string}[])
       })
 
-      fetchWatchedMovies(username)
+      fetchWatchedMovies(userId)
       .then(data => {
         if (data && data.movies) {
           const movies = data.movies
@@ -96,7 +104,7 @@ const App = () => {
         }
       })
     }
-  },[username]);
+  },[userId]);
 
   // this is just to view the state variables, delete later 
   // useEffect(() => {

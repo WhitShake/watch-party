@@ -17,6 +17,8 @@ export const Login = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         initializeNewUser(user.uid)
+      } else {
+        console.log("Issue with authenticating user. User may not exist")
       }
     })
 

@@ -1,3 +1,4 @@
+import { watch } from "fs"
 import { db } from "../firebase_setup/firebase"
 import { doc, getDoc, setDoc } from "firebase/firestore"
 
@@ -9,23 +10,28 @@ export const initializeNewUser = async (userId: string) => {
         const defaultData = {
             firstName: "",
             lastName: "",
-            profilePic: "https://cdn.vectorstock.com/i/1000x1000/21/23/avatar-photo-default-user-icon-person-image-vector-47852123.webp",
+            profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSshtD-7RtqN_oJMs3UfPKF7SQaUDHZjkuQoA&usqp=CAU",
             quote: "Add your favorite movie quote here!"
         }
         setDoc(userDocRef, defaultData)
+
+        const watchedDocRef = doc(db, 'users', userId, 'Shelf', 'Watched')
+        setDoc(watchedDocRef, {movies: []})
+
+        const friendsDocRef = doc(db, 'users', userId, 'Friends', 'Friends List');
+        setDoc(friendsDocRef, {friends: []})
+
         console.log("User successfully added")
     }
     else {
+        console.log("User already exists!")
         console.log(userDocSnapshot.data())
     }
-
 }
 
 
-
-
-export const getUserData = async (username: string) => {
-    const userDocRef = doc(db, 'users', username);
+export const getUserData = async (userId: string) => {
+    const userDocRef = doc(db, 'users', userId);
 
     try {
         const docUserData = await getDoc(userDocRef);
@@ -41,8 +47,8 @@ export const getUserData = async (username: string) => {
 };
 
 
-export const getFriendsList = async (username: string) => {
-    const userFriendsRef = doc(db, 'users', username, 'Friends', 'Friends List');
+export const getFriendsList = async (userId: string) => {
+    const userFriendsRef = doc(db, 'users', userId, 'Friends', 'Friends List');
 
     try {
         const userFriendsList = await getDoc(userFriendsRef);
@@ -74,8 +80,8 @@ export const fetchFriendData = async (friends: string[]) => {
     return friendData
 }
 
-export const fetchWatchedMovies = async (username: string) => {
-    const watchedRef = doc(db, 'users', username, 'Shelf', 'Watched');
+export const fetchWatchedMovies = async (userId: string) => {
+    const watchedRef = doc(db, 'users', userId, 'Shelf', 'Watched');
     
     try {
         const watchedMoviesList = await getDoc(watchedRef);
