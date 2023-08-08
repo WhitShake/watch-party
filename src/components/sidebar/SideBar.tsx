@@ -42,10 +42,10 @@ export const SideBar = (props: SideBarProps) => {
           {user ? 
           (
             <li>
+              <Link to='/profile'>Profile</Link>  
               <p>{auth.currentUser?.displayName}</p>
               <img src={auth.currentUser?.photoURL || ""} alt = "avatar" width="50" height="50"/>
               <button onClick={signUserOut}>Log Out</button>
-              <Link to='/profile'>Profile</Link>  
             </li>
           ) : <Login />
           }

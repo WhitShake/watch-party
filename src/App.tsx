@@ -86,7 +86,6 @@ const App = () => {
       .then(data => {
         if (data && data.movies) {
           const movies = data.movies
-          console.log("all the movies:", data.movies)
           let recentlyWatched = []
           for (let i = movies.length - 1; i >= Math.max(movies.length - 10, 0); i--) {
             recentlyWatched.push(movies[i])
@@ -100,11 +99,11 @@ const App = () => {
   },[username]);
 
   // this is just to view the state variables, delete later 
-  useEffect(() => {
-    console.log("friends:", friendsData)
-    console.log("user", userData)
-    console.log("recently watched movies", recentlyWatchedData)
-  }, [friendsData, userData, recentlyWatchedData])
+  // useEffect(() => {
+  //   console.log("friends:", friendsData)
+  //   console.log("user", userData)
+  //   console.log("recently watched movies", recentlyWatchedData)
+  // }, [friendsData, userData, recentlyWatchedData])
 
   const searchUrls = {
     title: `${BASE_URL}3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(searchTerm)}`,

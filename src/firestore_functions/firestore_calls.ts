@@ -1,5 +1,27 @@
 import { db } from "../firebase_setup/firebase"
-import { doc, getDoc, DocumentData } from "firebase/firestore"
+import { doc, getDoc, setDoc } from "firebase/firestore"
+
+
+export const initializeNewUser = async (userId: string) => {
+    const userDocRef = doc(db, 'users', userId)
+    const userDocSnapshot = await getDoc(userDocRef)
+    if (!userDocSnapshot.exists()) {
+        const defaultData = {
+            firstName: "",
+            lastName: "",
+            profilePic: "https://cdn.vectorstock.com/i/1000x1000/21/23/avatar-photo-default-user-icon-person-image-vector-47852123.webp",
+            quote: "Add your favorite movie quote here!"
+        }
+        setDoc(userDocRef, defaultData)
+        console.log("User successfully added")
+    }
+    else {
+        console.log(userDocSnapshot.data())
+    }
+
+}
+
+
 
 
 export const getUserData = async (username: string) => {
@@ -67,3 +89,5 @@ export const fetchWatchedMovies = async (username: string) => {
         throw error;
     }
 }
+
+

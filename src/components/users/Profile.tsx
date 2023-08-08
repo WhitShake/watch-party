@@ -23,7 +23,7 @@ export const Profile = (props: ProfileProps) => {
         <div className="profile-info">
             <img src={profilePic} alt="avatar" className="avatar"/>
             <div className="user-info">
-                <h1 className="name">{firstName} {lastName}</h1>
+                <h1 className="name">{auth.currentUser?.displayName}</h1>
                 <h4 className="quote">"{quote}"</h4>
             </div>
         </div>
