@@ -134,10 +134,11 @@ export const handleAddMovie = (movie: MovieProps) => {
 }
 
 
-export const addShelf = async (userId: string | null | undefined, title: string) => {
+export const addShelfPlaylist = async (userId: string | null | undefined, title: string, updateState: (title: string) => void) => {
     if (userId) {
         const playlistDocRef = doc(db, 'users', userId, 'Shelf', title)
         await setDoc(playlistDocRef, {movies: []})
+        updateState(title)
     } else {
         console.log("Issue with validating user")
     }

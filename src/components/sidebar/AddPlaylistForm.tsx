@@ -3,14 +3,18 @@ import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { auth } from "../../firebase_setup/firebase"
-import { addShelf } from "../../firestore_functions/firestore_calls"
+import { addShelfPlaylist } from "../../firestore_functions/firestore_calls"
 import { useState } from 'react'
 
 interface AddPlaylistFormData {
     title: string
 }
 
-export const AddPlaylistForm = () => {
+type AddPlaylistFormProps = {
+    handleAddPlaylist: (newPlaylist: string) => void
+}
+
+export const AddPlaylistForm = ({handleAddPlaylist}: AddPlaylistFormProps) => {
     const [user] = useAuthState(auth)
     const [inputValue, setInputValue] = useState('')
 
@@ -29,7 +33,7 @@ export const AddPlaylistForm = () => {
 
 
     return (
-        <form onSubmit={handleSubmit(() => addShelf(user?.uid, inputValue))}>
+        <form onSubmit={handleSubmit(() => addShelfPlaylist(user?.uid, inputValue, handleAddPlaylist))}>
             <input placeholder="Add a playlist" {...register("title")} onChange={handleChange} value={inputValue}/>
             <p style={{color: "red"}}>{errors.title?.message}</p>
             <input type="submit" />

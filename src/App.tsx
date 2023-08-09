@@ -131,6 +131,10 @@ const App = () => {
       [field]: value
     } as userProfileData))
   }
+
+  const handleAddPlaylist = (newPlaylist: string) => {
+    setPlaylists(prevPlaylists => [...prevPlaylists, newPlaylist])
+  }
 //   const hanndleAdvancedSearchTerms = (event: React.ChangeEvent<HTMLInputElement>) => {
 //     const inputString = event.target.value;
 //     const formattedList = inputString.split("|")
@@ -265,7 +269,7 @@ const App = () => {
 
   return (
     <div className="App">
-        <SideBar signedInStatus={true} playlists={playlists} firstName={userData?.firstName} lastName={userData?.lastName} />
+        <SideBar signedInStatus={true} playlists={playlists} firstName={userData?.firstName} lastName={userData?.lastName} handleAddPlaylist={handleAddPlaylist}/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile userData={userData} friends={friendsData} watchedMovies={recentlyWatchedData} handleUpdate={handleInfoUpdated}/>} />

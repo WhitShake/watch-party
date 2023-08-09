@@ -3,8 +3,10 @@ import './Shelf.css'
 import { Playlist } from "./Playlist";
 import { AddPlaylistForm } from "./AddPlaylistForm";
 
+
 type ShelfProps = {
   playlists: string[]
+  handleAddPlaylist: (newPlaylist: string) => void
 }
 
 export const Shelf = (props: ShelfProps) => {
@@ -20,7 +22,7 @@ export const Shelf = (props: ShelfProps) => {
           )
         })}
       </ul>
-      <AddPlaylistForm />
+      <AddPlaylistForm handleAddPlaylist={props.handleAddPlaylist}/>
     </div>
   )
 };

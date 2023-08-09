@@ -15,6 +15,7 @@ type SideBarProps = {
   playlists: string[]
   firstName: string | undefined
   lastName: string | undefined
+  handleAddPlaylist: (newPlaylist: string) => void
 }
 
 export const SideBar = (props: SideBarProps) => {
@@ -38,7 +39,7 @@ export const SideBar = (props: SideBarProps) => {
           </li>
           <li>
             {user ? 
-            <Shelf playlists={props.playlists}/>
+            <Shelf playlists={props.playlists} handleAddPlaylist={props.handleAddPlaylist}/>
             : "Log in to view your Shelf!"}
           </li>
           {user ? 
