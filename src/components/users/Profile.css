@@ -43,3 +43,8 @@
   margin-left: 20px;
   margin-top: -5px;
 }
+
+.text {
+  font-style: italic;
+  font-size: 15px;
+}

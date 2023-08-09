@@ -30,11 +30,17 @@ export const Profile = (props: ProfileProps) => {
         <div className="watched-and-friends">
             <div>
                 <h4>Recently Watched</h4>
-                <MovieList movies={props.watchedMovies}/>
+                {props.watchedMovies.length === 0 
+                ? <p className="text">Movies you watch will show up here!</p>
+                : <MovieList movies={props.watchedMovies}/>
+                }
             </div>
             <div>
                 <h4>Friends List</h4>
-                <FriendsList friends={props.friends}/>
+                {props.friends?.length === 0
+                ? <p className="text">Add friends and invite them to watch a movie!</p>
+                : <FriendsList friends={props.friends}/>
+                }
             </div>
         </div>
     </div>)

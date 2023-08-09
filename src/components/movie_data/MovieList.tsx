@@ -8,13 +8,12 @@ type MovieListProps = {
 }
 
 
-
 export const MovieList = (props: MovieListProps) => {
     return (
         <div className="container">
             <div className="card-display">
                 {props.movies.map((movie: {id: number; posterPath: string}, index: number) => (
-                    <Movie key={index} id={0} posterPath={movie.posterPath} />
+                    <Movie key={index} id={movie.id} posterPath={movie.posterPath} />
                 ))}
             </div>
         </div>

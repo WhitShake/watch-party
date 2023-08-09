@@ -1,6 +1,7 @@
 import { watch } from "fs"
 import { db } from "../firebase_setup/firebase"
 import { doc, getDoc, setDoc } from "firebase/firestore"
+import { MovieProps } from "../components/prop_types/propsTypes"
 
 
 export const initializeNewUser = async (userId: string, displayName: string | null) => {
@@ -102,4 +103,18 @@ export const fetchWatchedMovies = async (userId: string) => {
     }
 }
 
+
+export const handleAddMovie = (movie: MovieProps) => {
+    console.log(movie)
+}
+
+
+export const addShelf = async (userId: string | null | undefined, title: string) => {
+    if (userId) {
+        const playlistDocRef = doc(db, 'users', userId, 'Shelf', title)
+        await setDoc(playlistDocRef, {movies: []})
+    } else {
+        console.log("Issue with validating user")
+    }
+}
 

@@ -1,6 +1,7 @@
 import React from "react";
 import './Shelf.css'
 import { Playlist } from "./Playlist";
+import { AddPlaylistForm } from "./AddPlaylistForm";
 
 type ShelfProps = {
   playlists: string[]
@@ -19,6 +20,7 @@ export const Shelf = (props: ShelfProps) => {
           )
         })}
       </ul>
+      <AddPlaylistForm />
     </div>
   )
 };
