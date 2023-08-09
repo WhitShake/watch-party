@@ -8,7 +8,7 @@ import { Home } from './components/pages/Home';
 import { Search } from './components/pages/search_pages/Search';
 import { Profile } from './components/users/Profile';
 import { MovieObject, MovieProps, FriendsListProps, userProfileData } from './components/prop_types/propsTypes';
-import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies, initializeNewUser, fetchShelf } from './firestore_functions/firestore_calls';
+import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies, initializeNewUser, fetchShelf, } from './firestore_functions/firestore_calls';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Login } from './components/sidebar/Login';
 import { useNavigate } from 'react-router-dom';

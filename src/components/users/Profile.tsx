@@ -24,11 +24,13 @@ export const Profile = (props: ProfileProps) => {
         <div className="profile-info">
             <img src={profilePic} alt="avatar" className="avatar"/>
             <div className="user-info">
-                <h1 className="name">{firstName} {lastName}</h1>
                 <h1 className="name">
-                    <EditableText text={firstName} />
+                    <EditableText text={firstName} field="firstName"/>
+                    <EditableText text={lastName} field="lastName"/>
                 </h1>
-                <h4 className="quote">"{quote}"</h4>
+                <h4 className="quote">
+                    <EditableText text={quote} field="quote"/>
+                </h4>
             </div>
         </div>
         <div className="watched-and-friends">
