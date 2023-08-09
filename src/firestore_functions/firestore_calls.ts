@@ -1,6 +1,6 @@
 import { watch } from "fs"
 import { db } from "../firebase_setup/firebase"
-import { doc, getDoc, setDoc } from "firebase/firestore"
+import { doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore"
 import { MovieProps } from "../components/prop_types/propsTypes"
 
 
@@ -102,6 +102,31 @@ export const fetchWatchedMovies = async (userId: string) => {
         throw error;
     }
 }
+
+export const fetchShelf = async (userId: string) => {
+    const shelfRef = collection(db, 'users', userId, 'Shelf')
+    const shelfDocs = await getDocs(shelfRef)
+    let playlists: string[] = []
+    shelfDocs.forEach(playlist => {
+        playlists.push(playlist.id)
+    })
+    return playlists  
+}
+// userDocs.forEach(user => {
+//     playlistsToAdd.forEach(playlist => {
+//         const playlistDocRef = doc(db, 'users', user.id, 'Shelf', playlist.title)
+//         setDoc(playlistDocRef, playlist.movieObject)
+//         .then(() => {
+//             console.log(`Added ${playlist.title} to Shelf, contains ${playlist.movieObject}`)
+//         })
+//         .catch(err => {
+//             console.log(err)
+//         })
+//     })
+// })
+
+
+
 
 
 export const handleAddMovie = (movie: MovieProps) => {

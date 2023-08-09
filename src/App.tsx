@@ -8,7 +8,7 @@ import { Home } from './components/pages/Home';
 import { Search } from './components/pages/search_pages/Search';
 import { Profile } from './components/users/Profile';
 import { MovieObject, MovieProps, FriendsListProps, userProfileData } from './components/prop_types/propsTypes';
-import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies, initializeNewUser } from './firestore_functions/firestore_calls';
+import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies, initializeNewUser, fetchShelf } from './firestore_functions/firestore_calls';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Login } from './components/sidebar/Login';
 import { useNavigate } from 'react-router-dom';
@@ -68,6 +68,7 @@ const App = () => {
   const [userData, setUserData] = useState<userProfileData | null>(null);
   const [friendsData, setFriendsData] = useState<{id: string; profilePic: string}[] | null>(null);
   const [recentlyWatchedData, setRecentlyWatchedData] = useState<MovieProps[]>([]);
+  const [playlists, setPlaylists] = useState<string[]>([])
 
 
   onAuthStateChanged(auth, async (user) => {
@@ -101,6 +102,13 @@ const App = () => {
           console.log("There was an issue fetching the movies!")
         }
       })
+
+      fetchShelf(userId)
+      .then(data => {
+        setPlaylists(data)
+      })
+
+
       navigate("/profile")
     }
   },[userId]);
