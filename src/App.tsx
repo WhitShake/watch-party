@@ -8,7 +8,7 @@ import { Home } from './components/pages/Home';
 import { Search } from './components/pages/search_pages/Search';
 import { Profile } from './components/users/Profile';
 import { MovieObject, MovieProps, FriendsListProps, userProfileData } from './components/prop_types/propsTypes';
-import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies, initializeNewUser, fetchShelf, } from './firestore_functions/firestore_calls';
+import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies, initializeNewUser, fetchShelf, updateUserDoc} from './firestore_functions/firestore_calls';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Login } from './components/sidebar/Login';
 import { useNavigate } from 'react-router-dom';
@@ -104,6 +104,8 @@ const App = () => {
     }
   },[userId]);
 
+  
+
   // this is just to view the state variables, delete later 
   useEffect(() => {
     console.log("friends:", friendsData)
@@ -123,6 +125,12 @@ const App = () => {
     setSearchTerm(event.target.value);
   };
 
+  const handleInfoUpdated = (field: keyof userProfileData, value: string) => {
+    setUserData(prevUserData => ({
+      ...prevUserData,
+      [field]: value
+    } as userProfileData))
+  }
 //   const hanndleAdvancedSearchTerms = (event: React.ChangeEvent<HTMLInputElement>) => {
 //     const inputString = event.target.value;
 //     const formattedList = inputString.split("|")
@@ -257,10 +265,10 @@ const App = () => {
 
   return (
     <div className="App">
-        <SideBar signedInStatus={true} playlists={playlists} />
+        <SideBar signedInStatus={true} playlists={playlists} firstName={userData?.firstName} lastName={userData?.lastName} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile userData={userData} friends={friendsData} watchedMovies={recentlyWatchedData}/>} />
+          <Route path="/profile" element={<Profile userData={userData} friends={friendsData} watchedMovies={recentlyWatchedData} handleUpdate={handleInfoUpdated}/>} />
           <Route path="/search" element={<Search 
                                             handleChange={handleChange} 
                                             handleSubmit={handleSubmit} 

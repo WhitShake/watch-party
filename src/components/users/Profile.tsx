@@ -25,11 +25,11 @@ export const Profile = (props: ProfileProps) => {
             <img src={profilePic} alt="avatar" className="avatar"/>
             <div className="user-info">
                 <h1 className="name">
-                    <EditableText text={firstName} field="firstName"/>
-                    <EditableText text={lastName} field="lastName"/>
+                    <EditableText text={firstName} field="firstName" handleUpdate={props.handleUpdate}/>
+                    <EditableText text={lastName} field="lastName" handleUpdate={props.handleUpdate}/>
                 </h1>
                 <h4 className="quote">
-                    <EditableText text={quote} field="quote"/>
+                    <EditableText text={quote} field="quote" handleUpdate={props.handleUpdate}/>
                 </h4>
             </div>
         </div>

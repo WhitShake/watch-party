@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom"
 type SideBarProps = {
   signedInStatus: boolean
   playlists: string[]
+  firstName: string | undefined
+  lastName: string | undefined
 }
 
 export const SideBar = (props: SideBarProps) => {
@@ -43,7 +45,7 @@ export const SideBar = (props: SideBarProps) => {
           (
             <li>
               <Link to='/profile'>Profile</Link>  
-              <p>{auth.currentUser?.displayName}</p>
+              <p>{props.firstName} {props.lastName}</p>
               <img src={auth.currentUser?.photoURL || ""} alt = "avatar" width="50" height="50"/>
               <button onClick={signUserOut}>Log Out</button>
             </li>

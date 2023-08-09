@@ -13,7 +13,8 @@ export type ProfileProps = {
         id: string
         profilePic: string
     }[] | null
-    watchedMovies: MovieProps[] 
+    watchedMovies: MovieProps[], 
+    handleUpdate: (field: keyof userProfileData, value: string) => void
 };
 
 export type FriendsListProps = Pick<ProfileProps, 'friends'>;
