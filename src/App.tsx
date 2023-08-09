@@ -59,6 +59,7 @@ shelfDocs.forEach((doc) => {
 
 
 const App = () => {
+  const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<{id: number; posterPath: string}[]>([]);
@@ -68,107 +69,41 @@ const App = () => {
   const [friendsData, setFriendsData] = useState<{id: string; profilePic: string}[] | null>(null);
   const [recentlyWatchedData, setRecentlyWatchedData] = useState<MovieProps[]>([]);
 
-  // await initializeNewUser(result.user.uid, result.user.displayName)
-  //   const data = await setData()
-  //   console.log(data)
-  //   navigate('/profile');
-
-
-  const navigate = useNavigate();
-
 
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       await initializeNewUser(user.uid, user.displayName)
       setUserId(user.uid)
-      await setData()
-      navigate("/profile")
-      // await getUserData(user.uid)
-      // .then(data => setUserData(data as userProfileData))
-
-      // await getFriendsList(user.uid)
-      // .then(async data => {
-      //   const friendData = await fetchFriendData(data.friends as string[])
-      //   setFriendsData(friendData as {id: string, profilePic: string}[])
-      // })
-
-      // await fetchWatchedMovies(user.uid)
-      // .then(data => {
-      //   if (data && data.movies) {
-      //     const movies = data.movies
-      //     let recentlyWatched = []
-      //     for (let i = movies.length - 1; i >= Math.max(movies.length - 10, 0); i--) {
-      //       recentlyWatched.push(movies[i])
-      //     }
-      //     setRecentlyWatchedData(recentlyWatched)
-      //   } else {
-      //     console.log("There was an issue fetching the movies!")
-      //   }
-      // })
-    } else {
-      console.log("Waiting for user to sign in")
     }
   })
 
-
-  // useEffect(() => {
-  //   if (userId !== null) {
-  //     getUserData(userId)
-  //     .then(data => setUserData(data as userProfileData))
-
-  //     getFriendsList(userId)
-  //     .then(async data => {
-  //       const friendData = await fetchFriendData(data.friends as string[])
-  //       setFriendsData(friendData as {id: string, profilePic: string}[])
-  //     })
-
-  //     fetchWatchedMovies(userId)
-  //     .then(data => {
-  //       if (data && data.movies) {
-  //         const movies = data.movies
-  //         let recentlyWatched = []
-  //         for (let i = movies.length - 1; i >= Math.max(movies.length - 10, 0); i--) {
-  //           recentlyWatched.push(movies[i])
-  //         }
-  //         setRecentlyWatchedData(recentlyWatched)
-  //       } else {
-  //         console.log("There was an issue fetching the movies!")
-  //       }
-  //     })
-  //   }
-  // },[userId]);
-
-  const setData = async () => {
+  useEffect(() => {
     if (userId !== null) {
-      const userData = await getUserData(userId);
-      setUserData(userData as userProfileData);
+      getUserData(userId)
+      .then(data => setUserData(data as userProfileData))
 
-      const friendsList = await getFriendsList(userId);
-      const friendData = await fetchFriendData(friendsList.friends as string[]);
-      setFriendsData(friendData as { id: string, profilePic: string }[]);
+      getFriendsList(userId)
+      .then(async data => {
+        const friendData = await fetchFriendData(data.friends as string[])
+        setFriendsData(friendData as {id: string, profilePic: string}[])
+      })
 
-      const watchedData = await fetchWatchedMovies(userId);
-      if (watchedData && watchedData.movies) {
-        const movies = watchedData.movies;
-        let recentlyWatched = [];
-        for (let i = movies.length - 1; i >= Math.max(movies.length - 10, 0); i--) {
-          recentlyWatched.push(movies[i]);
+      fetchWatchedMovies(userId)
+      .then(data => {
+        if (data && data.movies) {
+          const movies = data.movies
+          let recentlyWatched = []
+          for (let i = movies.length - 1; i >= Math.max(movies.length - 10, 0); i--) {
+            recentlyWatched.push(movies[i])
+          }
+          setRecentlyWatchedData(recentlyWatched)
+        } else {
+          console.log("There was an issue fetching the movies!")
         }
-        setRecentlyWatchedData(recentlyWatched);
-      } else {
-        console.log("There was an issue fetching the movies!");
-      }
+      })
+      navigate("/profile")
     }
-  };
-  // useEffect(() => {
-  //   setData();
-  // }, [userId]);
-  
-
-
-
-
-
+  },[userId]);
 
   // this is just to view the state variables, delete later 
   useEffect(() => {
@@ -177,6 +112,7 @@ const App = () => {
     console.log("recently watched movies", recentlyWatchedData)
   }, [friendsData, userData, recentlyWatchedData])
 
+  
   const searchUrls = {
     title: `${BASE_URL}3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(searchTerm)}`,
     person: `${BASE_URL}3/search/person?api_key=${apiKey}&query=${encodeURIComponent(searchTerm)}`,
@@ -322,7 +258,6 @@ const App = () => {
 
   return (
     <div className="App">
-      {/* <BrowserRouter> */}
         <SideBar signedInStatus={true} playlists={playlists} />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -335,9 +270,8 @@ const App = () => {
                                             selectedSearchForm={selectedSearchForm}
                                             // handleAdvancedSearchTerms={hanndleAdvancedSearchTerms}
                                             />} />
-          {/* <Route path="/login" element={<Login setProfile={setData}/>}/> */}
+          {/* <Route path="/login" element={<Login />}/> */}
         </Routes>
-      {/* </BrowserRouter> */}
     </div>
   );
   
