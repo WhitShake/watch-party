@@ -48,15 +48,6 @@ const BASE_URL = 'https://api.themoviedb.org/';
 // fetchMovies(`${BASE_URL}3/movie/popular?api_key=${apiKey}`) 
 // end of seed code 
 
-// change this code after shelf is linked to user 
-const shelfRef = collection(db, 'users', 'testUser123', 'Shelf');
-// console.log("shelf reference:", shelfRef);
-const shelfDocs = await getDocs(shelfRef);
-let playlists: string[] = []; 
-shelfDocs.forEach((doc) => {
-  playlists.push(doc.id);
-});
-
 
 const App = () => {
   const navigate = useNavigate();
