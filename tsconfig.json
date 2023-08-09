@@ -25,6 +25,7 @@
     // "noUnusedLocals": true,                           /* Enable error reporting when local variables aren't read. */
     "noUnusedParameters": true, 
     "noImplicitReturns": true, 
+    // "typeRoots": ["./",],
   },
 }
 

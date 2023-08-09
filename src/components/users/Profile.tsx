@@ -4,6 +4,7 @@ import { FriendsList } from './FriendsList'
 import { ProfileProps } from '../prop_types/propsTypes';
 import { auth } from '../../firebase_setup/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { EditableText } from './EditableText';
 
 import './Profile.css'
 
@@ -24,6 +25,9 @@ export const Profile = (props: ProfileProps) => {
             <img src={profilePic} alt="avatar" className="avatar"/>
             <div className="user-info">
                 <h1 className="name">{firstName} {lastName}</h1>
+                <h1 className="name">
+                    <EditableText text={firstName} />
+                </h1>
                 <h4 className="quote">"{quote}"</h4>
             </div>
         </div>
