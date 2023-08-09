@@ -8,9 +8,10 @@ import { Home } from './components/pages/Home';
 import { Search } from './components/pages/search_pages/Search';
 import { Profile } from './components/users/Profile';
 import { MovieObject, MovieProps, FriendsListProps, userProfileData } from './components/prop_types/propsTypes';
-import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies } from './firestore_functions/firestore_calls';
+import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies, initializeNewUser } from './firestore_functions/firestore_calls';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Login } from './components/sidebar/Login';
+import { useNavigate } from 'react-router-dom';
 
 // import { seedData, testSeed } from './firebase_setup/seedData';
 
@@ -67,51 +68,114 @@ const App = () => {
   const [friendsData, setFriendsData] = useState<{id: string; profilePic: string}[] | null>(null);
   const [recentlyWatchedData, setRecentlyWatchedData] = useState<MovieProps[]>([]);
 
-  // temporary use of dummy data 
-  // if (userId === null) {
-  //   setUserId('elizabeth123');
-  // };
+  // await initializeNewUser(result.user.uid, result.user.displayName)
+  //   const data = await setData()
+  //   console.log(data)
+  //   navigate('/profile');
 
-  onAuthStateChanged(auth, (user) => {
+
+  const navigate = useNavigate();
+
+
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
-      console.log(user.uid)
+      await initializeNewUser(user.uid, user.displayName)
       setUserId(user.uid)
+      await setData()
+      navigate("/profile")
+      // await getUserData(user.uid)
+      // .then(data => setUserData(data as userProfileData))
+
+      // await getFriendsList(user.uid)
+      // .then(async data => {
+      //   const friendData = await fetchFriendData(data.friends as string[])
+      //   setFriendsData(friendData as {id: string, profilePic: string}[])
+      // })
+
+      // await fetchWatchedMovies(user.uid)
+      // .then(data => {
+      //   if (data && data.movies) {
+      //     const movies = data.movies
+      //     let recentlyWatched = []
+      //     for (let i = movies.length - 1; i >= Math.max(movies.length - 10, 0); i--) {
+      //       recentlyWatched.push(movies[i])
+      //     }
+      //     setRecentlyWatchedData(recentlyWatched)
+      //   } else {
+      //     console.log("There was an issue fetching the movies!")
+      //   }
+      // })
+    } else {
+      console.log("Waiting for user to sign in")
     }
   })
 
-  useEffect(() => {
+
+  // useEffect(() => {
+  //   if (userId !== null) {
+  //     getUserData(userId)
+  //     .then(data => setUserData(data as userProfileData))
+
+  //     getFriendsList(userId)
+  //     .then(async data => {
+  //       const friendData = await fetchFriendData(data.friends as string[])
+  //       setFriendsData(friendData as {id: string, profilePic: string}[])
+  //     })
+
+  //     fetchWatchedMovies(userId)
+  //     .then(data => {
+  //       if (data && data.movies) {
+  //         const movies = data.movies
+  //         let recentlyWatched = []
+  //         for (let i = movies.length - 1; i >= Math.max(movies.length - 10, 0); i--) {
+  //           recentlyWatched.push(movies[i])
+  //         }
+  //         setRecentlyWatchedData(recentlyWatched)
+  //       } else {
+  //         console.log("There was an issue fetching the movies!")
+  //       }
+  //     })
+  //   }
+  // },[userId]);
+
+  const setData = async () => {
     if (userId !== null) {
-      getUserData(userId)
-      .then(data => setUserData(data as userProfileData))
+      const userData = await getUserData(userId);
+      setUserData(userData as userProfileData);
 
-      getFriendsList(userId)
-      .then(async data => {
-        const friendData = await fetchFriendData(data.friends as string[])
-        setFriendsData(friendData as {id: string, profilePic: string}[])
-      })
+      const friendsList = await getFriendsList(userId);
+      const friendData = await fetchFriendData(friendsList.friends as string[]);
+      setFriendsData(friendData as { id: string, profilePic: string }[]);
 
-      fetchWatchedMovies(userId)
-      .then(data => {
-        if (data && data.movies) {
-          const movies = data.movies
-          let recentlyWatched = []
-          for (let i = movies.length - 1; i >= Math.max(movies.length - 10, 0); i--) {
-            recentlyWatched.push(movies[i])
-          }
-          setRecentlyWatchedData(recentlyWatched)
-        } else {
-          console.log("There was an issue fetching the movies!")
+      const watchedData = await fetchWatchedMovies(userId);
+      if (watchedData && watchedData.movies) {
+        const movies = watchedData.movies;
+        let recentlyWatched = [];
+        for (let i = movies.length - 1; i >= Math.max(movies.length - 10, 0); i--) {
+          recentlyWatched.push(movies[i]);
         }
-      })
+        setRecentlyWatchedData(recentlyWatched);
+      } else {
+        console.log("There was an issue fetching the movies!");
+      }
     }
-  },[userId]);
+  };
+  // useEffect(() => {
+  //   setData();
+  // }, [userId]);
+  
+
+
+
+
+
 
   // this is just to view the state variables, delete later 
-  // useEffect(() => {
-  //   console.log("friends:", friendsData)
-  //   console.log("user", userData)
-  //   console.log("recently watched movies", recentlyWatchedData)
-  // }, [friendsData, userData, recentlyWatchedData])
+  useEffect(() => {
+    console.log("friends:", friendsData)
+    console.log("user", userData)
+    console.log("recently watched movies", recentlyWatchedData)
+  }, [friendsData, userData, recentlyWatchedData])
 
   const searchUrls = {
     title: `${BASE_URL}3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(searchTerm)}`,
@@ -258,7 +322,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      {/* <BrowserRouter> */}
         <SideBar signedInStatus={true} playlists={playlists} />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -271,9 +335,9 @@ const App = () => {
                                             selectedSearchForm={selectedSearchForm}
                                             // handleAdvancedSearchTerms={hanndleAdvancedSearchTerms}
                                             />} />
-          {/* <Route path="/login" element={<Login />}/> */}
+          {/* <Route path="/login" element={<Login setProfile={setData}/>}/> */}
         </Routes>
-      </BrowserRouter>
+      {/* </BrowserRouter> */}
     </div>
   );
   

@@ -6,7 +6,6 @@ import { doc, getDoc } from "firebase/firestore"
 import { onAuthStateChanged } from "firebase/auth"
 import { initializeNewUser } from "../../firestore_functions/firestore_calls"
 
-
 export const Login = () => {
 
   const navigate = useNavigate();
@@ -14,16 +13,6 @@ export const Login = () => {
   const signInWithGoogle = async () => {
     const result = await signInWithPopup(auth, provider);
     console.log(result);
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        initializeNewUser(user.uid)
-      } else {
-        console.log("Issue with authenticating user. User may not exist")
-      }
-    })
-
-
-    navigate('/profile');
   }
   return (
     <div>

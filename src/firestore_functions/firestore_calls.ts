@@ -3,13 +3,19 @@ import { db } from "../firebase_setup/firebase"
 import { doc, getDoc, setDoc } from "firebase/firestore"
 
 
-export const initializeNewUser = async (userId: string) => {
+export const initializeNewUser = async (userId: string, displayName: string | null) => {
     const userDocRef = doc(db, 'users', userId)
     const userDocSnapshot = await getDoc(userDocRef)
     if (!userDocSnapshot.exists()) {
+        let name;
+        if (displayName) {
+            name = displayName.split(" ", 2)
+        } else {
+            name = ["First Name", "Last Name"]
+        }
         const defaultData = {
-            firstName: "",
-            lastName: "",
+            firstName: name[0],
+            lastName: name[1],
             profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSshtD-7RtqN_oJMs3UfPKF7SQaUDHZjkuQoA&usqp=CAU",
             quote: "Add your favorite movie quote here!"
         }
