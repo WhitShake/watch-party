@@ -27,12 +27,9 @@ export const initializeNewUser = async (userId: string, displayName: string | nu
 
         const friendsDocRef = doc(db, 'users', userId, 'Friends', 'Friends List');
         setDoc(friendsDocRef, {friends: []})
-
-        console.log("User successfully added")
     }
     else {
-        console.log("User already exists!")
-        console.log(userDocSnapshot.data())
+        console.log("User already exists!", userDocSnapshot.data())
     }
 }
 

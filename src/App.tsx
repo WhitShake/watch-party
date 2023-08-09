@@ -98,18 +98,22 @@ const App = () => {
       .then(data => {
         setPlaylists(data)
       })
-
-
       navigate("/profile")
+    } else {
+      setUserData(null)
+      setFriendsData(null)
+      setRecentlyWatchedData([])
+      setPlaylists([])
     }
   },[userId]);
 
+
   // this is just to view the state variables, delete later 
-  useEffect(() => {
-    console.log("friends:", friendsData)
-    console.log("user", userData)
-    console.log("recently watched movies", recentlyWatchedData)
-  }, [friendsData, userData, recentlyWatchedData])
+  // useEffect(() => {
+  //   console.log("friends:", friendsData)
+  //   console.log("user", userData)
+  //   console.log("recently watched movies", recentlyWatchedData)
+  // }, [friendsData, userData, recentlyWatchedData])
 
   
   const searchUrls = {
