@@ -86,21 +86,22 @@ export const fetchFriendData = async (friends: string[]) => {
     return friendData
 }
 
-export const fetchWatchedMovies = async (userId: string) => {
-    const watchedRef = doc(db, 'users', userId, 'Shelf', 'Watched');
+export const fetchPlaylistMovies = async (userId: string, playlistTitle: string) => {
+    const watchedRef = doc(db, 'users', userId, 'Shelf', playlistTitle);
     
     try {
-        const watchedMoviesList = await getDoc(watchedRef);
-        if (watchedMoviesList.exists()) {
-            return watchedMoviesList.data()
+        const playlistMovies = await getDoc(watchedRef);
+        if (playlistMovies.exists()) {
+            return playlistMovies.data()
         }  else{
-            throw new Error('User not found');
+            throw new Error('Error fetching the playlist');
         }
     } catch (error) {
         console.error('Error fetching user data:', error);
         throw error;
     }
 }
+
 
 export const fetchShelf = async (userId: string) => {
     const shelfRef = collection(db, 'users', userId, 'Shelf')
@@ -168,6 +169,8 @@ export const uploadImage = async (imageUpload: File | null, userId: string) => {
     updateUserDoc(userId, url, "profilePic")
     return url
 }
+
+
 
 
 

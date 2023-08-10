@@ -9,7 +9,7 @@ import { Search } from './components/pages/search_pages/Search';
 import { Profile } from './components/users/Profile';
 import { Playlist } from './components/sidebar/Playlist';
 import { MovieObject, MovieProps, FriendsListProps, userProfileData } from './components/prop_types/propsTypes';
-import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies, initializeNewUser, fetchShelf, updateUserDoc} from './firestore_functions/firestore_calls';
+import { getUserData, getFriendsList, fetchFriendData, fetchPlaylistMovies, initializeNewUser, fetchShelf, updateUserDoc} from './firestore_functions/firestore_calls';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Login } from './components/sidebar/Login';
 import { useNavigate } from 'react-router-dom';
@@ -84,7 +84,7 @@ const App = () => {
         setFriendsData(friendData as {id: string, profilePic: string}[])
       })
 
-      fetchWatchedMovies(userId)
+      fetchPlaylistMovies(userId, "Watched")
       .then(data => {
         if (data && data.movies) {
           const movies = data.movies
