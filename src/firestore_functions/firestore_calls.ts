@@ -158,7 +158,7 @@ export const updateUserDoc = async (userId: string, value: string, field: string
 }
 
 
-export const uploadImage = async (imageUpload: File | null) => {
+export const uploadImage = async (imageUpload: File | null, userId: string) => {
     if (imageUpload === null) {
         alert("Must upload .jpg, .jpeg, or .png");
         return;
@@ -166,12 +166,24 @@ export const uploadImage = async (imageUpload: File | null) => {
     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
     const imageSnapshot = await uploadBytes(imageRef, imageUpload)
     const url = await getDownloadURL(imageSnapshot.ref)
+    updateUserDoc(userId, url, "profilePic")
+
+
     return url
 }
 
 
-export const updateProfilePic = async () => {
-    
-}
 
-
+// export const updateUserDoc = async (userId: string, value: string, field: string) => {
+//     const userDocRef = doc(db, 'users', userId)
+//     const userDocSnapshot = await getDoc(userDocRef)
+//     if (userDocSnapshot.exists()) {
+//         console.log("value:", value)
+//         const data = userDocSnapshot.data()
+//         console.log("current data:", data)
+//         setDoc(userDocRef, {
+//             ...data,
+//             [field]: value
+//         })
+//     }
+// }

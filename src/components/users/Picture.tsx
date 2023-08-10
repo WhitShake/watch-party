@@ -3,12 +3,15 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { storage } from '../../firebase_setup/firebase';
 import { v4 } from 'uuid';
 import { uploadImage } from '../../firestore_functions/firestore_calls';
+import { auth } from '../../firebase_setup/firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 type PictureProps = {
     urlPath: string
 }
 
 export const Picture = ({urlPath}: PictureProps) => { 
+    const [user] = useAuthState(auth);
 
     return (
         <div> 
@@ -17,7 +20,7 @@ export const Picture = ({urlPath}: PictureProps) => {
                 type="file"
                 accept=".jpg, .jpeg, .png"
                 onChange={event => {
-                    if (event.target.files) uploadImage(event.target.files[0])
+                    if (event.target.files && user) uploadImage(event.target.files[0], user.uid)
                 }}
             />
             <button>Upload Image</button>
