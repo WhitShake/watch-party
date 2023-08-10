@@ -10,6 +10,8 @@ import { Profile } from './components/pages/Profile';
 import { MovieObject, MovieProps, FriendsListProps, userProfileData } from './components/prop_types/propsTypes';
 import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies } from './firestore_functions/firestore_calls';
 import { Login } from './components/sidebar/Login';
+import { MoviePage } from './components/pages/MoviePage';
+
 
 // import { seedData, testSeed } from './firebase_setup/seedData';
 
@@ -65,6 +67,23 @@ const App = () => {
   const [userData, setUserData] = useState<userProfileData | null>(null);
   const [friendsData, setFriendsData] = useState<{id: string; profilePic: string}[] | null>(null);
   const [recentlyWatchedData, setRecentlyWatchedData] = useState<MovieProps[]>([]);
+  const [movieDetails, setMovieDetails] = useState<{
+    id: number; 
+    posterPath: string; 
+    details: string; 
+    title: string; 
+    runtime: number; 
+    releaseDate: string; 
+    genres: {id: number; name: string}[]
+  }>({
+    id: 0,
+    posterPath: '',
+    details: '',
+    title: '',
+    runtime: 0,
+    releaseDate: '',
+    genres: [],
+  });
 
   // temporary use of dummy data 
   if (username === null) {
@@ -164,6 +183,9 @@ const App = () => {
     setSearchResults([]);
   };  
 
+  const handleMovieClick = (id: number) => {
+    fetchMovieById(id)
+  };
 
   const fetchId = (url: string) => {
     console.log(url)
@@ -260,6 +282,31 @@ const App = () => {
   //   const genreUrl = "";
 
   // }
+
+  const fetchMovieById = (id: number) => {
+    const url = `${BASE_URL}3/movie/${id}?api_key=${apiKey}`
+    
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        const currentMovieDetails= {
+          id: data.id,
+          posterPath: data.poster_path,
+          details: data.overview,
+          title: data.title,
+          runtime: data.runtime,
+          releaseDate: data.release_date,
+          genres: data.genres,
+        }
+        console.log("current movie details:", currentMovieDetails)
+      setMovieDetails(currentMovieDetails)
+        console.log(movieDetails)
+      })
+    .catch(error => {
+        console.error('Error fetching movie details:', error);
+      });
+  };
 
   return (
     <div className="App">
