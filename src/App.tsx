@@ -302,10 +302,23 @@ const App = () => {
 
   return (
     <div className="App">
-        <SideBar signedInStatus={true} shelf={shelf} profilePic={userData?.profilePic} firstName={userData?.firstName} lastName={userData?.lastName} setPlaylistTitle={setPlaylistTitle} setPlaylistPage={setCurrentPlaylistMovies} handleAddPlaylist={handleAddPlaylist} />
+        <SideBar 
+            signedInStatus={true} 
+            shelf={shelf} 
+            profilePic={userData?.profilePic} 
+            firstName={userData?.firstName} 
+            lastName={userData?.lastName} 
+            setPlaylistTitle={setPlaylistTitle} 
+            setPlaylistPage={setCurrentPlaylistMovies} 
+            handleAddPlaylist={handleAddPlaylist} 
+            />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile userData={userData} friends={friendsData} watchedMovies={recentlyWatchedData} handleUpdate={handleInfoUpdated}/>} />
+          <Route path="/profile" element={<Profile 
+                                              userData={userData} 
+                                              friends={friendsData} 
+                                              watchedMovies={recentlyWatchedData} 
+                                              handleUpdate={handleInfoUpdated}/>} />
           <Route path="/playlist" element={<Playlist title={playlistTitle}  movies={playlistMovies}/>}/>
           <Route path="/search" element={<Search 
                                             handleChange={handleChange} 
