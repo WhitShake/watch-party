@@ -66,7 +66,7 @@ const App = () => {
     if (user) {
       await initializeNewUser(user.uid, user.displayName)
       setUserId(user.uid)
-    } else{
+    } else {
       setUserId(null)
     }
   })

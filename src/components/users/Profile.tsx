@@ -5,8 +5,10 @@ import { ProfileProps } from '../prop_types/propsTypes';
 import { auth } from '../../firebase_setup/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { EditableText } from './EditableText';
+import { Picture } from './Picture';
 
 import './Profile.css'
+import { profile } from 'console';
 
 
 export const Profile = (props: ProfileProps) => {
@@ -23,6 +25,7 @@ export const Profile = (props: ProfileProps) => {
     <div className="profile">
         <div className="profile-info">
             <img src={profilePic} alt="avatar" className="avatar"/>
+            <Picture urlPath={profilePic}/>
             <div className="user-info">
                 <h1 className="name">
                     <EditableText text={firstName} field="firstName" handleUpdate={props.handleUpdate}/>

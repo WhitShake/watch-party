@@ -2,7 +2,9 @@ import { watch } from "fs"
 import { db } from "../firebase_setup/firebase"
 import { doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore"
 import { MovieProps } from "../components/prop_types/propsTypes"
-
+import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
+import { v4 } from "uuid"
+import { storage } from "../firebase_setup/firebase";
 
 export const initializeNewUser = async (userId: string, displayName: string | null) => {
     const userDocRef = doc(db, 'users', userId)
@@ -154,4 +156,22 @@ export const updateUserDoc = async (userId: string, value: string, field: string
         })
     }
 }
+
+
+export const uploadImage = async (imageUpload: File | null) => {
+    if (imageUpload === null) {
+        alert("Must upload .jpg, .jpeg, or .png");
+        return;
+    };
+    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+    const imageSnapshot = await uploadBytes(imageRef, imageUpload)
+    const url = await getDownloadURL(imageSnapshot.ref)
+    return url
+}
+
+
+export const updateProfilePic = async () => {
+    
+}
+
 
