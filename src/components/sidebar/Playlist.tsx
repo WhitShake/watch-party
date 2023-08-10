@@ -9,12 +9,14 @@ type PlaylistProps = {
 }
 
 export const Playlist = (props: PlaylistProps) => {
-    if (!props.movies) return <h1 className="playlist-container">Add some movies to {props.title}!</h1>
 
     return (
         <div className="playlist-container">
             <h1 className="title">{props.title}</h1>
-            <MovieList movies={props.movies}/> 
+            {props.movies && props.movies.length !== 0
+            ? <MovieList movies={props.movies} />
+            : <h2 className="message">Add movies to this playlist!</h2>
+            }
         </div>
     )
 }
