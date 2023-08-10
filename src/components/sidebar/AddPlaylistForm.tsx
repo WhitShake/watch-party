@@ -33,6 +33,10 @@ export const AddPlaylistForm = ({handleAddPlaylist}: AddPlaylistFormProps) => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        if (inputValue === '') {
+            alert("You must include a title") 
+            return;
+        }
         schema.validate({ title: inputValue }).then(() => {
             addShelfPlaylist(user?.uid, inputValue, handleAddPlaylist);
             setInputValue('')
