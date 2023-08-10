@@ -27,13 +27,23 @@ export const AddPlaylistForm = ({handleAddPlaylist}: AddPlaylistFormProps) => {
         title: yup.string().required("You must include a playlist title")
     })
 
-    const { register, handleSubmit, formState: {errors} } = useForm<AddPlaylistFormData>({
+    const { register, formState: {errors} } = useForm<AddPlaylistFormData>({
         resolver: yupResolver(schema)
     })
 
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        schema.validate({ title: inputValue }).then(() => {
+            addShelfPlaylist(user?.uid, inputValue, handleAddPlaylist);
+            setInputValue('')
+        }).catch((err) => {
+            console.log(err);
+        });
+    };
+
 
     return (
-        <form onSubmit={handleSubmit(() => addShelfPlaylist(user?.uid, inputValue, handleAddPlaylist))}>
+        <form onSubmit={handleSubmit}>
             <input placeholder="Add a playlist" {...register("title")} onChange={handleChange} value={inputValue}/>
             <p style={{color: "red"}}>{errors.title?.message}</p>
             <input type="submit" />
