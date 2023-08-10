@@ -146,7 +146,6 @@ const App = () => {
   const setCurrentPlaylistMovies = async (title: string) => {
     if (userId) {
         const playlistMovieList = await fetchPlaylistMovies(userId, title)
-        console.log(playlistMovieList)
         setPlaylistMovies(playlistMovieList?.movies as MovieProps[])
     }
   }
