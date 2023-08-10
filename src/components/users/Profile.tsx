@@ -24,7 +24,6 @@ export const Profile = (props: ProfileProps) => {
     return (
     <div className="profile">
         <div className="profile-info">
-            <img src={profilePic} alt="avatar" className="avatar"/>
             <Picture urlPath={profilePic} handleUpdate={props.handleUpdate}/>
             <div className="user-info">
                 <h1 className="name">
