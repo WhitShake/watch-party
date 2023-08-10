@@ -16,13 +16,15 @@ export const Shelf = (props: ShelfProps) => {
       <ul>
         {props.playlists.map((playlist, i) => {
           return (
-            <li key={i}>
+            <li className="playlist" key={i}>
               <Playlist title={playlist} />
             </li>
           )
         })}
       </ul>
-      <AddPlaylistForm handleAddPlaylist={props.handleAddPlaylist}/>
+      <div className="playlist-form">
+        <AddPlaylistForm handleAddPlaylist={props.handleAddPlaylist}/>
+      </div>
     </div>
   )
 };

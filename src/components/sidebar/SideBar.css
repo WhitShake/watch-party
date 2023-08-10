@@ -23,8 +23,37 @@
   font-size: 20px;
 }
 
+
 a {
   text-decoration: none;
   color: white;
 }
 
+/* .user-signed-in {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+} */
+
+.sidebar-user {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.sidebar-user-icon { 
+  border-radius: 50%;
+  overflow: hidden;
+  height: 40px;
+  width: 40px;
+}
+
+.log-out-button { 
+  margin: 20px;
+  margin-left: 5px;
+}
+
+.clickable :hover{ 
+  font-weight: bold;
+}

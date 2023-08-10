@@ -26,10 +26,12 @@
 .user-info {
   margin-left: 30px;
 }
+
 .watched-and-friends {
   display: flex;
   flex-direction: column;
-  margin: 20px 50px;
+  margin-left: 50px;
+  margin-top: -10px;
 }
 
 .name {
@@ -38,10 +40,10 @@
   display: flex;
   gap: 15px;
 }
-
+/* 
 .name :hover {
   color: #2592a4;
-}
+} */
 
 .quote {
   font-style: italic;
@@ -50,11 +52,12 @@
   margin-top: -5px;
 }
 
-.quote :hover {
-  color: #2592a4;
-}
-
 .text {
   font-style: italic;
   font-size: 15px;
 }
+
+.easy-edit-hover-on {
+  font-style: normal;
+}
+

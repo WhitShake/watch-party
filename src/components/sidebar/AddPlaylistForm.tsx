@@ -47,7 +47,7 @@ export const AddPlaylistForm = ({handleAddPlaylist}: AddPlaylistFormProps) => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="playlist-form" onSubmit={handleSubmit}>
             <input placeholder="Add a playlist" {...register("title")} onChange={handleChange} value={inputValue}/>
             <p style={{color: "red"}}>{errors.title?.message}</p>
             <input type="submit" />

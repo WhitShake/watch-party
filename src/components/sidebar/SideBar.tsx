@@ -31,24 +31,26 @@ export const SideBar = (props: SideBarProps) => {
   return (
       <nav className="sidebar">
         <ul className="sidebar-elements">
-          <li>
+          <li className="clickable">
             <Link to="/">Home</Link>
           </li>
-          <li>
+          <li className="clickable">
             <Link to="/search">Search</Link>
           </li>
-          <li>
+          <li className="shelf">
             {user ? 
             <Shelf playlists={props.playlists} handleAddPlaylist={props.handleAddPlaylist}/>
             : "Log in to view your Shelf!"}
           </li>
           {user ? 
           (
-            <li>
-              <Link to='/profile'>Profile</Link>  
-              <p>{props.firstName} {props.lastName}</p>
-              <img src={auth.currentUser?.photoURL || ""} alt = "avatar" width="50" height="50"/>
-              <button onClick={signUserOut}>Log Out</button>
+            <li className="user-signed-in">
+              <div className="sidebar-user clickable">
+                <img className="sidebar-user-icon" src={auth.currentUser?.photoURL || ""} alt = "avatar" width="50" height="50"/>
+                <Link to='/profile'>{props.firstName} {props.lastName}</Link>  
+                {/* <p>{props.firstName} {props.lastName}</p> */}
+              </div>
+              <button className="log-out-button" onClick={signUserOut}>Log Out</button>
             </li>
           ) : <Login />
           }
