@@ -17,6 +17,19 @@ export const Picture = ({urlPath, handleUpdate}: PictureProps) => {
     const [file, setFile] = useState<File | null>(null);
     const [menuOpen, setMenuOpen] = useState(false);
 
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files)
+        setFile(event.target.files[0])
+    }
+
+    const handleClick = async () => {
+        if (file && user) {
+            const url = await uploadImage(file, user.uid)
+            handleUpdate("profilePic", url as string)
+        }
+    }
+
+
     return (
         <div> 
             <img src={urlPath} alt="avatar" className="avatar"/>
@@ -25,17 +38,9 @@ export const Picture = ({urlPath, handleUpdate}: PictureProps) => {
                     <input 
                         type="file"
                         accept=".jpg, .jpeg, .png"
-                        onChange={event => {
-                            if (event.target.files)
-                            setFile(event.target.files[0])
-                        }}
+                        onChange={handleChange}
                     />
-                    <button onClick={async () => {
-                            if (file && user) {
-                                const url = await uploadImage(file, user.uid)
-                                handleUpdate("profilePic", url as string)
-                            }   
-                        }}>
+                    <button onClick={handleClick}>
                     Upload Image
                     </button>
                 </div>
@@ -43,47 +48,5 @@ export const Picture = ({urlPath, handleUpdate}: PictureProps) => {
             <button onClick={() => setMenuOpen(!menuOpen)}>Open Menu</button>
         </div>
     )
-
-    // {menuOpen && ( // Conditionally render the file input and button based on menuOpen state
-    // //           <div>
-    // //             <input type="file" accept=".jpg, .jpeg, .png" onChange={handleFileChange} />
-    // //             <button onClick={handleUploadImage}>Upload Image</button>
-    // //           </div>
-    // //         )}
-    // //         <button onClick={() => setMenuOpen(!menuOpen)}>Open Menu</button>
-
-
-
 }
 
-
-
-// export const Picture = ({ urlPath, handleUpdate }: PictureProps) => {
-//     const [user] = useAuthState(auth);
-//     const [file, setFile] = useState<File | null>(null);
-//     const [menuOpen, setMenuOpen] = useState(false); // Add state for the menu
-
-//     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//       if (event.target.files) setFile(event.target.files[0]);
-//     };
-
-//     const handleUploadImage = async () => {
-//       if (file && user) {
-//         const url = await uploadImage(file, user.uid);
-//         handleUpdate("profilePic", url as string);
-//       }
-//     };
-
-//     return (
-//       <div>
-//         <img src={urlPath} alt="avatar" className="avatar" />
-//         {menuOpen && ( // Conditionally render the file input and button based on menuOpen state
-//           <div>
-//             <input type="file" accept=".jpg, .jpeg, .png" onChange={handleFileChange} />
-//             <button onClick={handleUploadImage}>Upload Image</button>
-//           </div>
-//         )}
-//         <button onClick={() => setMenuOpen(!menuOpen)}>Open Menu</button>
-//       </div>
-//     );
-//   };
