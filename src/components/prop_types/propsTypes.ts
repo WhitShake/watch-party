@@ -8,12 +8,24 @@ export type userProfileData = DocumentData & {
 }
 
 export type ProfileProps = {
+    handleMovieClick: (id: number) => void;
     userData: userProfileData | null | undefined
     friends: {
         id: string
         profilePic: string
     }[] | null
-    watchedMovies: MovieProps[] 
+    watchedMovies: MovieProps[]
+    movieDetails:
+    {
+        id: number;
+        posterPath: string;
+        details: string;
+        title: string;
+        runtime: number;
+        releaseDate: string;
+        genres: { id: number; name: string }[];
+    };
+ 
 };
 
 export type FriendsListProps = Pick<ProfileProps, 'friends'>;
