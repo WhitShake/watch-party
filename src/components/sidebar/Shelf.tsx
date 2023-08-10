@@ -2,11 +2,13 @@ import React from "react";
 import './Shelf.css'
 import { Playlist } from "./Playlist";
 import { AddPlaylistForm } from "./AddPlaylistForm";
+import { Link } from "react-router-dom";
 
 
 type ShelfProps = {
   shelf: string[]
   handleAddPlaylist: (newPlaylist: string) => void
+  setCurrentPlaylist: (currentPlaylist: string) => void
 }
 
 export const Shelf = (props: ShelfProps) => {
@@ -15,9 +17,10 @@ export const Shelf = (props: ShelfProps) => {
       <p>Your Shelf</p>
       <ul>
         {props.shelf.map((playlist, i) => {
+          props.setCurrentPlaylist(playlist)
           return (
             <li className="playlist" key={i}>
-              <Playlist title={playlist} />
+              <Link to="/playlist">{playlist}</Link>
             </li>
           )
         })}

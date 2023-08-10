@@ -5,7 +5,9 @@ type PlaylistProps = {
 }
 
 export const Playlist = (props: PlaylistProps) => {
-    return <a href='#'>{props.title}</a>
+    return (
+        <div >{props.title}</div>
+    )
 }
 
 // add routes to specific playlist page that renders according to a firebase call to fetch movies 
