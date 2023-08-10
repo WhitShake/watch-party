@@ -22,7 +22,7 @@ export const Movie = ({posterPath, id}: MovieProps) => {
                         <a href="#">Add Movie to Playlist</a>
                     </div>
                 </div>
-                <img className="card" alt="movie cover" src={posterPath === null 
+                <img className="card profile-card" alt="movie cover" src={posterPath === null 
                 ? 'https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg'
                 : `http://image.tmdb.org/t/p/w185${posterPath}`} />
             </div>

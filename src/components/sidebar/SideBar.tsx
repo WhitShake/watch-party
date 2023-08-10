@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom"
 
 type SideBarProps = {
   signedInStatus: boolean
-  playlists: string[]
+  shelf: string[]
   firstName: string | undefined
   lastName: string | undefined
   handleAddPlaylist: (newPlaylist: string) => void
@@ -39,7 +39,7 @@ export const SideBar = (props: SideBarProps) => {
           </li>
           <li className="shelf">
             {user ? 
-            <Shelf playlists={props.playlists} handleAddPlaylist={props.handleAddPlaylist}/>
+            <Shelf shelf={props.shelf} handleAddPlaylist={props.handleAddPlaylist}/>
             : "Log in to view your Shelf!"}
           </li>
           {user ? 

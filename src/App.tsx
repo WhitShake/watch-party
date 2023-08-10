@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from './components/pages/Home';
 import { Search } from './components/pages/search_pages/Search';
 import { Profile } from './components/users/Profile';
+import { Playlist } from './components/sidebar/Playlist';
 import { MovieObject, MovieProps, FriendsListProps, userProfileData } from './components/prop_types/propsTypes';
 import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies, initializeNewUser, fetchShelf, updateUserDoc} from './firestore_functions/firestore_calls';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -59,7 +60,8 @@ const App = () => {
   const [userData, setUserData] = useState<userProfileData | null>(null);
   const [friendsData, setFriendsData] = useState<{id: string; profilePic: string}[] | null>(null);
   const [recentlyWatchedData, setRecentlyWatchedData] = useState<MovieProps[]>([]);
-  const [playlists, setPlaylists] = useState<string[]>([])
+  const [shelf, setShelf] = useState<string[]>([])
+  const [currentPlaylist, setCurrentPlaylist] = useState('')  
 
 
   onAuthStateChanged(auth, async (user) => {
@@ -98,14 +100,14 @@ const App = () => {
 
       fetchShelf(userId)
       .then(data => {
-        setPlaylists(data)
+        setShelf(data)
       })
       navigate("/profile")
     } else {
       setUserData(null)
       setFriendsData(null)
       setRecentlyWatchedData([])
-      setPlaylists([])
+      setShelf([])
     }
   },[userId]);
 
@@ -137,7 +139,7 @@ const App = () => {
   }
 
   const handleAddPlaylist = (newPlaylist: string) => {
-    setPlaylists(prevPlaylists => [...prevPlaylists, newPlaylist])
+    setShelf(prevshelf => [...prevshelf, newPlaylist])
   }
 //   const hanndleAdvancedSearchTerms = (event: React.ChangeEvent<HTMLInputElement>) => {
 //     const inputString = event.target.value;
@@ -285,10 +287,11 @@ const App = () => {
 
   return (
     <div className="App">
-        <SideBar signedInStatus={true} playlists={playlists} firstName={userData?.firstName} lastName={userData?.lastName} handleAddPlaylist={handleAddPlaylist}/>
+        <SideBar signedInStatus={true} shelf={shelf} firstName={userData?.firstName} lastName={userData?.lastName} handleAddPlaylist={handleAddPlaylist}/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile userData={userData} friends={friendsData} watchedMovies={recentlyWatchedData} handleUpdate={handleInfoUpdated}/>} />
+          <Route path="/playlist" element={<Playlist title={currentPlaylist}/>} />
           <Route path="/search" element={<Search 
                                             handleChange={handleChange} 
                                             handleSubmit={handleSubmit} 
