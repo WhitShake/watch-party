@@ -151,6 +151,18 @@ const App = () => {
 //     });
 //   };
 
+//   const hanndleAdvancedSearchTerms = (event: React.ChangeEvent<HTMLInputElement>) => {
+//     const inputString = event.target.value;
+//     const formattedList = inputString.split("|")
+//     console.log(formattedList)
+//     retrieveItem(formattedList)
+//   };
+// const retrieveItem = (stringList: string[]) => {
+//     stringList.forEach((item) => {
+//       // fetchId(item); figure out how to call handle submit with person
+//     });
+//   };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 

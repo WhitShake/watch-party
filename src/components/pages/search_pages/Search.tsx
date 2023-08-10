@@ -24,10 +24,10 @@ export const Search = (props: SearchProps) => {
     return (
         <div className="search">
             <form className="search-form" onSubmit={props.handleSubmit}>
-                <h1>Search Form</h1>
-                <div>
-                    <label htmlFor="title search">Title: </label>
-                    <select name="select type" onChange={props.handleSearchSelection} value={props.selectedSearchForm}>
+                <h1>Search By:</h1>
+                <div className="form-selector">
+                    <label htmlFor="title search"></label>
+                    <select className="dropdown-btn" name="select type" onChange={props.handleSearchSelection} value={props.selectedSearchForm}>
                         <option value="placeholder">Select Search Option</option>
                         <option value="title">Search by Title</option>
                         <option value="person">Search by Person</option>
@@ -72,7 +72,7 @@ export const Search = (props: SearchProps) => {
                     {props.selectedSearchForm === 'watch-provider' && (
                     <AdvancedSearch handleChange={props.handleChange} handleSubmit={props.handleSubmit} results={props.results} />
                     )}
-                    <button type="submit" value="Search People">
+                    <button className="search-button" type="submit" value="Search People">
                             Search for Movies
                     </button>
                 </div>
