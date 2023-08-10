@@ -5,13 +5,16 @@ import { v4 } from 'uuid';
 import { uploadImage } from '../../firestore_functions/firestore_calls';
 import { auth } from '../../firebase_setup/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { userProfileData } from '../prop_types/propsTypes';
 
 type PictureProps = {
     urlPath: string
+    handleUpdate: (field: keyof userProfileData, value: string) => void
 }
 
-export const Picture = ({urlPath}: PictureProps) => { 
+export const Picture = ({urlPath, handleUpdate}: PictureProps) => { 
     const [user] = useAuthState(auth);
+    const [file, setFile] = useState<File | null>(null)
 
     return (
         <div> 
@@ -20,10 +23,18 @@ export const Picture = ({urlPath}: PictureProps) => {
                 type="file"
                 accept=".jpg, .jpeg, .png"
                 onChange={event => {
-                    if (event.target.files && user) uploadImage(event.target.files[0], user.uid)
+                    if (event.target.files)
+                    setFile(event.target.files[0])
                 }}
             />
-            <button>Upload Image</button>
+            <button onClick={async () => {
+                    if (file && user) {
+                        const url = await uploadImage(file, user.uid)
+                        handleUpdate("profilePic", url as string)
+                    }   
+                }}>
+            Upload Image
+            </button>
         </div>
     )
 }

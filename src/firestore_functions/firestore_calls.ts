@@ -167,23 +167,8 @@ export const uploadImage = async (imageUpload: File | null, userId: string) => {
     const imageSnapshot = await uploadBytes(imageRef, imageUpload)
     const url = await getDownloadURL(imageSnapshot.ref)
     updateUserDoc(userId, url, "profilePic")
-
-
     return url
 }
 
 
 
-// export const updateUserDoc = async (userId: string, value: string, field: string) => {
-//     const userDocRef = doc(db, 'users', userId)
-//     const userDocSnapshot = await getDoc(userDocRef)
-//     if (userDocSnapshot.exists()) {
-//         console.log("value:", value)
-//         const data = userDocSnapshot.data()
-//         console.log("current data:", data)
-//         setDoc(userDocRef, {
-//             ...data,
-//             [field]: value
-//         })
-//     }
-// }

@@ -25,7 +25,7 @@ export const Profile = (props: ProfileProps) => {
     <div className="profile">
         <div className="profile-info">
             <img src={profilePic} alt="avatar" className="avatar"/>
-            <Picture urlPath={profilePic}/>
+            <Picture urlPath={profilePic} handleUpdate={props.handleUpdate}/>
             <div className="user-info">
                 <h1 className="name">
                     <EditableText text={firstName} field="firstName" handleUpdate={props.handleUpdate}/>
