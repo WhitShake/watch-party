@@ -25,7 +25,7 @@ export const Profile = (props: ProfileProps) => {
         <div className="watched-and-friends">
             <div>
                 <h4>Recently Watched</h4>
-                <MovieList movies={props.watchedMovies}/>
+                <MovieList movies={props.watchedMovies} movieDetails={props.movieDetails} handleMovieClick={props.handleMovieClick}/>
             </div>
             <div>
                 <h4>Friends List</h4>

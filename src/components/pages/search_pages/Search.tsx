@@ -89,7 +89,7 @@ export const Search = (props: SearchProps) => {
                     </button>
                 </div>
             </form>
-            <MovieList movies={props.results}/>
+            <MovieList movies={props.results} movieDetails={props.movieDetails} handleMovieClick={props.handleMovieClick}/>
         </div>
     )
 };
