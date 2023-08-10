@@ -314,16 +314,19 @@ const App = () => {
         <SideBar signedInStatus={true} playlists={playlists} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile userData={userData} friends={friendsData} watchedMovies={recentlyWatchedData}/>} />
+          <Route path="/profile" element={<Profile userData={userData} friends={friendsData} watchedMovies={recentlyWatchedData} handleMovieClick={handleMovieClick} movieDetails={movieDetails}/>} />
           <Route path="/search" element={<Search 
                                             handleChange={handleChange} 
                                             handleSubmit={handleSubmit} 
                                             handleSearchSelection={handleSearchSelection} 
                                             results={searchResults} 
                                             selectedSearchForm={selectedSearchForm}
+                                            handleMovieClick={handleMovieClick}
+                                            movieDetails={movieDetails}
                                             // handleAdvancedSearchTerms={hanndleAdvancedSearchTerms}
                                             />} />
           {/* <Route path="/login" element={<Login />}/> */}
+          <Route path="/moviepage" element={<MoviePage movieDetails={movieDetails}/>}/>
         </Routes>
       </BrowserRouter>
     </div>

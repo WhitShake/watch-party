@@ -8,6 +8,7 @@ import { AdvancedSearch } from './Advanced';
 import './Search.css'
 
 type SearchProps = {
+    handleMovieClick: (id: number) => void;
     handleChange: React.ChangeEventHandler<HTMLInputElement>
     handleSubmit: React.FormEventHandler<HTMLFormElement>
     handleSearchSelection: (event: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -16,6 +17,17 @@ type SearchProps = {
         id: number
         posterPath: string
     }[]
+    movieDetails:
+    {
+        id: number;
+        posterPath: string;
+        details: string;
+        title: string;
+        runtime: number;
+        releaseDate: string;
+        genres: { id: number; name: string }[];
+    };
+
 }
 
 export const Search = (props: SearchProps) => {
