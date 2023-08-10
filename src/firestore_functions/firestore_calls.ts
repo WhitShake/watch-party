@@ -1,6 +1,6 @@
 import { watch } from "fs"
 import { db } from "../firebase_setup/firebase"
-import { doc, getDoc, setDoc, collection, getDocs } from "firebase/firestore"
+import { doc, getDoc, setDoc, collection, getDocs, updateDoc } from "firebase/firestore"
 import { MovieProps } from "../components/prop_types/propsTypes"
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { v4 } from "uuid"
@@ -150,8 +150,7 @@ export const updateUserDoc = async (userId: string, value: string, field: string
         console.log("value:", value)
         const data = userDocSnapshot.data()
         console.log("current data:", data)
-        setDoc(userDocRef, {
-            ...data,
+        updateDoc(userDocRef, {
             [field]: value
         })
     }

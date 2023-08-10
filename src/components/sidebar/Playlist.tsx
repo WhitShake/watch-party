@@ -1,4 +1,5 @@
 import React from 'react';
+import './Playlist.css'
 
 type PlaylistProps = {
     title: string
@@ -6,7 +7,9 @@ type PlaylistProps = {
 
 export const Playlist = (props: PlaylistProps) => {
     return (
-        <div >{props.title}</div>
+        <div className="playlist-container">
+            <h1 className="title">{props.title}</h1>
+        </div>
     )
 }
 

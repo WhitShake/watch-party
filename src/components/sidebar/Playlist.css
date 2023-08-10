@@ -1,0 +1,11 @@
+.playlist-container {
+    margin-left: 328px;
+    color: white;
+    display: flex;
+}
+
+.title {
+    letter-spacing: 5px;
+    font-size: 40px;
+    font-style: italic;
+}

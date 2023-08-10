@@ -287,7 +287,7 @@ const App = () => {
 
   return (
     <div className="App">
-        <SideBar signedInStatus={true} shelf={shelf} firstName={userData?.firstName} lastName={userData?.lastName} setCurrentPlaylist={setCurrentPlaylist} handleAddPlaylist={handleAddPlaylist}/>
+        <SideBar signedInStatus={true} shelf={shelf} profilePic={userData?.profilePic} firstName={userData?.firstName} lastName={userData?.lastName} setCurrentPlaylist={setCurrentPlaylist} handleAddPlaylist={handleAddPlaylist}/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile userData={userData} friends={friendsData} watchedMovies={recentlyWatchedData} handleUpdate={handleInfoUpdated}/>} />

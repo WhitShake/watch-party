@@ -15,6 +15,7 @@ type SideBarProps = {
   shelf: string[]
   firstName: string | undefined
   lastName: string | undefined
+  profilePic: string | undefined
   handleAddPlaylist: (newPlaylist: string) => void
   setCurrentPlaylist: (currentPlaylist: string) => void
 }
@@ -47,7 +48,7 @@ export const SideBar = (props: SideBarProps) => {
           (
             <li className="user-signed-in">
               <div className="sidebar-user clickable">
-                <img className="sidebar-user-icon" src={auth.currentUser?.photoURL || ""} alt = "avatar" width="50" height="50"/>
+                <img className="sidebar-user-icon" src={props.profilePic || ""} alt = "avatar" width="50" height="50"/>
                 <Link to='/profile'>{props.firstName} {props.lastName}</Link>  
                 {/* <p>{props.firstName} {props.lastName}</p> */}
               </div>
