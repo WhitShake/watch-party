@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import './Playlist.css'
-import { fetchPlaylistMovies } from '../../firestore_functions/firestore_calls';
 import { MovieList } from '../movie_data/MovieList';
-import { auth } from '../../firebase_setup/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { MovieProps } from '../prop_types/propsTypes';
 
 type PlaylistProps = {

@@ -1,11 +1,15 @@
-.playlist-container {
+/* .playlist-container {
     margin-left: 328px;
     color: white;
     display: flex;
-}
+    flex-direction: column;
+} */
 
 .title {
     letter-spacing: 5px;
     font-size: 40px;
     font-style: italic;
+    display: flex;
+    margin-left: 328px;
+    color: white;
 }
