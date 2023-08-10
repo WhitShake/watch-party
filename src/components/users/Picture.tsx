@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { storage } from '../../firebase_setup/firebase';
-import { v4 } from 'uuid';
 import { uploadImage } from '../../firestore_functions/firestore_calls';
 import { auth } from '../../firebase_setup/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { userProfileData } from '../prop_types/propsTypes';
+import './Picture.css'
 
 type PictureProps = {
     urlPath: string
@@ -31,21 +29,22 @@ export const Picture = ({urlPath, handleUpdate}: PictureProps) => {
 
 
     return (
-        <div> 
+        <div className="picture"> 
             <img src={urlPath} alt="avatar" className="avatar"/>
             { menuOpen && (
-                <div>
+                <div className="file-buttons">
                     <input 
+                        className="image-button"
                         type="file"
                         accept=".jpg, .jpeg, .png"
                         onChange={handleChange}
                     />
-                    <button onClick={handleClick}>
+                    <button className="upload-button" onClick={handleClick}>
                     Upload Image
                     </button>
                 </div>
             )}
-            <button onClick={() => setMenuOpen(!menuOpen)}>Open Menu</button>
+            <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? "Close Menu" : "Open Menu"}</button>
         </div>
     )
 }
