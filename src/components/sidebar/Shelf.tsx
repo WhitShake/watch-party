@@ -8,19 +8,24 @@ import { Link } from "react-router-dom";
 type ShelfProps = {
   shelf: string[]
   handleAddPlaylist: (newPlaylist: string) => void
-  setCurrentPlaylist: (currentPlaylist: string) => void
+  setPlaylistTitle: (currentPlaylist: string) => void
+  setPlaylistPage: (playlistPage: string) => void
 }
 
 export const Shelf = (props: ShelfProps) => {
+  const populatePlaylistPage = (playlist: string) => {
+    props.setPlaylistTitle(playlist)
+    props.setPlaylistPage(playlist)
+  }
+
   return (
     <div>
       <p>Your Shelf</p>
       <ul>
         {props.shelf.map((playlist, i) => {
-          props.setCurrentPlaylist(playlist)
           return (
             <li className="playlist" key={i}>
-              <Link to="/playlist">{playlist}</Link>
+              <Link onClick={() => populatePlaylistPage(playlist)} to="/playlist">{playlist}</Link>
             </li>
           )
         })}

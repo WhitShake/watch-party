@@ -30,9 +30,9 @@ export const initializeNewUser = async (userId: string, displayName: string | nu
         const friendsDocRef = doc(db, 'users', userId, 'Friends', 'Friends List');
         setDoc(friendsDocRef, {friends: []})
     }
-    else {
-        console.log("User already exists!", userDocSnapshot.data())
-    }
+    // else {
+    //     console.log("User already exists!", userDocSnapshot.data())
+    // }
 }
 
 
@@ -86,7 +86,8 @@ export const fetchFriendData = async (friends: string[]) => {
     return friendData
 }
 
-export const fetchPlaylistMovies = async (userId: string, playlistTitle: string) => {
+export const fetchPlaylistMovies = async (userId: string | null, playlistTitle: string) => {
+    if (!userId) return;
     const watchedRef = doc(db, 'users', userId, 'Shelf', playlistTitle);
     
     try {

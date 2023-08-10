@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Shelf } from "./Shelf"
 import './SideBar.css'
 import { Link } from "react-router-dom"
@@ -7,6 +7,8 @@ import { auth } from "../../firebase_setup/firebase"
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { signOut } from 'firebase/auth'
 import { useNavigate } from "react-router-dom"
+import { MovieProps } from "../prop_types/propsTypes"
+import { fetchPlaylistMovies } from "../../firestore_functions/firestore_calls"
 
 
 
@@ -17,18 +19,21 @@ type SideBarProps = {
   lastName: string | undefined
   profilePic: string | undefined
   handleAddPlaylist: (newPlaylist: string) => void
-  setCurrentPlaylist: (currentPlaylist: string) => void
+  setPlaylistTitle: (currentPlaylist: string) => void
+  setPlaylistPage: (playlistPage: string) => void
 }
 
 export const SideBar = (props: SideBarProps) => {
 
   const [user] = useAuthState(auth);
+
   const navigate = useNavigate();
 
   const signUserOut = async () => {
     await signOut(auth);
     navigate("/");
   };
+
 
   return (
       <nav className="sidebar">
@@ -41,7 +46,7 @@ export const SideBar = (props: SideBarProps) => {
           </li>
           <li className="shelf">
             {user ? 
-            <Shelf shelf={props.shelf} handleAddPlaylist={props.handleAddPlaylist} setCurrentPlaylist={props.setCurrentPlaylist}/>
+            <Shelf shelf={props.shelf} handleAddPlaylist={props.handleAddPlaylist} setPlaylistPage={props.setPlaylistPage} setPlaylistTitle={props.setPlaylistTitle}/>
             : "Log in to view your Shelf!"}
           </li>
           {user ? 

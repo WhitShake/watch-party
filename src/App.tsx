@@ -61,7 +61,8 @@ const App = () => {
   const [friendsData, setFriendsData] = useState<{id: string; profilePic: string}[] | null>(null);
   const [recentlyWatchedData, setRecentlyWatchedData] = useState<MovieProps[]>([]);
   const [shelf, setShelf] = useState<string[]>([])
-  const [currentPlaylist, setCurrentPlaylist] = useState('')  
+  const [playlistTitle, setPlaylistTitle] = useState('') 
+  const [playlistMovies, setPlaylistMovies] = useState<MovieProps[] | null>(null); 
 
 
   onAuthStateChanged(auth, async (user) => {
@@ -141,6 +142,20 @@ const App = () => {
   const handleAddPlaylist = (newPlaylist: string) => {
     setShelf(prevshelf => [...prevshelf, newPlaylist])
   }
+
+  const setCurrentPlaylistMovies = async (title: string) => {
+    if (userId) {
+        const playlistMovieList = await fetchPlaylistMovies(userId, title)
+        console.log(playlistMovieList)
+        setPlaylistMovies(playlistMovieList?.movies as MovieProps[])
+    }
+  }
+
+
+
+
+
+
 //   const hanndleAdvancedSearchTerms = (event: React.ChangeEvent<HTMLInputElement>) => {
 //     const inputString = event.target.value;
 //     const formattedList = inputString.split("|")
@@ -287,11 +302,11 @@ const App = () => {
 
   return (
     <div className="App">
-        <SideBar signedInStatus={true} shelf={shelf} profilePic={userData?.profilePic} firstName={userData?.firstName} lastName={userData?.lastName} setCurrentPlaylist={setCurrentPlaylist} handleAddPlaylist={handleAddPlaylist}/>
+        <SideBar signedInStatus={true} shelf={shelf} profilePic={userData?.profilePic} firstName={userData?.firstName} lastName={userData?.lastName} setPlaylistTitle={setPlaylistTitle} setPlaylistPage={setCurrentPlaylistMovies} handleAddPlaylist={handleAddPlaylist} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile userData={userData} friends={friendsData} watchedMovies={recentlyWatchedData} handleUpdate={handleInfoUpdated}/>} />
-          <Route path="/playlist" element={<Playlist title="Ghibli"/>} />
+          <Route path="/playlist" element={<Playlist title={playlistTitle}  movies={playlistMovies}/>}/>
           <Route path="/search" element={<Search 
                                             handleChange={handleChange} 
                                             handleSubmit={handleSubmit} 

@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Playlist.css'
+import { fetchPlaylistMovies } from '../../firestore_functions/firestore_calls';
+import { MovieList } from '../movie_data/MovieList';
+import { auth } from '../../firebase_setup/firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { MovieProps } from '../prop_types/propsTypes';
 
 type PlaylistProps = {
     title: string
+    movies: MovieProps[] | null
 }
 
 export const Playlist = (props: PlaylistProps) => {
+    if (!props.movies) return <h1 className="playlist-container">Add some movies to {props.title}!</h1>
+
     return (
         <div className="playlist-container">
             <h1 className="title">{props.title}</h1>
+            <MovieList movies={props.movies}/> 
         </div>
     )
 }
