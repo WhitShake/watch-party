@@ -1,9 +1,7 @@
-/* .playlist-container {
-    margin-left: 328px;
-    color: white;
+.playlist-container {
     display: flex;
     flex-direction: column;
-} */
+}
 
 .title {
     letter-spacing: 5px;
