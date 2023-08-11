@@ -116,17 +116,12 @@ export const Profile = (props: ProfileProps) => {
             return;
         }
 
-        const friendsListRef = doc(db, 'users', user.uid, 'Friends List');
-        // const friendsListRef = doc(db, 'users', user.uid, 'Friends List', 'Friends');
-        const friendsDocRef = doc(friendsListRef, 'Friends');
-        console.log(matchingUsers)
+        const friendsListRef = doc(db, 'users', user.uid, 'Friends', 'Friends List');
 
-        getDoc(friendsDocRef)
+        getDoc(friendsListRef)
             .then((docSnapshot) => {
                 if (docSnapshot.exists()) {
                     const friendsData = docSnapshot.data();
-                    // const friendsListData = docSnapshot.data();
-                    // const friendIds: string[] = friendsListData.Friends.map((friend: Friend) => friend.id);
                     const friendIds: string[] = friendsData.friends;
                     console.log(friendIds)
 
@@ -134,12 +129,6 @@ export const Profile = (props: ProfileProps) => {
                     console.log(isFriend)
                 if (isFriend) {
                     console.log(`${userId} is already a friend`);
-                // if (matchingUsers.length > 0) {
-                //     const firstMatchingUser = matchingUsers[0];
-                //     const isFriend = friendIds.includes(userId);
-                // if (isFriend) {
-                //     console.log(`${firstMatchingUser.firstName} is already a friend`)
-                // }
             }
             } else {
                 console.log('Something');

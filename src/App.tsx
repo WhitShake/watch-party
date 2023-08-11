@@ -139,18 +139,6 @@ const App = () => {
   const handleAddPlaylist = (newPlaylist: string) => {
     setPlaylists(prevPlaylists => [...prevPlaylists, newPlaylist])
   }
-//   const hanndleAdvancedSearchTerms = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     const inputString = event.target.value;
-//     const formattedList = inputString.split("|")
-//     console.log(formattedList)
-//     retrieveItem(formattedList)
-//   };
-// const retrieveItem = (stringList: string[]) => {
-//     stringList.forEach((item) => {
-//       // fetchId(item); figure out how to call handle submit with person
-//     });
-//   };
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -260,16 +248,6 @@ const App = () => {
     });
   }
 };
-
-  // const handleAdvancedCast = () => {
-  //   const castUrl = 
-  //   fetchData(searchUrls.person)
-  // }
-
-  // const handleCheckboxSelection = () => {
-  //   const genreUrl = "";
-
-  // }
 
   return (
     <div className="App">
