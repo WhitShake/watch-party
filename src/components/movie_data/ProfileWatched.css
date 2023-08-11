@@ -1,0 +1,18 @@
+/* .watched-container {
+  height: 1000px;
+  overflow: hidden;
+  align-items: center;
+} */
+
+.watched-display {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  overflow: scroll;
+  width: 100%;
+  justify-content: flex-start;
+  /* padding-right: 100px; */
+  padding: 50px 10px;
+  gap: 25px;
+  width: 60%;
+}

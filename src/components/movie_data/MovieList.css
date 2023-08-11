@@ -10,13 +10,21 @@
   gap: 25px;
 }
 
+
 /* .card-display {
-  width: 70%;
-  text-align: left;
-  margin-right: 55px;
-  margin-left: auto;
   display: flex;
-  flex-direction: column;
-  justify-content: right;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  /* position: relative; */
+  /* top: 250px;
+  left: 400px; */
+/* } */
+
+/* 
+.container {
+  width: 80vw;
+  margin-right: 0;
 } */
 
