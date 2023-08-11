@@ -6,7 +6,7 @@ import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { v4 } from "uuid"
 import { storage } from "../firebase_setup/firebase";
 
-export const initializeNewUser = async (userId: string, displayName: string | null) => {
+export const initializeNewUser = async (userId: string, displayName: string | null, email: string | null) => {
     const userDocRef = doc(db, 'users', userId)
     const userDocSnapshot = await getDoc(userDocRef)
     if (!userDocSnapshot.exists()) {
@@ -17,6 +17,7 @@ export const initializeNewUser = async (userId: string, displayName: string | nu
             name = ["First Name", "Last Name"]
         }
         const defaultData = {
+            email: email,
             firstName: name[0],
             lastName: name[1],
             profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSshtD-7RtqN_oJMs3UfPKF7SQaUDHZjkuQoA&usqp=CAU",
@@ -30,9 +31,6 @@ export const initializeNewUser = async (userId: string, displayName: string | nu
         const friendsDocRef = doc(db, 'users', userId, 'Friends', 'Friends List');
         setDoc(friendsDocRef, {friends: []})
     }
-    // else {
-    //     console.log("User already exists!", userDocSnapshot.data())
-    // }
 }
 
 

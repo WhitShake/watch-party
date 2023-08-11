@@ -67,7 +67,7 @@ const App = () => {
 
   onAuthStateChanged(auth, async (user) => {
     if (user) {
-      await initializeNewUser(user.uid, user.displayName)
+      await initializeNewUser(user.uid, user.displayName, user.email)
       setUserId(user.uid)
     } else {
       setUserId(null)
