@@ -1,7 +1,7 @@
 import { watch } from "fs"
 import { db } from "../firebase_setup/firebase"
-import { doc, getDoc, setDoc, collection, getDocs, updateDoc } from "firebase/firestore"
-import { MovieProps } from "../components/prop_types/propsTypes"
+import { doc, getDoc, setDoc, collection, getDocs, updateDoc, where, query } from "firebase/firestore"
+import { MovieProps, UserData } from "../components/prop_types/propsTypes"
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { v4 } from "uuid"
 import { storage } from "../firebase_setup/firebase";
@@ -75,12 +75,14 @@ export const fetchFriendData = async (friends: string[]) => {
             if (data) {
                 return {
                     id: friend,
-                    profilePic: data.profilePic as string
+                    profilePic: data.profilePic as string,
+                    email: data.email
                 }
             }
             return null; 
         })
     );
+    console.log(friendData)
     return friendData
 }
 
@@ -170,6 +172,19 @@ export const uploadImage = async (imageUpload: File | null, userId: string) => {
 }
 
 
+// export const searchForUser = async (firstName: string, lastName: string) => {
+//     const usersRef = collection(db, "users")
+//     const userQuery = query(
+//         usersRef,
+//         where("firstName", "==", firstName),
+//         where("lastName", "==", lastName)
+//     )
+//     try {
+//         const querySnapshot = await getDocs(userQuery)
+//         let usersSearchResults: UserData[] = []
 
+
+//     }
+// }
 
 

@@ -12,7 +12,7 @@ export const FriendsList = ({ friends }: FriendsListProps) => {
         <div>
             <div className="friend-display">
                 {friends.map((friend, index) => (
-                    <Friend key={index} id={friend.id} profilePic={friend.profilePic} />
+                    <Friend key={index} id={friend.id} profilePic={friend.profilePic} email={friend.email}/>
                 ))}           
             </div>         
         </div>

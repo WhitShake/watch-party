@@ -8,7 +8,7 @@ import { Home } from './components/pages/Home';
 import { Search } from './components/pages/search_pages/Search';
 import { Profile } from './components/users/Profile';
 import { Playlist } from './components/sidebar/Playlist';
-import { MovieObject, MovieProps, FriendsListProps, userProfileData } from './components/prop_types/propsTypes';
+import { MovieObject, MovieProps, FriendsListProps, userProfileData, UserData } from './components/prop_types/propsTypes';
 import { getUserData, getFriendsList, fetchFriendData, fetchPlaylistMovies, initializeNewUser, fetchShelf, updateUserDoc} from './firestore_functions/firestore_calls';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Login } from './components/sidebar/Login';
@@ -54,11 +54,11 @@ const App = () => {
   const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState<{id: number; posterPath: string}[]>([]);
+  const [searchResults, setSearchResults] = useState<MovieProps[]>([]);
   const [selectedSearchForm, setSelectedSearchForm] = useState<string>("");
   const [userId, setUserId] = useState<string | null>(null);
   const [userData, setUserData] = useState<userProfileData | null>(null);
-  const [friendsData, setFriendsData] = useState<{id: string; profilePic: string}[] | null>(null);
+  const [friendsData, setFriendsData] = useState<UserData[] | null>(null);
   const [recentlyWatchedData, setRecentlyWatchedData] = useState<MovieProps[]>([]);
   const [shelf, setShelf] = useState<string[]>([])
   const [playlistTitle, setPlaylistTitle] = useState('') 
@@ -82,7 +82,7 @@ const App = () => {
       getFriendsList(userId)
       .then(async data => {
         const friendData = await fetchFriendData(data.friends as string[])
-        setFriendsData(friendData as {id: string, profilePic: string}[])
+        setFriendsData(friendData as UserData[])
       })
 
       fetchPlaylistMovies(userId, "Watched")
@@ -210,7 +210,7 @@ const App = () => {
 
   const fetchById = (id: number, selectedSearchForm: string) => {
 
-    let idsAndPosterPaths: {id: number; posterPath: string}[] = []
+    let idsAndPosterPaths: MovieProps[] = []
 
     const searchByIdUrl = {
       person: `${BASE_URL}3/person/${id}/movie_credits?api_key=${apiKey}`,

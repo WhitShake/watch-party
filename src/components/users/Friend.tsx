@@ -3,6 +3,7 @@ import './Friend.css'
 type FriendProps = { 
     id: string 
     profilePic: string
+    email: string
 }
 
 export const Friend = ({profilePic}: FriendProps)  => {

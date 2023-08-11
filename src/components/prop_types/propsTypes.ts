@@ -7,17 +7,20 @@ export type userProfileData = DocumentData & {
     profilePic: string
 }
 
+export type UserData = {
+    email: string
+    id: string
+    profilePic: string
+}
+
 export type ProfileProps = {
     userData: userProfileData | null | undefined
-    friends: {
-        id: string
-        profilePic: string
-    }[] | null
+    friends: UserData[] | null
     watchedMovies: MovieProps[], 
     handleUpdate: (field: keyof userProfileData, value: string) => void
 };
 
-export type FriendsListProps = Pick<ProfileProps, 'friends'>;
+export type FriendsListProps = {friends: UserData[] | null}
 
 
 export type MovieProps = {

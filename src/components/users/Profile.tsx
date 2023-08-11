@@ -47,12 +47,12 @@ export const Profile = (props: ProfileProps) => {
 
     const {firstName, lastName, profilePic, quote} = props.userData
 
-    const usersRef = collection(db, "users");
-
-
+    
+    
     const handleUserSearch = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         
+        const usersRef = collection(db, "users");
         // console.log(firstName);
         // console.log(lastName);
 
