@@ -1,3 +1,19 @@
+
+
 .moviePage {
-    margin-left: 500px;
+    margin-left: 400px;
+    margin-right: 50px;
 }
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: start;
+    align-items: auto;
+    align-content: start
+  }
+  .card {
+    flex: 0 0 auto;
+    margin: 10px;
+  }
