@@ -1,4 +1,5 @@
 import React from "react"
+import './TitleSearch.css'
 
 type TitleSearchProps = {
   handleChange: React.ChangeEventHandler<HTMLInputElement>
@@ -13,7 +14,7 @@ export const TitleSearch = (props: TitleSearchProps) => {
   return (
       <div>
         <label>
-        <input type="text" name="title" placeholder="Search for a title" onChange={props.handleChange}/>
+        <input type="text" className="search-input" name="title" placeholder="Search for a title" onChange={props.handleChange}/>
         </label>
       </div>
   )

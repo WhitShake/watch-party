@@ -1,14 +1,23 @@
 .sidebar {
-  max-width: 30vw;
-  min-width: 20vw;
+  /* max-width: 25vw; */
+  /* min-width: 20vw; */
   height: 100vh;
   align-items: left;
   background-color: black;
   padding-top: 20px;
   padding-bottom: 20px;
   position: fixed;
+  z-index: 999;
 }
 
+@media (max-width: 1024px) {
+  .sidebar {
+    max-width: 25vw; 
+}
+  .App {
+    padding-left: 25vw;
+  }
+}
 
 .sidebar-elements {
   list-style: none;

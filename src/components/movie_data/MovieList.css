@@ -1,4 +1,17 @@
 .card-display {
+  width: 70%;
+  /* text-align: center; */
+  margin-right: 55px;
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+
+/* .card-display {
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-start;
@@ -6,7 +19,7 @@
   width: 825px;;
   overflow: scroll;
   gap: 25px;
-  /* position: relative; */
+
   top: 250px;
   left: 400px;
 }
@@ -15,5 +28,5 @@
 .container {
   width: 80vw;
   margin-right: 0;
-}
+} */
 

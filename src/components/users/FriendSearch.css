@@ -1,0 +1,16 @@
+.name-inputs {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  text-align: center;
+  margin-left: 90px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.friend-search-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-left: 100px;
+}
