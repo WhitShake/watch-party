@@ -32,7 +32,7 @@ export const Search = (props: SearchProps) => {
                         <option value="title">Search by Title</option>
                         <option value="person">Search by Person</option>
                         <option value="related">Search for Similar</option>
-                        <option value="watch-provider">Advanced Search</option>
+                        {/* <option value="watch-provider">Advanced Search</option> */}
                     </select>
                 </div>
                 <div>
