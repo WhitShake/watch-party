@@ -172,19 +172,25 @@ export const uploadImage = async (imageUpload: File | null, userId: string) => {
 }
 
 
-// export const searchForUser = async (firstName: string, lastName: string) => {
-//     const usersRef = collection(db, "users")
-//     const userQuery = query(
-//         usersRef,
-//         where("firstName", "==", firstName),
-//         where("lastName", "==", lastName)
-//     )
-//     try {
-//         const querySnapshot = await getDocs(userQuery)
-//         let usersSearchResults: UserData[] = []
-
-
-//     }
-// }
+export const searchUsersByName = async (firstName: string, lastName: string) => {
+    const usersRef = collection(db, "users");
+    const userQuery = query(
+        usersRef,
+        where("firstName", "==", firstName),
+        where("lastName", "==", lastName)
+    );
+    try {
+        const querySnapshot = await getDocs(userQuery)
+        let usersSearchResults: UserData[] = [];
+        querySnapshot.forEach(doc => {
+            const userData = doc.data() as UserData;
+            usersSearchResults.push(userData)
+        });
+        return usersSearchResults;
+    } catch (error) {
+        console.error("Issue with fetching users");
+        return error;
+    };
+};
 
 

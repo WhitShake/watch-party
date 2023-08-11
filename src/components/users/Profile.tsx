@@ -14,6 +14,8 @@ import './Profile.css'
 import { profile } from 'console';
 import { ProfileWatched } from '../movie_data/ProfileWatched';
 import { useNavigate } from 'react-router-dom';
+import { match } from 'assert';
+import { searchUsersByName } from '../../firestore_functions/firestore_calls';
 
 
 interface UserData {
@@ -51,45 +53,19 @@ export const Profile = (props: ProfileProps) => {
     
     const handleUserSearch = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        
-        const usersRef = collection(db, "users");
-        // console.log(firstName);
-        // console.log(lastName);
-
-        const userQuery = query(
-        usersRef,
-        where("firstName", "==", firstNameSearch),
-        where("lastName", "==", lastNameSearch)
-        );
-
-        try {
-            const querySnapshot = await getDocs(userQuery);
-    
-            const matchingUsers: UserData[] = [];
-            querySnapshot.forEach((doc) => {
-                const userData = doc.data() as UserData;
-                matchingUsers.push({ ...userData, id: doc.id });
-            });
-
-        // getDocs(userQuery)
-        // .then((querySnapshot) => {
-        //     const matchingUsers: UserData[] = [];
-        //     querySnapshot.forEach((doc) => {
-        //         const userData = doc.data() as UserData;
-        //         matchingUsers.push({ ...userData, id: doc.id });
-        //     });
-
-            setMatchingUsers(matchingUsers);
-
-            if (matchingUsers.length > 0) {
-                const firstMatchingUser = matchingUsers[0];
-                const userId = firstMatchingUser.id;
-                await handleFriendshipCheck(userId);
-            }
-        } catch (error) {
-            console.error("Error searching for users:", error);
+        const searchResults = await searchUsersByName(firstNameSearch, lastNameSearch)
+        if (searchResults) {
+            setMatchingUsers(searchResults as UserData[]);
+        }
+        if (matchingUsers.length > 0) {
+            const firstMatchingUser = matchingUsers[0];
+            const userId = firstMatchingUser.id;
+            handleFriendshipCheck(userId);
         }
     };
+
+
+
 
     //         if (matchingUsers.length > 0) {
     //             const firstMatchingUser = matchingUsers[0];
