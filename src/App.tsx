@@ -8,8 +8,8 @@ import { Home } from './components/home - randomizer/Home';
 import { Search } from './components/pages/search_pages/Search';
 import { Profile } from './components/users/Profile';
 import { Playlist } from './components/sidebar/Playlist';
-import { MovieObject, MovieProps, FriendsListProps, userProfileData } from './components/prop_types/propsTypes';
-import { getUserData, getFriendsList, fetchFriendData, fetchPlaylistMovies, initializeNewUser, fetchShelf, updateUserDoc} from './firestore_functions/firestore_calls';
+import { MovieObject, MovieProps, FriendsListProps, UserProfileData, UserData } from './components/prop_types/propsTypes';
+import { getUserData, getFriendsList, fetchFriendData, fetchPlaylistMovies, initializeNewUser, fetchShelf, updateUserDoc, addFriend, deleteFriend} from './firestore_functions/firestore_calls';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Login } from './components/sidebar/Login';
 import { useNavigate } from 'react-router-dom';
@@ -53,37 +53,50 @@ const App = () => {
   const BASE_URL = 'https://api.themoviedb.org/'; 
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState<{id: number; posterPath: string}[]>([]);
+  const [searchResults, setSearchResults] = useState<MovieProps[]>([]);
   const [selectedSearchForm, setSelectedSearchForm] = useState<string>("");
   const [userId, setUserId] = useState<string | null>(null);
-  const [userData, setUserData] = useState<userProfileData | null>(null);
-  const [friendsData, setFriendsData] = useState<{id: string; profilePic: string}[] | null>(null);
+  const [userData, setUserData] = useState<UserProfileData | null>(null);
+  const [friendsData, setFriendsData] = useState<UserProfileData[]>([]);
   const [recentlyWatchedData, setRecentlyWatchedData] = useState<MovieProps[]>([]);
   const [shelf, setShelf] = useState<string[]>([])
   const [playlistTitle, setPlaylistTitle] = useState('') 
   const [playlistMovies, setPlaylistMovies] = useState<MovieProps[] | null>(null); 
+  const [friendsList, setFriendsList] = useState<Record<string, any> | undefined>({})
 
   // console.log("Env:", process.env);
 
   onAuthStateChanged(auth, async (user) => {
     if (user) {
-      await initializeNewUser(user.uid, user.displayName)
+      await initializeNewUser(user.uid, user.displayName, user.email)
       setUserId(user.uid)
     } else {
       setUserId(null)
     }
   })
 
+
   useEffect(() => {
     if (userId !== null) {
       getUserData(userId)
-      .then(data => setUserData(data as userProfileData))
+      .then(data => setUserData(data as UserProfileData))
 
       getFriendsList(userId)
-      .then(async data => {
-        const friendData = await fetchFriendData(data.friends as string[])
-        setFriendsData(friendData as {id: string, profilePic: string}[])
-      })
+      .then(async friendsObject => {
+        if (!friendsObject) return;
+        const friendsIds = Object.keys(friendsObject)
+        const friendsDataPromises = friendsIds.map(async friendId => {
+          const toAdd = await getUserData(friendId);
+          return {
+            ...toAdd as UserProfileData,
+            id: friendId,
+          };
+        });
+        
+        const friendsData = await Promise.all(friendsDataPromises);
+        setFriendsData(friendsData as UserProfileData[]);
+        setFriendsList(friendsObject)
+      });
 
       fetchPlaylistMovies(userId, "Watched")
       .then(data => {
@@ -106,19 +119,26 @@ const App = () => {
       navigate("/profile")
     } else {
       setUserData(null)
-      setFriendsData(null)
+      setFriendsData([])
       setRecentlyWatchedData([])
       setShelf([])
     }
   },[userId]);
 
+  // useEffect(() => {
+  // re-render friends when friend gets added or deleted
+  // }[friendsList])
+
+
+  
 
   // this is just to view the state variables, delete later 
-  // useEffect(() => {
-  //   console.log("friends:", friendsData)
-  //   console.log("user", userData)
-  //   console.log("recently watched movies", recentlyWatchedData)
-  // }, [friendsData, userData, recentlyWatchedData])
+  useEffect(() => {
+    console.log("friends:", friendsData)
+    console.log("user", userData)
+    console.log("recently watched movies", recentlyWatchedData)
+    console.log("friends list:", friendsList)
+  }, [friendsData, userData, recentlyWatchedData, friendsList])
 
   
   const searchUrls = {
@@ -132,11 +152,11 @@ const App = () => {
     setSearchTerm(event.target.value);
   };
 
-  const handleInfoUpdated = (field: keyof userProfileData, value: string) => {
+  const handleInfoUpdated = (field: keyof UserProfileData, value: string) => {
     setUserData(prevUserData => ({
       ...prevUserData,
       [field]: value
-    } as userProfileData))
+    } as UserProfileData))
   }
 
   const handleAddPlaylist = (newPlaylist: string) => {
@@ -210,7 +230,7 @@ const App = () => {
 
   const fetchById = (id: number, selectedSearchForm: string) => {
 
-    let idsAndPosterPaths: {id: number; posterPath: string}[] = []
+    let idsAndPosterPaths: MovieProps[] = []
 
     const searchByIdUrl = {
       person: `${BASE_URL}3/person/${id}/movie_credits?api_key=${apiKey}`,
@@ -279,7 +299,10 @@ const App = () => {
                                       />
           <Route path="/profile" element={<Profile 
                                               userData={userData} 
-                                              friends={friendsData} 
+                                              friendsData={friendsData} 
+                                              setFriendsData={setFriendsData}
+                                              friendsList={friendsList}
+                                              setFriendsList={setFriendsList}
                                               watchedMovies={recentlyWatchedData} 
                                               handleUpdate={handleInfoUpdated}/>} />
           <Route path="/playlist" element={<Playlist title={playlistTitle}  movies={playlistMovies}/>}/>

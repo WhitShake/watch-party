@@ -3,12 +3,12 @@ import EasyEdit, { Types } from 'react-easy-edit'
 import { updateUserDoc } from '../../firestore_functions/firestore_calls';
 import { auth } from '../../firebase_setup/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { userProfileData } from '../prop_types/propsTypes';
+import { UserProfileData } from '../prop_types/propsTypes';
 
 type EditableTextProps = {
     text: string
-    field: string
-    handleUpdate: (field: keyof userProfileData, value: string) => void
+    field: keyof UserProfileData
+    handleUpdate: (field: keyof UserProfileData, value: string) => void
 }
 
 export const EditableText = ({text, field, handleUpdate}: EditableTextProps) => {

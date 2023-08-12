@@ -2,20 +2,17 @@ import { Friend } from './Friend'
 import { FriendsListProps } from '../prop_types/propsTypes'
 import './FriendsList.css'
 
-export const FriendsList = ({ friends }: FriendsListProps) => {
+export const FriendsList = ({ friendsData, friendsList, setFriendsList, setFriendsData, setMatchingUsers }: FriendsListProps) => {
 
-    if (!friends) {
-        return <div>Log in to see your friends here</div>
-    }
+    // if (!friendsList) {
+    //     return <div>Log in to see your friends here</div>
+    // }
 
     return (
-        <div>
-            <div className="friend-display">
-                {friends.map((friend, index) => (
-                    <Friend key={index} id={friend.id} profilePic={friend.profilePic} />
-                ))}           
-            </div>         
-        </div>
+        <div className="friend-display">
+            {friendsData.map((friend, index) => (
+                <Friend key={index} data={friend} friendsList={friendsList} setFriendsList={setFriendsList} setFriendsData={setFriendsData} setMatchingUsers={setMatchingUsers}/>
+            ))} 
+        </div>         
     )
 }
-

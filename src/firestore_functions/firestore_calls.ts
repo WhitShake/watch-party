@@ -1,12 +1,12 @@
 import { watch } from "fs"
 import { db } from "../firebase_setup/firebase"
-import { doc, getDoc, setDoc, collection, getDocs, updateDoc } from "firebase/firestore"
-import { MovieProps } from "../components/prop_types/propsTypes"
+import { doc, getDoc, setDoc, collection, getDocs, updateDoc, where, query, deleteDoc } from "firebase/firestore"
+import { MovieProps, UserData, UserProfileData } from "../components/prop_types/propsTypes"
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { v4 } from "uuid"
 import { storage } from "../firebase_setup/firebase";
 
-export const initializeNewUser = async (userId: string, displayName: string | null) => {
+export const initializeNewUser = async (userId: string, displayName: string | null, email: string | null) => {
     const userDocRef = doc(db, 'users', userId)
     const userDocSnapshot = await getDoc(userDocRef)
     if (!userDocSnapshot.exists()) {
@@ -17,6 +17,7 @@ export const initializeNewUser = async (userId: string, displayName: string | nu
             name = ["First Name", "Last Name"]
         }
         const defaultData = {
+            email: email,
             firstName: name[0],
             lastName: name[1],
             profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSshtD-7RtqN_oJMs3UfPKF7SQaUDHZjkuQoA&usqp=CAU",
@@ -26,13 +27,9 @@ export const initializeNewUser = async (userId: string, displayName: string | nu
 
         const watchedDocRef = doc(db, 'users', userId, 'Shelf', 'Watched')
         setDoc(watchedDocRef, {movies: []})
-
-        const friendsDocRef = doc(db, 'users', userId, 'Friends', 'Friends List');
-        setDoc(friendsDocRef, {friends: []})
+        // const friendsDocRef = doc(db, 'users', userId, 'Friends', 'Friends List');
+        // setDoc(friendsDocRef, {friends: []})
     }
-    // else {
-    //     console.log("User already exists!", userDocSnapshot.data())
-    // }
 }
 
 
@@ -53,16 +50,16 @@ export const getUserData = async (userId: string) => {
 };
 
 
-export const getFriendsList = async (userId: string) => {
-    const userFriendsRef = doc(db, 'users', userId, 'Friends', 'Friends List');
-
+export const getFriendsList = async (userId: string | undefined) => {
+    if (!userId) return;
+    const friendsRef = collection(db, 'users', userId, 'Friends');
     try {
-        const userFriendsList = await getDoc(userFriendsRef);
-        if (userFriendsList.exists()) {
-            return userFriendsList.data()
-        } else{
-            throw new Error('User not found');
-        }
+        const userFriendsList = await getDocs(friendsRef);
+        let friends: {} = {}
+        userFriendsList.forEach(friend => {
+            friends = {...friends, [friend.id]: 1}
+        })
+        return friends;
     } catch (error) {
         console.error('Error fetching user data:', error);
         throw error;
@@ -70,6 +67,32 @@ export const getFriendsList = async (userId: string) => {
 }
 
 
+export const addFriend = async (userId: string, idToAdd: string) => {
+    // const friendsRef = collection(db, 'users', userId, 'Friends');
+    try { 
+        const friendToAddRef = doc(db, 'users', userId, 'Friends', idToAdd)
+        const newFriend = await setDoc(friendToAddRef, {exists: true})
+        console.log(newFriend)
+        return newFriend
+    } catch (error) { 
+        console.log("Issue with adding friend")
+        return error;
+    }
+}
+
+
+export const deleteFriend = async (userId: string, idToDelete: string) => {
+    try {
+        const docToDelete = doc(db, 'users', userId, 'Friends', idToDelete)
+        await deleteDoc(docToDelete)
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+
+// not currently being used
 export const fetchFriendData = async (friends: string[]) => {
     const friendData = await Promise.all(
         friends.map(async (friend: string) => {
@@ -77,14 +100,17 @@ export const fetchFriendData = async (friends: string[]) => {
             if (data) {
                 return {
                     id: friend,
-                    profilePic: data.profilePic as string
+                    profilePic: data.profilePic as string,
+                    email: data.email
                 }
             }
             return null; 
         })
     );
+    console.log(friendData)
     return friendData
 }
+
 
 export const fetchPlaylistMovies = async (userId: string | null, playlistTitle: string) => {
     if (!userId) return;
@@ -129,7 +155,7 @@ export const fetchShelf = async (userId: string) => {
 
 
 
-
+// need to make this 
 export const handleAddMovie = (movie: MovieProps) => {
     console.log(movie)
 }
@@ -145,7 +171,7 @@ export const addShelfPlaylist = async (userId: string | null | undefined, title:
     }
 }
 
-export const updateUserDoc = async (userId: string, value: string, field: string) => {
+export const updateUserDoc = async (userId: string, value: string, field: keyof UserProfileData) => {
     const userDocRef = doc(db, 'users', userId)
     const userDocSnapshot = await getDoc(userDocRef)
     if (userDocSnapshot.exists()) {
@@ -172,6 +198,42 @@ export const uploadImage = async (imageUpload: File | null, userId: string) => {
 }
 
 
+export const searchUsersByName = async (firstName: string, lastName: string) => {
+    const usersRef = collection(db, "users");
+    const userQuery = query(
+        usersRef,
+        where("firstName", "==", firstName),
+        where("lastName", "==", lastName)
+    );
+    try {
+        const querySnapshot = await getDocs(userQuery)
+        let usersSearchResults: UserData[] = [];
+        querySnapshot.forEach(doc => {
+            const userData = doc.data() as UserData;
+            usersSearchResults.push({...userData, id: doc.id})
+        });
+        return usersSearchResults;
+    } catch (error) {
+        console.error("Issue with fetching users");
+        return error;
+    };
+};
 
 
-
+// export const checkFriendStatus = async (userId: string, toCheck: UserData) => {
+//     const friendsListRef = doc(db, "users", userId, 'Friends', 'Friends List');
+//     const friendsListSnapshot = await getDoc(friendsListRef)
+//     try { 
+//         if (friendsListSnapshot.exists()) {
+//             const friendsListData = friendsListSnapshot.data() as string[];
+//             console.log("friends list", friendsListData)
+//             return friendsListData.includes(toCheck.id)
+//         } 
+//         else {
+//             throw new Error('Error fetching the playlist');
+//         }
+//     } catch (error) {
+//         console.log("Issue with checking this user's friends")
+//         return error;
+//     }
+// }

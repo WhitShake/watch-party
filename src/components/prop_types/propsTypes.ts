@@ -1,23 +1,37 @@
-import { DocumentData } from "firebase/firestore";
+import { Dispatch, SetStateAction } from "react"
 
-export type userProfileData = DocumentData & {
+export type UserProfileData = {
+    id: string
     firstName: string
     lastName: string
     quote: string
     profilePic: string
+    email: string
+}
+
+export type UserData = {
+    email: string
+    id: string
+    profilePic: string
 }
 
 export type ProfileProps = {
-    userData: userProfileData | null | undefined
-    friends: {
-        id: string
-        profilePic: string
-    }[] | null
+    userData: UserProfileData | null | undefined
+    friendsData: UserProfileData[] 
+    friendsList: Record<string, any> | undefined
     watchedMovies: MovieProps[], 
-    handleUpdate: (field: keyof userProfileData, value: string) => void
+    handleUpdate: (field: keyof UserProfileData, value: string) => void
+    setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
+    setFriendsData: Dispatch<SetStateAction<UserProfileData[]>>
 };
 
-export type FriendsListProps = Pick<ProfileProps, 'friends'>;
+export type FriendsListProps = {
+    friendsData: UserProfileData[]
+    friendsList: Record<string, any> | undefined
+    setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
+    setFriendsData: Dispatch<SetStateAction<UserProfileData[]>>
+    setMatchingUsers?: Dispatch<SetStateAction<UserProfileData[]>>
+}
 
 
 export type MovieProps = {
