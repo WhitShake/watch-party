@@ -4,8 +4,8 @@ import './RandomNumberGenerator.css'
 
 type RandomNumberGeneratorProps = {
   BASE_URL: string;
-  randomMovieData: { id: number; posterPath: string | undefined; overview: string | undefined } | null;
-  setRandomMovieData: React.Dispatch<React.SetStateAction<{ id: number; posterPath: string | undefined; overview: string | undefined } | null>>;
+  randomMovieData: { id: number; posterPath: string | undefined; overview: string | undefined; voteCount: number ; popularity: number } | null;
+  setRandomMovieData: React.Dispatch<React.SetStateAction<{ id: number; posterPath: string | undefined; overview: string | undefined; voteCount: number; popularity: number } | null>>;
 }
 
 // React.FC
@@ -33,10 +33,15 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
         const response = await fetch(url);
         const data = await response.json();
         console.log(data);
-        if (data.success ===false || data.poster_path === "" || data.vote_count === 0 || data.overview === "") {
+        if (data.success ===false || 
+          !data.poster_path || 
+          !data.vote_count || 
+          !data.overview ||
+          data.popularity < 10
+          ) {
           generateRandomNumber();
         } else {
-            const randomMovieData = { id: data.id , posterPath: data.poster_path, overview: data.overview }
+            const randomMovieData = { id: data.id , posterPath: data.poster_path, overview: data.overview, voteCount: data.vote_count, popularity: data.popularity }
             props.setRandomMovieData(randomMovieData)
         }
       } catch (error) {
