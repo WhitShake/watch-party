@@ -1,0 +1,13 @@
+.random-container {
+  color: white;
+  font-size: 30px;
+  margin-left: 25px;
+}
+
+generator-container {
+  width: 40vw;
+}
+
+.movie-poster {
+  text-align: center;
+}

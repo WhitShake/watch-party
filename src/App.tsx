@@ -4,7 +4,7 @@ import { SideBar } from './components/sidebar/SideBar';
 import { db, auth } from './firebase_setup/firebase';
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Home } from './components/pages/Home';
+import { Home } from './components/home - randomizer/Home';
 import { Search } from './components/pages/search_pages/Search';
 import { Profile } from './components/users/Profile';
 import { Playlist } from './components/sidebar/Playlist';
@@ -15,9 +15,6 @@ import { Login } from './components/sidebar/Login';
 import { useNavigate } from 'react-router-dom';
 
 // import { seedData, testSeed } from './firebase_setup/seedData';
-
-const apiKey = process.env.REACT_APP_tmdb_apiKey;
-const BASE_URL = 'https://api.themoviedb.org/'; 
 
 
 // code below is for seeding. uncomment the import of seedData 
@@ -52,6 +49,8 @@ const BASE_URL = 'https://api.themoviedb.org/';
 
 const App = () => {
   const navigate = useNavigate();
+  const apiKey = process.env.REACT_APP_tmdb_apiKey;
+  const BASE_URL = 'https://api.themoviedb.org/'; 
 
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<{id: number; posterPath: string}[]>([]);
@@ -64,6 +63,7 @@ const App = () => {
   const [playlistTitle, setPlaylistTitle] = useState('') 
   const [playlistMovies, setPlaylistMovies] = useState<MovieProps[] | null>(null); 
 
+  // console.log("Env:", process.env);
 
   onAuthStateChanged(auth, async (user) => {
     if (user) {
@@ -272,7 +272,11 @@ const App = () => {
             handleAddPlaylist={handleAddPlaylist} 
             />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home 
+                                      // apiKey={apiKey}
+                                      BASE_URL={BASE_URL}
+                                      />}
+                                      />
           <Route path="/profile" element={<Profile 
                                               userData={userData} 
                                               friends={friendsData} 
@@ -286,7 +290,7 @@ const App = () => {
                                             results={searchResults} 
                                             selectedSearchForm={selectedSearchForm}
                                             // handleAdvancedSearchTerms={hanndleAdvancedSearchTerms}
-                                            />} />
+                                            />} />                        
           {/* <Route path="/login" element={<Login />}/> */}
         </Routes>
     </div>
