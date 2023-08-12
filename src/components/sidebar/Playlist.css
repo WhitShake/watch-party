@@ -1,0 +1,20 @@
+.playlist-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    letter-spacing: 5px;
+    font-size: 40px;
+    font-style: italic;
+    display: flex;
+    margin-left: 328px;
+    color: white;
+}
+
+.message {
+    margin-left: 335px;
+    color: white;
+    letter-spacing: 2px;
+    font-style: italic;
+}

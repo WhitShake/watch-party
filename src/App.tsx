@@ -1,18 +1,21 @@
 import React, { useState, useEffect }from 'react';
 import './App.css';
 import { SideBar } from './components/sidebar/SideBar';
-import { db } from './firebase_setup/firebase';
+import { db, auth } from './firebase_setup/firebase';
 import 'firebase/firestore';
 import { collection, getDocs, doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from './components/pages/Home';
 import { Search } from './components/pages/search_pages/Search';
-import { Profile } from './components/pages/Profile';
+import { Profile } from './components/users/Profile';
+import { Playlist } from './components/sidebar/Playlist';
 import { MovieObject, MovieProps, FriendsListProps, userProfileData } from './components/prop_types/propsTypes';
-import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies, addMovieToPlaylist } from './firestore_functions/firestore_calls';
+import { getUserData, getFriendsList, fetchFriendData, fetchPlaylistMovies, addMovieToPlaylist, initializeNewUser, fetchShelf, updateUserDoc} from './firestore_functions/firestore_calls';
+import { onAuthStateChanged } from 'firebase/auth';
 import { Login } from './components/sidebar/Login';
 import { MoviePage } from './components/pages/MoviePage';
 
+import { useNavigate } from 'react-router-dom';
 
 // import { seedData, testSeed } from './firebase_setup/seedData';
 
@@ -49,22 +52,14 @@ const BASE_URL = 'https://api.themoviedb.org/';
 // fetchMovies(`${BASE_URL}3/movie/popular?api_key=${apiKey}`) 
 // end of seed code 
 
-// change this code after shelf is linked to user 
-const shelfRef = collection(db, 'users', 'testUser123', 'Shelf');
-// console.log("shelf reference:", shelfRef);
-const shelfDocs = await getDocs(shelfRef);
-let playlists: string[] = []; 
-shelfDocs.forEach((doc) => {
-  playlists.push(doc.id);
-});
-
 
 const App = () => {
+  const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<{id: number; posterPath: string}[]>([]);
   const [selectedSearchForm, setSelectedSearchForm] = useState<string>("");
-  const [username, setUsername] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
   const [userData, setUserData] = useState<userProfileData | null>(null);
   const [friendsData, setFriendsData] = useState<{id: string; profilePic: string}[] | null>(null);
   const [recentlyWatchedData, setRecentlyWatchedData] = useState<MovieProps[]>([]);
@@ -85,28 +80,35 @@ const App = () => {
     releaseDate: '',
     genres: [],
   });
+  const [shelf, setShelf] = useState<string[]>([])
+  const [playlistTitle, setPlaylistTitle] = useState('') 
+  const [playlistMovies, setPlaylistMovies] = useState<MovieProps[] | null>(null); 
 
-  // temporary use of dummy data 
-  if (username === null) {
-    setUsername('elizabeth123');
-  };
+
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      await initializeNewUser(user.uid, user.displayName)
+      setUserId(user.uid)
+    } else {
+      setUserId(null)
+    }
+  })
 
   useEffect(() => {
-    if (username !== null) {
-      getUserData(username)
+    if (userId !== null) {
+      getUserData(userId)
       .then(data => setUserData(data as userProfileData))
 
-      getFriendsList(username)
+      getFriendsList(userId)
       .then(async data => {
         const friendData = await fetchFriendData(data.friends as string[])
         setFriendsData(friendData as {id: string, profilePic: string}[])
       })
 
-      fetchWatchedMovies(username)
+      fetchPlaylistMovies(userId, "Watched")
       .then(data => {
         if (data && data.movies) {
           const movies = data.movies
-          console.log("all the movies:", data.movies)
           let recentlyWatched = []
           for (let i = movies.length - 1; i >= Math.max(movies.length - 10, 0); i--) {
             recentlyWatched.push(movies[i])
@@ -116,16 +118,29 @@ const App = () => {
           console.log("There was an issue fetching the movies!")
         }
       })
+
+      fetchShelf(userId)
+      .then(data => {
+        setShelf(data)
+      })
+      navigate("/profile")
+    } else {
+      setUserData(null)
+      setFriendsData(null)
+      setRecentlyWatchedData([])
+      setShelf([])
     }
-  },[username]);
+  },[userId]);
+
 
   // this is just to view the state variables, delete later 
-  useEffect(() => {
-    console.log("friends:", friendsData)
-    console.log("user", userData)
-    console.log("recently watched movies", recentlyWatchedData)
-  }, [friendsData, userData, recentlyWatchedData])
+  // useEffect(() => {
+  //   console.log("friends:", friendsData)
+  //   console.log("user", userData)
+  //   console.log("recently watched movies", recentlyWatchedData)
+  // }, [friendsData, userData, recentlyWatchedData])
 
+  
   const searchUrls = {
     title: `${BASE_URL}3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(searchTerm)}`,
     person: `${BASE_URL}3/search/person?api_key=${apiKey}&query=${encodeURIComponent(searchTerm)}`,
@@ -137,30 +152,23 @@ const App = () => {
     setSearchTerm(event.target.value);
   };
 
-//   const hanndleAdvancedSearchTerms = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     const inputString = event.target.value;
-//     const formattedList = inputString.split("|")
-//     console.log(formattedList)
-//     retrieveItem(formattedList)
-//   };
-// const retrieveItem = (stringList: string[]) => {
-//     stringList.forEach((item) => {
-//       // fetchId(item); figure out how to call handle submit with person
-//     });
-//   };
+  const handleInfoUpdated = (field: keyof userProfileData, value: string) => {
+    setUserData(prevUserData => ({
+      ...prevUserData,
+      [field]: value
+    } as userProfileData))
+  }
 
-//   const hanndleAdvancedSearchTerms = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     const inputString = event.target.value;
-//     const formattedList = inputString.split("|")
-//     console.log(formattedList)
-//     retrieveItem(formattedList)
-//   };
-// const retrieveItem = (stringList: string[]) => {
-//     stringList.forEach((item) => {
-//       // fetchId(item); figure out how to call handle submit with person
-//     });
-//   };
+  const handleAddPlaylist = (newPlaylist: string) => {
+    setShelf(prevshelf => [...prevshelf, newPlaylist])
+  }
 
+  const setCurrentPlaylistMovies = async (title: string) => {
+    if (userId) {
+        const playlistMovieList = await fetchPlaylistMovies(userId, title)
+        setPlaylistMovies(playlistMovieList?.movies as MovieProps[])
+    }
+  }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -274,16 +282,6 @@ const App = () => {
   }
 };
 
-  // const handleAdvancedCast = () => {
-  //   const castUrl = 
-  //   fetchData(searchUrls.person)
-  // }
-
-  // const handleCheckboxSelection = () => {
-  //   const genreUrl = "";
-
-  // }
-
   const fetchMovieById = (id: number) => {
     const url = `${BASE_URL}3/movie/${id}?api_key=${apiKey}`
     
@@ -342,11 +340,24 @@ const App = () => {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <SideBar signedInStatus={true} playlists={playlists} />
+        <SideBar 
+            signedInStatus={true} 
+            shelf={shelf} 
+            profilePic={userData?.profilePic} 
+            firstName={userData?.firstName} 
+            lastName={userData?.lastName} 
+            setPlaylistTitle={setPlaylistTitle} 
+            setPlaylistPage={setCurrentPlaylistMovies} 
+            handleAddPlaylist={handleAddPlaylist} 
+            />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile userData={userData} friends={friendsData} watchedMovies={recentlyWatchedData} handleMovieClick={handleMovieClick} movieDetails={movieDetails}/>} />
+          <Route path="/profile" element={<Profile 
+                                              userData={userData} 
+                                              friends={friendsData} 
+                                              watchedMovies={recentlyWatchedData} handleMovieClick={handleMovieClick} movieDetails={movieDetails} 
+                                              handleUpdate={handleInfoUpdated}/>} />
+          <Route path="/playlist" element={<Playlist title={playlistTitle}  movies={playlistMovies}/>}/>
           <Route path="/search" element={<Search 
                                             handleChange={handleChange} 
                                             handleSubmit={handleSubmit} 
@@ -360,7 +371,6 @@ const App = () => {
           {/* <Route path="/login" element={<Login />}/> */}
           <Route path="/moviepage" element={<MoviePage movieDetails={movieDetails} handleAddMovie={handleAddMovie}/>}/>
         </Routes>
-      </BrowserRouter>
     </div>
   );
   

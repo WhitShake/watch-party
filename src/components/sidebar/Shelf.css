@@ -4,3 +4,13 @@ ul {
   gap: 20px;
   flex-direction: column;
 }
+
+.playlist-form {
+  margin-top: 10px;
+  display: flex;
+  height: 30px;
+}
+
+.playlist :hover {
+  font-weight: bold;
+}

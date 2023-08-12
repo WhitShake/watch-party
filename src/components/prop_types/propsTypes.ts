@@ -25,7 +25,7 @@ export type ProfileProps = {
         releaseDate: string;
         genres: { id: number; name: string }[];
     };
- 
+    handleUpdate: (field: keyof userProfileData, value: string) => void
 };
 
 export type FriendsListProps = Pick<ProfileProps, 'friends'>;

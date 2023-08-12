@@ -1,4 +1,5 @@
 import { watch } from "fs"
+import { watch } from "fs"
 import { db } from "../firebase_setup/firebase"
 import { doc, getDoc, setDoc, collection, getDocs, updateDoc, arrayUnion } from "firebase/firestore"
 import { MovieProps } from "../components/prop_types/propsTypes"
@@ -88,21 +89,23 @@ export const fetchFriendData = async (friends: string[]) => {
     return friendData
 }
 
-export const fetchWatchedMovies = async (userId: string) => {
-    const watchedRef = doc(db, 'users', userId, 'Shelf', 'Watched');
+export const fetchPlaylistMovies = async (userId: string | null, playlistTitle: string) => {
+    if (!userId) return;
+    const watchedRef = doc(db, 'users', userId, 'Shelf', playlistTitle);
     
     try {
-        const watchedMoviesList = await getDoc(watchedRef);
-        if (watchedMoviesList.exists()) {
-            return watchedMoviesList.data()
+        const playlistMovies = await getDoc(watchedRef);
+        if (playlistMovies.exists()) {
+            return playlistMovies.data()
         }  else{
-            throw new Error('User not found');
+            throw new Error('Error fetching the playlist');
         }
     } catch (error) {
         console.error('Error fetching user data:', error);
         throw error;
     }
-}
+}}
+
 
 export const fetchShelf = async (userId: string) => {
     const shelfRef = collection(db, 'users', userId, 'Shelf')
@@ -113,6 +116,79 @@ export const fetchShelf = async (userId: string) => {
     })
     return playlists  
 }
+// userDocs.forEach(user => {
+//     playlistsToAdd.forEach(playlist => {
+//         const playlistDocRef = doc(db, 'users', user.id, 'Shelf', playlist.title)
+//         setDoc(playlistDocRef, playlist.movieObject)
+//         .then(() => {
+//             console.log(`Added ${playlist.title} to Shelf, contains ${playlist.movieObject}`)
+//         })
+//         .catch(err => {
+//             console.log(err)
+//         })
+//     })
+// })
+
+
+
+
+
+export const handleAddMovie = (movie: MovieProps) => {
+    console.log(movie)
+}
+
+
+export const addShelfPlaylist = async (userId: string | null | undefined, title: string, updateState: (title: string) => void) => {
+    if (userId) {
+        const playlistDocRef = doc(db, 'users', userId, 'Shelf', title)
+        await setDoc(playlistDocRef, {movies: []})
+        updateState(title)
+    } else {
+        console.log("Issue with validating user")
+    }
+}
+
+export const updateUserDoc = async (userId: string, value: string, field: string) => {
+    const userDocRef = doc(db, 'users', userId)
+    const userDocSnapshot = await getDoc(userDocRef)
+    if (userDocSnapshot.exists()) {
+        console.log("value:", value)
+        const data = userDocSnapshot.data()
+        console.log("current data:", data)
+        updateDoc(userDocRef, {
+            [field]: value
+        })
+    }
+}
+
+// userDocs.forEach(user => {
+//     playlistsToAdd.forEach(playlist => {
+//         const playlistDocRef = doc(db, 'users', user.id, 'Shelf', playlist.title)
+//         setDoc(playlistDocRef, playlist.movieObject)
+//         .then(() => {
+//             console.log(`Added ${playlist.title} to Shelf, contains ${playlist.movieObject}`)
+//         })
+//         .catch(err => {
+//             console.log(err)
+//         })
+//     })
+// })
+
+
+
+export const uploadImage = async (imageUpload: File | null, userId: string) => {
+    if (imageUpload === null) {
+        alert("Must upload .jpg, .jpeg, or .png");
+        return;
+    };
+    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+    const imageSnapshot = await uploadBytes(imageRef, imageUpload)
+    const url = await getDownloadURL(imageSnapshot.ref)
+    updateUserDoc(userId, url, "profilePic")
+    return url
+}
+
+
 // userDocs.forEach(user => {
 //     playlistsToAdd.forEach(playlist => {
 //         const playlistDocRef = doc(db, 'users', user.id, 'Shelf', playlist.title)
@@ -150,44 +226,4 @@ export const addMovieToPlaylist = async (playlist: string, movieId: number, post
 // }
 
 
-export const handleAddMovie = (movie: MovieProps) => {
-    console.log(movie)
-}
 
-
-export const addShelfPlaylist = async (userId: string | null | undefined, title: string, updateState: (title: string) => void) => {
-    if (userId) {
-        const playlistDocRef = doc(db, 'users', userId, 'Shelf', title)
-        await setDoc(playlistDocRef, {movies: []})
-        updateState(title)
-    } else {
-        console.log("Issue with validating user")
-    }
-}
-
-export const updateUserDoc = async (userId: string, value: string, field: string) => {
-    const userDocRef = doc(db, 'users', userId)
-    const userDocSnapshot = await getDoc(userDocRef)
-    if (userDocSnapshot.exists()) {
-        console.log("value:", value)
-        const data = userDocSnapshot.data()
-        console.log("current data:", data)
-        setDoc(userDocRef, {
-            ...data,
-            [field]: value
-        })
-    }
-}
-
-
-export const uploadImage = async (imageUpload: File | null, userId: string) => {
-    if (imageUpload === null) {
-        alert("Must upload .jpg, .jpeg, or .png");
-        return;
-    };
-    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-    const imageSnapshot = await uploadBytes(imageRef, imageUpload)
-    const url = await getDownloadURL(imageSnapshot.ref)
-    updateUserDoc(userId, url, "profilePic")
-    return url
-}

@@ -1,0 +1,98 @@
+.profile {
+  /* margin-left: 328px;
+  padding-left: 10px; */
+  background-color: black;
+  color: white;
+  height: 100vh;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* overflow-x: hidden; */
+  width: 100%;
+  padding: 20px;
+  margin-left: 30vw;
+  /* transition: margin-left 0.2s ease; */
+  /* text-align: center; */
+}
+
+.profile-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.avatar {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  /* margin: 20px 20px;   */
+  /* margin-right: 40px;   */
+}
+
+
+.profile-info {
+  border: white 5px;
+  display: flex;
+  background-color: black;
+  width: 616px;
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+}
+
+  /* box-shadow: white 0px 0px 10px; */
+  /* box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px; */
+
+
+.user-info {
+  margin-left: 30px;
+  /* background-color: purple; */
+}
+
+/* .watched-list {
+  height: 500px;
+} */
+/* .watched-and-friends {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+  margin-top: -10px;
+} */
+
+.name {
+  letter-spacing: 3px;
+  font-size: 50px;
+  display: flex;
+  gap: 15px;
+  color: white;
+  text-shadow: 2px 2px 4px #aaa8b3;
+}
+/* 
+.name :hover {
+  color: #2592a4;
+} */
+
+.quote {
+  font-style: italic;
+  font-size: 20px;
+  margin-left: 20px;
+  margin-top: -5px;
+}
+
+.text {
+  font-style: italic;
+  font-size: 15px;
+}
+
+.easy-edit-hover-on {
+  font-style: normal;
+}
+
+
+.profile-card {
+  height: 120px;
+}
