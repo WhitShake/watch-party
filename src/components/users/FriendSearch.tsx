@@ -40,7 +40,7 @@ export const FriendSearch = (props: FriendSearchProps) => {
         <input type="submit" value='Search for friends' className="friend-search-button"/>
       </div>
       {/* <button>View Profile</button> */}
-      <FriendsList friends={props.matchingUsers}/>
+      <FriendsList friendsData={props.matchingUsers} friendsList={{}}/>
     </form>
   );
 };

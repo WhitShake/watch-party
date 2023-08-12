@@ -1,6 +1,6 @@
 import { watch } from "fs"
 import { db } from "../firebase_setup/firebase"
-import { doc, getDoc, setDoc, collection, getDocs, updateDoc, where, query } from "firebase/firestore"
+import { doc, getDoc, setDoc, collection, getDocs, updateDoc, where, query, deleteDoc } from "firebase/firestore"
 import { MovieProps, UserData, UserProfileData } from "../components/prop_types/propsTypes"
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { v4 } from "uuid"
@@ -52,9 +52,9 @@ export const getUserData = async (userId: string) => {
 
 export const getFriendsList = async (userId: string | undefined) => {
     if (!userId) return;
-    const userFriendsRef = collection(db, 'users', userId, 'Friends');
+    const friendsRef = collection(db, 'users', userId, 'Friends');
     try {
-        const userFriendsList = await getDocs(userFriendsRef);
+        const userFriendsList = await getDocs(friendsRef);
         let friends: {} = {}
         userFriendsList.forEach(friend => {
             friends = {...friends, [friend.id]: 1}
@@ -67,6 +67,32 @@ export const getFriendsList = async (userId: string | undefined) => {
 }
 
 
+export const addFriend = async (userId: string, idToAdd: string) => {
+    const friendsRef = collection(db, 'users', userId, 'Friends');
+    try { 
+        const friendToAddRef = doc(db, 'users', userId, 'Friends', idToAdd)
+        const newFriend = await setDoc(friendToAddRef, {exists: true})
+        console.log(newFriend)
+        return newFriend
+    } catch (error) { 
+        console.log("Issue with adding friend")
+        return error;
+    }
+}
+
+
+export const deleteFriend = async (userId: string, idToDelete: string) => {
+    try {
+        const docToDelete = doc(db, 'users', userId, 'Friends', idToDelete)
+        await deleteDoc(docToDelete)
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+
+// not currently being used
 export const fetchFriendData = async (friends: string[]) => {
     const friendData = await Promise.all(
         friends.map(async (friend: string) => {
@@ -128,7 +154,7 @@ export const fetchShelf = async (userId: string) => {
 
 
 
-
+// need to make this 
 export const handleAddMovie = (movie: MovieProps) => {
     console.log(movie)
 }

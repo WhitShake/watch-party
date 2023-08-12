@@ -9,7 +9,7 @@ import { Search } from './components/pages/search_pages/Search';
 import { Profile } from './components/users/Profile';
 import { Playlist } from './components/sidebar/Playlist';
 import { MovieObject, MovieProps, FriendsListProps, UserProfileData, UserData } from './components/prop_types/propsTypes';
-import { getUserData, getFriendsList, fetchFriendData, fetchPlaylistMovies, initializeNewUser, fetchShelf, updateUserDoc} from './firestore_functions/firestore_calls';
+import { getUserData, getFriendsList, fetchFriendData, fetchPlaylistMovies, initializeNewUser, fetchShelf, updateUserDoc, addFriend, deleteFriend} from './firestore_functions/firestore_calls';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Login } from './components/sidebar/Login';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +18,6 @@ import { useNavigate } from 'react-router-dom';
 
 const apiKey = process.env.REACT_APP_tmdb_apiKey;
 const BASE_URL = 'https://api.themoviedb.org/'; 
-
 
 // code below is for seeding. uncomment the import of seedData 
 // // fetchMovies acts similarly to fetchData, just grabs ids and poster paths
@@ -289,7 +288,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile 
                                               userData={userData} 
-                                              friends={friendsData} 
+                                              friendsData={friendsData} 
+                                              friendsList={friendsList}
                                               watchedMovies={recentlyWatchedData} 
                                               handleUpdate={handleInfoUpdated}/>} />
           <Route path="/playlist" element={<Playlist title={playlistTitle}  movies={playlistMovies}/>}/>

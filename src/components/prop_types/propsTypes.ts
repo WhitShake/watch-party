@@ -17,12 +17,16 @@ export type UserData = {
 
 export type ProfileProps = {
     userData: UserProfileData | null | undefined
-    friends: UserProfileData[] 
+    friendsData: UserProfileData[] 
+    friendsList: {} | undefined
     watchedMovies: MovieProps[], 
     handleUpdate: (field: keyof UserProfileData, value: string) => void
 };
 
-export type FriendsListProps = {friends: UserProfileData[]}
+export type FriendsListProps = {
+    friendsData: UserProfileData[]
+    friendsList: {} | undefined
+}
 
 
 export type MovieProps = {

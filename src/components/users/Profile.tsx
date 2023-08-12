@@ -14,19 +14,14 @@ import { getFriendsList, searchUsersByName } from '../../firestore_functions/fir
 
 
 export const Profile = (props: ProfileProps) => {
-    if (!props.userData) {
-        return (<div className="profile">Log in to see your profile!</div>)
-    }
-
-    const {firstName, lastName, profilePic, quote} = props.userData
     
     const [user] = useAuthState(auth);
     const [firstNameSearch, setFirstNameSearch] = useState('');
     const [lastNameSearch, setLastNameSearch] = useState('');
     const [matchingUsers, setMatchingUsers] = useState<UserProfileData[]>([]);
     const [friendStatus, setFriendStatus] = useState(false);
-
-    // delete later
+    
+    // // delete later
     useEffect(() => {
         console.log("matching users:", matchingUsers)
         const checkMatching = async () => {
@@ -36,13 +31,18 @@ export const Profile = (props: ProfileProps) => {
                 if (!friendsList) return;
                 if (result.id in friendsList) console.log("Friended")
                 else console.log("Not friended")
-            })
-        }
-        checkMatching()
-    }, [matchingUsers])
+        })
+    }
+    checkMatching()
+}, [matchingUsers])
 
-    const navigate = useNavigate();
+const navigate = useNavigate();
 
+if (!props.userData) {
+    return (<div className="profile">Log in to see your profile!</div>)
+}
+
+const {firstName, lastName, profilePic, quote} = props.userData
 
     const handleUserSearch = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -81,9 +81,9 @@ export const Profile = (props: ProfileProps) => {
             </div>
             <div className="friends-list">
                 <h4>Friends List</h4>
-                {props.friends.length === 0
+                {props.friendsData.length === 0
                 ? <p className="text">Add friends and invite them to watch a movie!</p>
-                : <FriendsList friends={props.friends}/>
+                : <FriendsList friendsData={props.friendsData} friendsList={props.friendsList}/>
                 }
             </div>
             <div>
