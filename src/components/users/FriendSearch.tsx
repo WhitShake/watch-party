@@ -20,6 +20,8 @@ type FriendSearchProps = {
   matchingUsers: UserProfileData[];
   setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
   setFriendsData: Dispatch<SetStateAction<UserProfileData[]>>
+  setMatchingUsers: Dispatch<SetStateAction<UserProfileData[]>>
+  friendsList: Record<string, any> | undefined
   // handleFriendshipCheck: (event: React.MouseEvent<HTMLButtonElement>, userId: string) => void;
   // handleNavigateToProfile: (event: React.MouseEvent<HTMLButtonElement>, userId: string) => void;
 }
@@ -44,7 +46,7 @@ export const FriendSearch = (props: FriendSearchProps) => {
         <input type="submit" value='Search for friends' className="friend-search-button"/>
       </div>
       {/* <button>View Profile</button> */}
-      <FriendsList friendsData={props.matchingUsers} friendsList={{}} setFriendsList={props.setFriendsList} setFriendsData={props.setFriendsData}/>
+      <FriendsList friendsData={props.matchingUsers} friendsList={props.friendsList} setFriendsList={props.setFriendsList} setFriendsData={props.setFriendsData} setMatchingUsers={props.setMatchingUsers}/>
     </form>
   );
 };

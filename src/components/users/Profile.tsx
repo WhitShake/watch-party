@@ -34,9 +34,7 @@ export const Profile = (props: ProfileProps) => {
         })
     }
     checkMatching()
-}, [matchingUsers])
-
-const navigate = useNavigate();
+    }, [matchingUsers])
 
 if (!props.userData) {
     return (<div className="profile">Log in to see your profile!</div>)
@@ -94,8 +92,10 @@ const { handleUpdate, friendsData, friendsList, watchedMovies, setFriendsList, s
                     setLastNameSearch={setLastNameSearch} 
                     handleUserSearch={handleUserSearch} 
                     matchingUsers={matchingUsers}
+                    setMatchingUsers={setMatchingUsers}
                     setFriendsList={setFriendsList}
                     setFriendsData={setFriendsData}
+                    friendsList={friendsList}
                     // handleNavigateToProfile={handleNavigateToProfile}
                     // handleFriendshipCheck={handleFriendshipCheck}
                     />

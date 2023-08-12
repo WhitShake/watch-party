@@ -3,8 +3,9 @@ import { addFriend, deleteFriend } from '../../firestore_functions/firestore_cal
 import { auth } from '../../firebase_setup/firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import './Friend.css'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { getUserData } from '../../firestore_functions/firestore_calls'
+import { FriendsList } from './FriendsList'
 
 
 type FriendProps = {
@@ -12,10 +13,21 @@ type FriendProps = {
     friendsList: {} | undefined
     setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
     setFriendsData: Dispatch<SetStateAction<UserProfileData[]>>
+    setMatchingUsers?: Dispatch<SetStateAction<UserProfileData[]>>
 }
 
 export const Friend = ({data, friendsList, setFriendsList, setFriendsData}: FriendProps)  => {
     const [user] = useAuthState(auth);
+    const [friendStatus, setFriendStatus] = useState(true)
+    
+    useEffect(() => {
+        if (friendsList && data.id in friendsList) {
+            setFriendStatus(true)
+        } else {
+            setFriendStatus(false)
+        }
+    }, [data.id, friendsList])
+    
     if (!user) return <div>Please sign in to use this feature</div>
     if (!friendsList) return <div>User has no friends</div>
 
@@ -50,12 +62,6 @@ export const Friend = ({data, friendsList, setFriendsList, setFriendsData}: Frie
         })
     }
 
-
-// have an add friend, delete friend, view profile button 
-// render view profile for everyone 
-// add friend if id not in friendslist
-// delete friend if friend in friendslist 
-// may need to update friendsList state -- pass setFriendsList all the way down for re-render of friends 
     return (
         <div className="friend">
             <div className="dropdown">
@@ -66,7 +72,7 @@ export const Friend = ({data, friendsList, setFriendsList, setFriendsData}: Frie
                 </div>
                 <div className="dropdown-content">
                     <button>View Profile</button>
-                    {data.id in friendsList
+                    {friendStatus
                     ? <button onClick={handleDeleteFriend}>Delete Friend</button>
                     : <button onClick={handleAddFriend}>Add Friend</button>} 
                 </div>

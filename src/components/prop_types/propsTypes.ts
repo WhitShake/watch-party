@@ -18,7 +18,7 @@ export type UserData = {
 export type ProfileProps = {
     userData: UserProfileData | null | undefined
     friendsData: UserProfileData[] 
-    friendsList: {} | undefined
+    friendsList: Record<string, any> | undefined
     watchedMovies: MovieProps[], 
     handleUpdate: (field: keyof UserProfileData, value: string) => void
     setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
@@ -27,9 +27,10 @@ export type ProfileProps = {
 
 export type FriendsListProps = {
     friendsData: UserProfileData[]
-    friendsList: {} | undefined
+    friendsList: Record<string, any> | undefined
     setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
     setFriendsData: Dispatch<SetStateAction<UserProfileData[]>>
+    setMatchingUsers?: Dispatch<SetStateAction<UserProfileData[]>>
 }
 
 
