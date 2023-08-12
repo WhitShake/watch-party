@@ -1,7 +1,7 @@
 import { watch } from "fs"
 import { db } from "../firebase_setup/firebase"
 import { doc, getDoc, setDoc, collection, getDocs, updateDoc, where, query } from "firebase/firestore"
-import { MovieProps, UserData } from "../components/prop_types/propsTypes"
+import { MovieProps, UserData, UserProfileData } from "../components/prop_types/propsTypes"
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { v4 } from "uuid"
 import { storage } from "../firebase_setup/firebase";
@@ -27,9 +27,8 @@ export const initializeNewUser = async (userId: string, displayName: string | nu
 
         const watchedDocRef = doc(db, 'users', userId, 'Shelf', 'Watched')
         setDoc(watchedDocRef, {movies: []})
-
-        const friendsDocRef = doc(db, 'users', userId, 'Friends', 'Friends List');
-        setDoc(friendsDocRef, {friends: []})
+        // const friendsDocRef = doc(db, 'users', userId, 'Friends', 'Friends List');
+        // setDoc(friendsDocRef, {friends: []})
     }
 }
 
@@ -52,15 +51,14 @@ export const getUserData = async (userId: string) => {
 
 
 export const getFriendsList = async (userId: string) => {
-    const userFriendsRef = doc(db, 'users', userId, 'Friends', 'Friends List');
-
+    const userFriendsRef = collection(db, 'users', userId, 'Friends');
     try {
-        const userFriendsList = await getDoc(userFriendsRef);
-        if (userFriendsList.exists()) {
-            return userFriendsList.data()
-        } else{
-            throw new Error('User not found');
-        }
+        const userFriendsList = await getDocs(userFriendsRef);
+        let friends: {} = {}
+        userFriendsList.forEach(friend => {
+            friends = {...friends, [friend.id]: 1}
+        })
+        return friends;
     } catch (error) {
         console.error('Error fetching user data:', error);
         throw error;
@@ -145,7 +143,7 @@ export const addShelfPlaylist = async (userId: string | null | undefined, title:
     }
 }
 
-export const updateUserDoc = async (userId: string, value: string, field: string) => {
+export const updateUserDoc = async (userId: string, value: string, field: keyof UserProfileData) => {
     const userDocRef = doc(db, 'users', userId)
     const userDocSnapshot = await getDoc(userDocRef)
     if (userDocSnapshot.exists()) {
@@ -184,7 +182,7 @@ export const searchUsersByName = async (firstName: string, lastName: string) => 
         let usersSearchResults: UserData[] = [];
         querySnapshot.forEach(doc => {
             const userData = doc.data() as UserData;
-            usersSearchResults.push(userData)
+            usersSearchResults.push({...userData, id: doc.id})
         });
         return usersSearchResults;
     } catch (error) {
@@ -194,3 +192,20 @@ export const searchUsersByName = async (firstName: string, lastName: string) => 
 };
 
 
+// export const checkFriendStatus = async (userId: string, toCheck: UserData) => {
+//     const friendsListRef = doc(db, "users", userId, 'Friends', 'Friends List');
+//     const friendsListSnapshot = await getDoc(friendsListRef)
+//     try { 
+//         if (friendsListSnapshot.exists()) {
+//             const friendsListData = friendsListSnapshot.data() as string[];
+//             console.log("friends list", friendsListData)
+//             return friendsListData.includes(toCheck.id)
+//         } 
+//         else {
+//             throw new Error('Error fetching the playlist');
+//         }
+//     } catch (error) {
+//         console.log("Issue with checking this user's friends")
+//         return error;
+//     }
+// }

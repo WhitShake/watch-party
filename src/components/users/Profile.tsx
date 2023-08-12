@@ -1,13 +1,13 @@
 import { MovieList } from '../movie_data/MovieList';
 import { FriendsList } from './FriendsList'
 import { FriendSearch } from './FriendSearch';
-import { ProfileProps } from '../prop_types/propsTypes';
+import { ProfileProps, UserData, UserProfileData } from '../prop_types/propsTypes';
 import { auth } from '../../firebase_setup/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { EditableText } from './EditableText';
 import { Picture } from './Picture';
 import { db } from '../../firebase_setup/firebase'
-import { collection, query, where, getDocs, doc, getDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { useState, useEffect } from 'react';
 import 'firebase/firestore';
 import './Profile.css'
@@ -15,17 +15,7 @@ import { profile } from 'console';
 import { ProfileWatched } from '../movie_data/ProfileWatched';
 import { useNavigate } from 'react-router-dom';
 import { match } from 'assert';
-import { searchUsersByName } from '../../firestore_functions/firestore_calls';
-
-
-interface UserData {
-    key: string;
-    id: string;
-    firstName: string;
-    lastName: string;
-    profilePic: string;
-    quote: string;
-    }
+import { getFriendsList, searchUsersByName } from '../../firestore_functions/firestore_calls';
 
 interface Friend {
     id: string;
@@ -38,8 +28,21 @@ export const Profile = (props: ProfileProps) => {
     const [user] = useAuthState(auth);
     const [firstNameSearch, setFirstNameSearch] = useState('');
     const [lastNameSearch, setLastNameSearch] = useState('');
-    const [matchingUsers, setMatchingUsers] = useState<UserData[]>([]);
+    const [matchingUsers, setMatchingUsers] = useState<UserProfileData[]>([]);
     const [friendStatus, setFriendStatus] = useState(false);
+
+    useEffect(() => {
+        console.log("matching users:", matchingUsers)
+        const checkMatching = async () => {
+            if (!user) return;
+            const friendsList = await getFriendsList(user.uid)
+            matchingUsers.map(result => {
+                if (result.id in friendsList) console.log("Friended")
+                else console.log("Not friended")
+            })
+        }
+        checkMatching()
+    }, [matchingUsers])
 
     const navigate = useNavigate();
 
@@ -55,66 +58,10 @@ export const Profile = (props: ProfileProps) => {
         event.preventDefault();
         const searchResults = await searchUsersByName(firstNameSearch, lastNameSearch)
         if (searchResults) {
-            setMatchingUsers(searchResults as UserData[]);
-        }
-        if (matchingUsers.length > 0) {
-            const firstMatchingUser = matchingUsers[0];
-            const userId = firstMatchingUser.id;
-            handleFriendshipCheck(userId);
+            setMatchingUsers(searchResults as UserProfileData[]);
         }
     };
-
-
-
-
-    //         if (matchingUsers.length > 0) {
-    //             const firstMatchingUser = matchingUsers[0];
-    //             const userId = firstMatchingUser.id;
-    //             handleFriendshipCheck(userId);
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         console.error("No users found:", error);
-    //     });
-    // };
-
-    // const handleFriendshipCheck = (event: React.MouseEvent<HTMLButtonElement>) => {
-    //     if (!user) {
-    //         console.log('Please sign in to use this feature')
-    //         return;
-    //     }
-    // }
-
-    const handleFriendshipCheck =  (userId: string) => {
-
-        if (!user) {
-            console.log('Please sign in to use this feature')
-            return;
-        }
-
-        const friendsListRef = doc(db, 'users', user.uid, 'Friends', 'Friends List');
-
-        getDoc(friendsListRef)
-            .then((docSnapshot) => {
-                if (docSnapshot.exists()) {
-                    const friendsData = docSnapshot.data();
-                    const friendIds: string[] = friendsData.friends;
-                    console.log(friendIds)
-
-                    const isFriend = friendIds.includes(userId);
-                    console.log(isFriend)
-                if (isFriend) {
-                    console.log(`${userId} is already a friend`);
-            }
-            } else {
-                console.log('Something');
-            }
-        })
-        .catch((error) => {
-            console.error('Error getting Friends list:', error)
-        });
-    };
-
+    
 
     return (
     <div className="profile">
@@ -144,7 +91,7 @@ export const Profile = (props: ProfileProps) => {
             </div>
             <div className="friends-list">
                 <h4>Friends List</h4>
-                {props.friends?.length === 0
+                {props.friends.length === 0
                 ? <p className="text">Add friends and invite them to watch a movie!</p>
                 : <FriendsList friends={props.friends}/>
                 }
@@ -159,8 +106,8 @@ export const Profile = (props: ProfileProps) => {
                     // handleFriendshipCheck={handleFriendshipCheck}
                     />
             </div>
-        {/* </div> */}
         </div>
     </div>
     )
 };
+

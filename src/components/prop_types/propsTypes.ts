@@ -1,10 +1,12 @@
 import { DocumentData } from "firebase/firestore";
 
-export type userProfileData = DocumentData & {
+export type UserProfileData = {
+    id: string
     firstName: string
     lastName: string
     quote: string
     profilePic: string
+    email: string
 }
 
 export type UserData = {
@@ -14,13 +16,13 @@ export type UserData = {
 }
 
 export type ProfileProps = {
-    userData: userProfileData | null | undefined
-    friends: UserData[] | null
+    userData: UserProfileData | null | undefined
+    friends: UserProfileData[] 
     watchedMovies: MovieProps[], 
-    handleUpdate: (field: keyof userProfileData, value: string) => void
+    handleUpdate: (field: keyof UserProfileData, value: string) => void
 };
 
-export type FriendsListProps = {friends: UserData[] | null}
+export type FriendsListProps = {friends: UserProfileData[]}
 
 
 export type MovieProps = {

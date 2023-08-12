@@ -1,19 +1,21 @@
 import './FriendSearch.css'
+import { UserData, UserProfileData } from '../prop_types/propsTypes';
+import { FriendsList } from './FriendsList';
 
 
-interface UserData {
-  id: string;
-  firstName: string;
-  lastName: string;
-  profilePic: string;
-  quote: string;
-  }
+// interface UserData {
+//   id: string;
+//   firstName: string;
+//   lastName: string;
+//   profilePic: string;
+//   quote: string;
+//   }
 
 type FriendSearchProps = {
   setFirstNameSearch: React.Dispatch<React.SetStateAction<string>>;
   setLastNameSearch: React.Dispatch<React.SetStateAction<string>>;
   handleUserSearch: (event: React.FormEvent<HTMLFormElement>) => void;
-  matchingUsers: UserData[];
+  matchingUsers: UserProfileData[];
   // handleFriendshipCheck: (event: React.MouseEvent<HTMLButtonElement>, userId: string) => void;
   // handleNavigateToProfile: (event: React.MouseEvent<HTMLButtonElement>, userId: string) => void;
 }
@@ -37,13 +39,8 @@ export const FriendSearch = (props: FriendSearchProps) => {
       <div>
         <input type="submit" value='Search for friends' className="friend-search-button"/>
       </div>
-      {props.matchingUsers.map((user) => (
-        <div key={user.id}>
-          <img src={user.profilePic} alt="avatar" />
-          <p>{user.firstName} {user.lastName}</p>
-          {/* <button>View Profile</button> */}
-        </div>
-      ))}
+      {/* <button>View Profile</button> */}
+      <FriendsList friends={props.matchingUsers}/>
     </form>
   );
 };

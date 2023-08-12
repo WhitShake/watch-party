@@ -8,7 +8,7 @@ import { Home } from './components/pages/Home';
 import { Search } from './components/pages/search_pages/Search';
 import { Profile } from './components/users/Profile';
 import { Playlist } from './components/sidebar/Playlist';
-import { MovieObject, MovieProps, FriendsListProps, userProfileData, UserData } from './components/prop_types/propsTypes';
+import { MovieObject, MovieProps, FriendsListProps, UserProfileData, UserData } from './components/prop_types/propsTypes';
 import { getUserData, getFriendsList, fetchFriendData, fetchPlaylistMovies, initializeNewUser, fetchShelf, updateUserDoc} from './firestore_functions/firestore_calls';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Login } from './components/sidebar/Login';
@@ -57,8 +57,8 @@ const App = () => {
   const [searchResults, setSearchResults] = useState<MovieProps[]>([]);
   const [selectedSearchForm, setSelectedSearchForm] = useState<string>("");
   const [userId, setUserId] = useState<string | null>(null);
-  const [userData, setUserData] = useState<userProfileData | null>(null);
-  const [friendsData, setFriendsData] = useState<UserData[] | null>(null);
+  const [userData, setUserData] = useState<UserProfileData | null>(null);
+  const [friendsData, setFriendsData] = useState<UserProfileData[]>([]);
   const [recentlyWatchedData, setRecentlyWatchedData] = useState<MovieProps[]>([]);
   const [shelf, setShelf] = useState<string[]>([])
   const [playlistTitle, setPlaylistTitle] = useState('') 
@@ -74,16 +74,26 @@ const App = () => {
     }
   })
 
+
   useEffect(() => {
     if (userId !== null) {
       getUserData(userId)
-      .then(data => setUserData(data as userProfileData))
+      .then(data => setUserData(data as UserProfileData))
 
       getFriendsList(userId)
-      .then(async data => {
-        const friendData = await fetchFriendData(data.friends as string[])
-        setFriendsData(friendData as UserData[])
-      })
+      .then(async friendsObject => {
+        const friendsIds = Object.keys(friendsObject)
+        const friendsDataPromises = friendsIds.map(async friendId => {
+          const toAdd = await getUserData(friendId);
+          return {
+            ...toAdd as UserProfileData,
+            id: friendId,
+          };
+        });
+        
+        const friendsData = await Promise.all(friendsDataPromises);
+        setFriendsData(friendsData as UserProfileData[]);
+      });
 
       fetchPlaylistMovies(userId, "Watched")
       .then(data => {
@@ -106,7 +116,7 @@ const App = () => {
       navigate("/profile")
     } else {
       setUserData(null)
-      setFriendsData(null)
+      setFriendsData([])
       setRecentlyWatchedData([])
       setShelf([])
     }
@@ -114,11 +124,11 @@ const App = () => {
 
 
   // this is just to view the state variables, delete later 
-  // useEffect(() => {
-  //   console.log("friends:", friendsData)
-  //   console.log("user", userData)
-  //   console.log("recently watched movies", recentlyWatchedData)
-  // }, [friendsData, userData, recentlyWatchedData])
+  useEffect(() => {
+    console.log("friends:", friendsData)
+    console.log("user", userData)
+    console.log("recently watched movies", recentlyWatchedData)
+  }, [friendsData, userData, recentlyWatchedData])
 
   
   const searchUrls = {
@@ -132,11 +142,11 @@ const App = () => {
     setSearchTerm(event.target.value);
   };
 
-  const handleInfoUpdated = (field: keyof userProfileData, value: string) => {
+  const handleInfoUpdated = (field: keyof UserProfileData, value: string) => {
     setUserData(prevUserData => ({
       ...prevUserData,
       [field]: value
-    } as userProfileData))
+    } as UserProfileData))
   }
 
   const handleAddPlaylist = (newPlaylist: string) => {

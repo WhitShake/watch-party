@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { uploadImage } from '../../firestore_functions/firestore_calls';
 import { auth } from '../../firebase_setup/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { userProfileData } from '../prop_types/propsTypes';
+import { UserProfileData } from '../prop_types/propsTypes';
 import './Picture.css'
 
 type PictureProps = {
     urlPath: string
-    handleUpdate: (field: keyof userProfileData, value: string) => void
+    handleUpdate: (field: keyof UserProfileData, value: string) => void
 }
 
 export const Picture = ({urlPath, handleUpdate}: PictureProps) => { 
