@@ -1,5 +1,4 @@
 import { watch } from "fs"
-import { watch } from "fs"
 import { db } from "../firebase_setup/firebase"
 import { doc, getDoc, setDoc, collection, getDocs, updateDoc, arrayUnion } from "firebase/firestore"
 import { MovieProps } from "../components/prop_types/propsTypes"
@@ -104,8 +103,7 @@ export const fetchPlaylistMovies = async (userId: string | null, playlistTitle: 
         console.error('Error fetching user data:', error);
         throw error;
     }
-}}
-
+}
 
 export const fetchShelf = async (userId: string) => {
     const shelfRef = collection(db, 'users', userId, 'Shelf')
