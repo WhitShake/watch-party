@@ -14,6 +14,7 @@ type RandomNumberGeneratorProps = {
 const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
   
   const [randomNumber, setRandomNumber] = useState<number | null>(null);
+  const {BASE_URL} = props;
 
   const generateRandomNumber = () => {
     setRandomNumber(null);
@@ -33,7 +34,10 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
         const response = await fetch(url);
         const data = await response.json();
         console.log(data);
-        if (data.success ===false || data.poster_path === "" || data.vote_count === 0 || data.overview === "") {
+        if (data.success ===false || 
+          data.poster_path === "" || 
+          data.vote_count === 0 || 
+          data.overview === "") {
           generateRandomNumber();
         } else {
             const randomMovieData = { id: data.id , posterPath: data.poster_path, overview: data.overview }
@@ -46,7 +50,7 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
     if (randomNumber !== null) {
       fetchRandomMovie(randomNumber);
     }
-  }, [randomNumber, props.BASE_URL]);
+  }, [randomNumber, BASE_URL]);
 
 
   return (
