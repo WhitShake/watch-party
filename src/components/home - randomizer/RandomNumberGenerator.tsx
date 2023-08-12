@@ -14,6 +14,7 @@ type RandomNumberGeneratorProps = {
 const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
   
   const [randomNumber, setRandomNumber] = useState<number | null>(null);
+  const {BASE_URL} = props;
 
   const generateRandomNumber = () => {
     setRandomNumber(null);
@@ -51,7 +52,7 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
     if (randomNumber !== null) {
       fetchRandomMovie(randomNumber);
     }
-  }, [randomNumber, props.BASE_URL]);
+  }, [randomNumber, BASE_URL]);
 
 
   return (
