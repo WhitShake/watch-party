@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.2",
     "firebase-tools": "^12.4.6"
   }
 }

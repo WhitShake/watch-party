@@ -2,13 +2,14 @@ import React, { useState, useEffect }from 'react';
 import './App.css';
 import { SideBar } from './components/sidebar/SideBar';
 import { db } from './firebase_setup/firebase';
-import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import 'firebase/firestore';
+import { collection, getDocs, doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from './components/pages/Home';
 import { Search } from './components/pages/search_pages/Search';
 import { Profile } from './components/pages/Profile';
 import { MovieObject, MovieProps, FriendsListProps, userProfileData } from './components/prop_types/propsTypes';
-import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies } from './firestore_functions/firestore_calls';
+import { getUserData, getFriendsList, fetchFriendData, fetchWatchedMovies, addMovieToPlaylist } from './firestore_functions/firestore_calls';
 import { Login } from './components/sidebar/Login';
 import { MoviePage } from './components/pages/MoviePage';
 
@@ -308,6 +309,37 @@ const App = () => {
       });
   };
 
+  // const ShelfRef = collection(db, 'users', '')
+  // const addMovieToList = (shelfName, movieId) => {
+  //   const docRef = shelfRef.doc(shelfName);
+  //   fetchMovieById(movieId);
+  //   updateDoc(docRef, 
+  //     movies: arrayUnion({
+  //       id: movieDetails.id,
+  //       posterPath: movieDetails.posterPath
+  //     }))
+  // }
+
+  // const handleAddMovie = (userId: string, id:number, playlist:string) => {
+  //   fetchMovieById(id)
+  //   addMovieToPlaylist(userId, playlist, movieDetails.id, movieDetails.posterPath)
+  // }
+
+  const handleAddMovie = async (movieId: number, playlist: string) => {
+    try {
+      await fetchMovieById(movieId);
+      if (movieDetails.id > 0) {
+        await addMovieToPlaylist(playlist, movieDetails.id, movieDetails.posterPath);
+      } else {
+        console.log("Error fetching movie details");
+      }
+    } catch (error) {
+      console.error("Error handling add movie:", error);
+    }
+  };
+  
+
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -326,7 +358,7 @@ const App = () => {
                                             // handleAdvancedSearchTerms={hanndleAdvancedSearchTerms}
                                             />} />
           {/* <Route path="/login" element={<Login />}/> */}
-          <Route path="/moviepage" element={<MoviePage movieDetails={movieDetails}/>}/>
+          <Route path="/moviepage" element={<MoviePage movieDetails={movieDetails} handleAddMovie={handleAddMovie}/>}/>
         </Routes>
       </BrowserRouter>
     </div>

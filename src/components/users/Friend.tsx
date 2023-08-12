@@ -1,3 +1,4 @@
+import React from 'react';
 import './Friend.css'
 
 type FriendProps = { 
@@ -10,7 +11,7 @@ export const Friend = ({profilePic}: FriendProps)  => {
         <div className="friend">
             <img className="friend-card" src={profilePic === null 
                 ? 'https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg'
-                : profilePic} />
+                : profilePic} alt='profile pic' />
         </div>
     )
 }

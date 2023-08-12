@@ -1,3 +1,4 @@
+import React from 'react';
 import { Friend } from './Friend'
 import { FriendsListProps } from '../prop_types/propsTypes'
 import { getUserData } from '../../firestore_functions/firestore_calls'
