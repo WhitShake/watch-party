@@ -50,7 +50,8 @@ export const getUserData = async (userId: string) => {
 };
 
 
-export const getFriendsList = async (userId: string) => {
+export const getFriendsList = async (userId: string | undefined) => {
+    if (!userId) return;
     const userFriendsRef = collection(db, 'users', userId, 'Friends');
     try {
         const userFriendsList = await getDocs(userFriendsRef);

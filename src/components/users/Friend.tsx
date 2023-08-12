@@ -12,11 +12,19 @@ type FriendProps = {
 export const Friend = ({data}: FriendProps)  => {
     const [user] = useAuthState(auth);
 
+    
+
+// have an add friend, delete friend, view profile button 
+// render view profile for everyone 
+// add friend if id not in friendslist
+// delete friend if friend in friendslist 
+
+
+
+
     const addFriend = async () => {
-        
+
     }
-
-
 
 
     return (

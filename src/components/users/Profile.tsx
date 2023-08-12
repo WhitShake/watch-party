@@ -1,4 +1,3 @@
-import { MovieList } from '../movie_data/MovieList';
 import { FriendsList } from './FriendsList'
 import { FriendSearch } from './FriendSearch';
 import { ProfileProps, UserData, UserProfileData } from '../prop_types/propsTypes';
@@ -6,37 +5,35 @@ import { auth } from '../../firebase_setup/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { EditableText } from './EditableText';
 import { Picture } from './Picture';
-import { db } from '../../firebase_setup/firebase'
-import { doc, getDoc } from "firebase/firestore";
 import { useState, useEffect } from 'react';
-import 'firebase/firestore';
+// import 'firebase/firestore';
 import './Profile.css'
-import { profile } from 'console';
 import { ProfileWatched } from '../movie_data/ProfileWatched';
 import { useNavigate } from 'react-router-dom';
-import { match } from 'assert';
 import { getFriendsList, searchUsersByName } from '../../firestore_functions/firestore_calls';
-
-interface Friend {
-    id: string;
-}
 
 
 export const Profile = (props: ProfileProps) => {
-    
+    if (!props.userData) {
+        return (<div className="profile">Log in to see your profile!</div>)
+    }
 
+    const {firstName, lastName, profilePic, quote} = props.userData
+    
     const [user] = useAuthState(auth);
     const [firstNameSearch, setFirstNameSearch] = useState('');
     const [lastNameSearch, setLastNameSearch] = useState('');
     const [matchingUsers, setMatchingUsers] = useState<UserProfileData[]>([]);
     const [friendStatus, setFriendStatus] = useState(false);
 
+    // delete later
     useEffect(() => {
         console.log("matching users:", matchingUsers)
         const checkMatching = async () => {
-            if (!user) return;
-            const friendsList = await getFriendsList(user.uid)
+            // if (!user) return;
+            const friendsList = await getFriendsList(user?.uid)
             matchingUsers.map(result => {
+                if (!friendsList) return;
                 if (result.id in friendsList) console.log("Friended")
                 else console.log("Not friended")
             })
@@ -46,20 +43,13 @@ export const Profile = (props: ProfileProps) => {
 
     const navigate = useNavigate();
 
-    if (!props.userData) {
-        return (<div className="profile">Log in to see your profile!</div>)
-    }
 
-    const {firstName, lastName, profilePic, quote} = props.userData
-
-    
-    
     const handleUserSearch = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const searchResults = await searchUsersByName(firstNameSearch, lastNameSearch)
-        if (searchResults) {
-            setMatchingUsers(searchResults as UserProfileData[]);
-        }
+        // if (searchResults) {
+        // }
+        setMatchingUsers(searchResults as UserProfileData[]);
     };
     
 

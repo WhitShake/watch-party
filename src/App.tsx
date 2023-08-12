@@ -63,6 +63,7 @@ const App = () => {
   const [shelf, setShelf] = useState<string[]>([])
   const [playlistTitle, setPlaylistTitle] = useState('') 
   const [playlistMovies, setPlaylistMovies] = useState<MovieProps[] | null>(null); 
+  const [friendsList, setFriendsList] = useState<{} | undefined>({})
 
 
   onAuthStateChanged(auth, async (user) => {
@@ -82,6 +83,7 @@ const App = () => {
 
       getFriendsList(userId)
       .then(async friendsObject => {
+        if (!friendsObject) return;
         const friendsIds = Object.keys(friendsObject)
         const friendsDataPromises = friendsIds.map(async friendId => {
           const toAdd = await getUserData(friendId);
@@ -93,6 +95,7 @@ const App = () => {
         
         const friendsData = await Promise.all(friendsDataPromises);
         setFriendsData(friendsData as UserProfileData[]);
+        setFriendsList(friendsObject)
       });
 
       fetchPlaylistMovies(userId, "Watched")
@@ -128,7 +131,8 @@ const App = () => {
     console.log("friends:", friendsData)
     console.log("user", userData)
     console.log("recently watched movies", recentlyWatchedData)
-  }, [friendsData, userData, recentlyWatchedData])
+    console.log("friends list:", friendsList)
+  }, [friendsData, userData, recentlyWatchedData, friendsList])
 
   
   const searchUrls = {
