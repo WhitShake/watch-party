@@ -68,7 +68,7 @@ export const getFriendsList = async (userId: string | undefined) => {
 
 
 export const addFriend = async (userId: string, idToAdd: string) => {
-    const friendsRef = collection(db, 'users', userId, 'Friends');
+    // const friendsRef = collection(db, 'users', userId, 'Friends');
     try { 
         const friendToAddRef = doc(db, 'users', userId, 'Friends', idToAdd)
         const newFriend = await setDoc(friendToAddRef, {exists: true})
@@ -110,6 +110,7 @@ export const fetchFriendData = async (friends: string[]) => {
     console.log(friendData)
     return friendData
 }
+
 
 export const fetchPlaylistMovies = async (userId: string | null, playlistTitle: string) => {
     if (!userId) return;

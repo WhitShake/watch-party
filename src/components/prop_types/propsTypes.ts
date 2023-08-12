@@ -1,4 +1,4 @@
-import { DocumentData } from "firebase/firestore";
+import { Dispatch, SetStateAction } from "react"
 
 export type UserProfileData = {
     id: string
@@ -21,11 +21,15 @@ export type ProfileProps = {
     friendsList: {} | undefined
     watchedMovies: MovieProps[], 
     handleUpdate: (field: keyof UserProfileData, value: string) => void
+    setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
+    setFriendsData: Dispatch<SetStateAction<UserProfileData[]>>
 };
 
 export type FriendsListProps = {
     friendsData: UserProfileData[]
     friendsList: {} | undefined
+    setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
+    setFriendsData: Dispatch<SetStateAction<UserProfileData[]>>
 }
 
 

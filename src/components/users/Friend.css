@@ -1,6 +1,78 @@
 .friend-card {
-    height: 100px;
-    width: 100px;
+    height: 125px;
+    width: auto;
 }
 
+.friend:hover {
+    transform: scale(1.1);
+    z-index: 1;
+}
 
+.friend-container {
+    border-radius: 8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    filter: drop-shadow(2px 2px 7px #f7f2fc);
+    border: #f7f2fc 2px;
+    transition: all .2s ease-in-out;
+    position: relative;
+    z-index: 1;
+}
+
+.dropdown {
+    position: absolute;
+    display: inline-block;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+}
+.dropdown-button {
+    display: flex;
+    flex-direction: row;
+    gap: 1px;
+    /* width: 20px; */
+    /* height: auto; */
+    cursor: pointer;
+}
+
+.dot {
+    display: block;
+    width: 5px;
+    height: 5px;
+    background-color: white;
+    border-radius: 50%; /* Creates circular dots */
+    margin: 4px auto;
+    z-index: 777;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    color: black;
+    padding: 12px 12px;
+    width: 100px;
+    /* z-index: 2; */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    /* z-index: 2; */
+}
+
+.dropdown-content button {
+    display: block;
+    color: black;
+    font-size: 14px;
+    padding: 5px 5px;
+    border: none; 
+    background-color: transparent;
+}
+
+.dropdown-content button:hover {
+    background-color: #f5f5f5;
+}

@@ -42,7 +42,9 @@ if (!props.userData) {
     return (<div className="profile">Log in to see your profile!</div>)
 }
 
-const {firstName, lastName, profilePic, quote} = props.userData
+const {firstName, lastName, profilePic, quote, } = props.userData
+const { handleUpdate, friendsData, friendsList, watchedMovies, setFriendsList, setFriendsData } = props
+
 
     const handleUserSearch = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -60,11 +62,11 @@ const {firstName, lastName, profilePic, quote} = props.userData
                 <Picture urlPath={profilePic} handleUpdate={props.handleUpdate}/>
                 <div className="user-info">
                     <h1 className="name">
-                        <EditableText text={firstName} field="firstName" handleUpdate={props.handleUpdate}/>
-                        <EditableText text={lastName} field="lastName" handleUpdate={props.handleUpdate}/>
+                        <EditableText text={firstName} field="firstName" handleUpdate={handleUpdate}/>
+                        <EditableText text={lastName} field="lastName" handleUpdate={handleUpdate}/>
                     </h1>
                     <h4 className="quote">
-                        <EditableText text={quote} field="quote" handleUpdate={props.handleUpdate}/>
+                        <EditableText text={quote} field="quote" handleUpdate={handleUpdate}/>
                     </h4>
                 </div>
             </div>
@@ -73,7 +75,7 @@ const {firstName, lastName, profilePic, quote} = props.userData
             <h4>Recently Watched</h4>
             </div>
             <div className="watched-list">
-                <ProfileWatched movies={props.watchedMovies}/>
+                <ProfileWatched movies={watchedMovies}/>
                 {/* {props.watchedMovies.length === 0 
                 ? <p className="text">Movies you watch will show up here!</p>
                 : <MovieList movies={props.watchedMovies}/>
@@ -83,7 +85,7 @@ const {firstName, lastName, profilePic, quote} = props.userData
                 <h4>Friends List</h4>
                 {props.friendsData.length === 0
                 ? <p className="text">Add friends and invite them to watch a movie!</p>
-                : <FriendsList friendsData={props.friendsData} friendsList={props.friendsList}/>
+                : <FriendsList friendsData={friendsData} friendsList={friendsList} setFriendsList={setFriendsList} setFriendsData={setFriendsData}/>
                 }
             </div>
             <div>
@@ -92,6 +94,8 @@ const {firstName, lastName, profilePic, quote} = props.userData
                     setLastNameSearch={setLastNameSearch} 
                     handleUserSearch={handleUserSearch} 
                     matchingUsers={matchingUsers}
+                    setFriendsList={setFriendsList}
+                    setFriendsData={setFriendsData}
                     // handleNavigateToProfile={handleNavigateToProfile}
                     // handleFriendshipCheck={handleFriendshipCheck}
                     />

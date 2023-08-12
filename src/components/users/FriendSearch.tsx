@@ -1,6 +1,8 @@
 import './FriendSearch.css'
 import { UserData, UserProfileData } from '../prop_types/propsTypes';
 import { FriendsList } from './FriendsList';
+import { Dispatch, SetStateAction } from 'react';
+import { UserProfile } from 'firebase/auth';
 
 
 // interface UserData {
@@ -16,6 +18,8 @@ type FriendSearchProps = {
   setLastNameSearch: React.Dispatch<React.SetStateAction<string>>;
   handleUserSearch: (event: React.FormEvent<HTMLFormElement>) => void;
   matchingUsers: UserProfileData[];
+  setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
+  setFriendsData: Dispatch<SetStateAction<UserProfileData[]>>
   // handleFriendshipCheck: (event: React.MouseEvent<HTMLButtonElement>, userId: string) => void;
   // handleNavigateToProfile: (event: React.MouseEvent<HTMLButtonElement>, userId: string) => void;
 }
@@ -40,7 +44,7 @@ export const FriendSearch = (props: FriendSearchProps) => {
         <input type="submit" value='Search for friends' className="friend-search-button"/>
       </div>
       {/* <button>View Profile</button> */}
-      <FriendsList friendsData={props.matchingUsers} friendsList={{}}/>
+      <FriendsList friendsData={props.matchingUsers} friendsList={{}} setFriendsList={props.setFriendsList} setFriendsData={props.setFriendsData}/>
     </form>
   );
 };

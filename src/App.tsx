@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 const apiKey = process.env.REACT_APP_tmdb_apiKey;
 const BASE_URL = 'https://api.themoviedb.org/'; 
 
+
 // code below is for seeding. uncomment the import of seedData 
 // // fetchMovies acts similarly to fetchData, just grabs ids and poster paths
 // const fetchMovies = (url: string) => {
@@ -62,7 +63,7 @@ const App = () => {
   const [shelf, setShelf] = useState<string[]>([])
   const [playlistTitle, setPlaylistTitle] = useState('') 
   const [playlistMovies, setPlaylistMovies] = useState<MovieProps[] | null>(null); 
-  const [friendsList, setFriendsList] = useState<{} | undefined>({})
+  const [friendsList, setFriendsList] = useState<Record<string, any> | undefined>({})
 
 
   onAuthStateChanged(auth, async (user) => {
@@ -124,6 +125,12 @@ const App = () => {
     }
   },[userId]);
 
+  // useEffect(() => {
+  // re-render friends when friend gets added or deleted
+  // }[friendsList])
+
+
+  
 
   // this is just to view the state variables, delete later 
   useEffect(() => {
@@ -289,7 +296,9 @@ const App = () => {
           <Route path="/profile" element={<Profile 
                                               userData={userData} 
                                               friendsData={friendsData} 
+                                              setFriendsData={setFriendsData}
                                               friendsList={friendsList}
+                                              setFriendsList={setFriendsList}
                                               watchedMovies={recentlyWatchedData} 
                                               handleUpdate={handleInfoUpdated}/>} />
           <Route path="/playlist" element={<Playlist title={playlistTitle}  movies={playlistMovies}/>}/>
