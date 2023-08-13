@@ -44,7 +44,9 @@ export const Picture = ({urlPath, handleUpdate}: PictureProps) => {
                     </button>
                 </div>
             )}
-            <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? "Close Menu" : "Open Menu"}</button>
+            <div className="img-button-container">
+            <button className="img-menu-button" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? "Finished" : "edit"}</button>
+            </div>
         </div>
     )
 }

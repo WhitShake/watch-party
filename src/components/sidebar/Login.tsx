@@ -1,6 +1,7 @@
 import { auth, provider } from "../../firebase_setup/firebase"
 import { signInWithPopup } from "firebase/auth"
 import { useNavigate } from "react-router-dom"
+import './Login.css'
 // import { db } from "../../firebase_setup/firebase"
 // import { doc, getDoc } from "firebase/firestore"
 // import { onAuthStateChanged } from "firebase/auth"
@@ -16,7 +17,7 @@ export const Login = () => {
     navigate("/profile")
   }
   return (
-    <div>
+    <div className="side-login">
       <button onClick={signInWithGoogle}>Sign In With Google</button>
     </div>
   )

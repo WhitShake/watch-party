@@ -1,17 +1,10 @@
 .profile {
-  /* margin-left: 328px;
-  padding-left: 10px; */
-  background-color: black;
   color: white;
   height: 100vh;
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* overflow-x: hidden; */
   width: 100%;
   padding: 20px;
   margin-left: 30vw;
-  /* transition: margin-left 0.2s ease; */
-  /* text-align: center; */
+  font-family: 'Montserrat Alternates', sans-serif;
 }
 
 .profile-container {
@@ -23,11 +16,12 @@
 
 .avatar {
   width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  overflow: hidden;
-  /* margin: 20px 20px;   */
-  /* margin-right: 40px;   */
+  height: auto;
+  border-radius: 30px;
+  /* overflow: hidden; */
+  border: aqua 1px solid;
+  box-shadow: 4.0px 8.0px 8.0px hsla(179, 37%, 53%, 0.698);
+  object-fit: cover;
 }
 
 
@@ -36,32 +30,20 @@
   display: flex;
   background-color: black;
   width: 616px;
-  padding: 20px;
-  border-radius: 15px;
+  padding: 30px;
+  border-radius: 50px;
   margin-top: 20px;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
+  width: 620px;
+  height: 230px;
+  /* align-items: center; */
+  margin-bottom: 75px;
 }
-
-  /* box-shadow: white 0px 0px 10px; */
-  /* box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px; */
 
 
 .user-info {
   margin-left: 30px;
-  /* background-color: purple; */
+  text-align: center;
 }
-
-/* .watched-list {
-  height: 500px;
-} */
-/* .watched-and-friends {
-  display: flex;
-  flex-direction: column;
-  margin-left: 50px;
-  margin-top: -10px;
-} */
 
 .name {
   letter-spacing: 3px;
@@ -69,7 +51,12 @@
   display: flex;
   gap: 15px;
   color: white;
-  text-shadow: 2px 2px 4px #aaa8b3;
+  /* text-shadow: 2px 2px 4px #aaa8b3; */
+  font-family: 'Bruno Ace SC', cursive;
+  /* font-family: 'Montserrat', sans-serif; */
+  /* font-family: 'Montserrat Alternates', sans-serif; */
+  /* font-family: 'Poiret One', cursive; */
+  /* font-family: 'Raleway', sans-serif; */
 }
 /* 
 .name :hover {
@@ -77,23 +64,70 @@
 } */
 
 .quote {
-  font-style: italic;
   font-size: 20px;
   margin-left: 20px;
   margin-top: -5px;
+  font-family: 'Montserrat Alternates', sans-serif;
+  letter-spacing: 2px;
+}
+
+.profile h4 {
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-size: 20px;
+  margin-top: 20px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  /* color: aqua; */
+  /* text-decoration: underline; */
 }
 
 .text {
-  font-style: italic;
+  /* font-style: italic; */
   font-size: 15px;
 }
 
 .name .easy-edit-hover-on {
   font-style: normal;
+} 
+
+
+
+/* .profile-card {
+  height: 120px;
+} */
+
+/* .rw-underline {
+  text-align: left;
+} */
+
+.friends-list {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* align-items: center; */
+  width: 850px;
 }
 
+.friend-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
 
+hr {
+  border: 0;
+  height: 1px;
+  /* text-align: left; */
+  background-image: linear-gradient(90deg, black, aqua, black);
+  width: 900px;
+  margin-left: 0;
+  margin-top: 0;
+  margin-bottom: 25px;
+}
 
-.profile-card {
-  height: 120px;
+.section-header {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
 }

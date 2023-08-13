@@ -14,3 +14,7 @@ ul {
 .playlist :hover {
   font-weight: bold;
 }
+
+.shelf-container {
+  font-family: 'Montserrat Alternates', sans-serif;
+}

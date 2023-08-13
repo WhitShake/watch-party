@@ -14,7 +14,7 @@ export const Shelf = (props: ShelfProps) => {
   }
 
   return (
-    <div>
+    <div className="shelf-container">
       <p>Your Shelf</p>
       <ul>
         {props.shelf.map((playlist, i) => {

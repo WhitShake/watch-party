@@ -4,15 +4,29 @@
   align-items: center;
 } */
 
-.watched-display {
+.profile-watched-display {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  overflow: scroll;
+  overflow-x: scroll;
+  overflow-y: hidden;
   width: 100%;
   justify-content: flex-start;
+  align-items: center;
   /* padding-right: 100px; */
-  padding: 50px 10px;
+  padding: 50px 30px;
   gap: 25px;
   width: 60%;
+  margin-top: 0;
+  scroll-behavior: smooth;
+  height: 230px;
+  scrollbar-color: transparent;
+  overscroll-behavior-x: contain;
+  background: radial-gradient(black, black, black, aqua);
+  border-radius: 5px;
+  margin-bottom: 60px;
+}
+
+.profile-watched-display::-webkit-scrollbar {
+  display: none;
 }

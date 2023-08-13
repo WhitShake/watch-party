@@ -2,14 +2,20 @@
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-start;
+  flex-direction: row;
   align-items: center;
   width: 825px;;
   overflow: scroll;
   gap: 25px;
-  /* position: relative; */
   top: 250px;
   left: 400px;
   color: white;
+  height: 300px;
+  font-family: 'Montserrat Alternates', sans-serif;
+  letter-spacing: 1px;
+  height: 300px;
+  /* padding: 20px 60px;  */
 }
+
 
 
