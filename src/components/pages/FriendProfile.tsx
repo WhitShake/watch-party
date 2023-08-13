@@ -71,11 +71,15 @@ export const FriendPage = (props: FriendPageProps) => {
                 </div>
                 <h4>Recently Watched</h4>
                 <div className="watched-list">
-                    <ProfileWatched movies={recentlyWatched} />
+                    {recentlyWatched.length === 0 
+                    ? <p>This user has not watched any movies recently</p>
+                    : <ProfileWatched movies={recentlyWatched} />}
                 </div>
                 <div className="friend-profile-friends">
                     <h4>Friends List</h4>
-                    <FriendsList friendsData={userFriendsData} friendsList={props.friendsList} setFriendsList={props.setFriendsList} setFriendsData={props.setFriendsData}/>
+                    {userFriendsData.length === 0 
+                    ? <p>This user has not added any friends yet</p>
+                    : <FriendsList friendsData={userFriendsData} friendsList={props.friendsList} setFriendsList={props.setFriendsList} setFriendsData={props.setFriendsData}/> }
                     
                 </div>
             </div>
