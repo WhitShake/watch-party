@@ -53,12 +53,6 @@ export const FriendPage = (props: FriendPageProps) => {
     }, [id])
 
 
-    useEffect(() => {
-        console.log("this user's watched:", recentlyWatched)
-        console.log("this user's friends:", userFriendsData)
-    }, [recentlyWatched, userFriendsData])
-
-
     return (
         <div className="friend-profile">
             <div className="friend-profile-container">
@@ -86,39 +80,6 @@ export const FriendPage = (props: FriendPageProps) => {
 
 
         </div>
-
-        // <div className="profile-info">
-        //         <Picture urlPath={profilePic} handleUpdate={props.handleUpdate}/>
-        //         <div className="user-info">
-        //             <h1 className="name">
-        //                 <EditableText text={firstName} field="firstName" handleUpdate={handleUpdate}/>
-        //                 <EditableText text={lastName} field="lastName" handleUpdate={handleUpdate}/>
-        //             </h1>
-        //             <h4 className="quote">
-        //                 <EditableText text={quote} field="quote" handleUpdate={handleUpdate}/>
-        //             </h4>
-        //         </div>
-        //     </div>
-        // {/* <div className="watched-and-friends"> */}
-        //     <div>
-        //     <h4>Recently Watched</h4>
-        //     </div>
-        //     <div className="watched-list">
-        //         <ProfileWatched movies={watchedMovies}/>
-        //         {/* {props.watchedMovies.length === 0 
-        //         ? <p className="text">Movies you watch will show up here!</p>
-        //         : <MovieList movies={props.watchedMovies}/>
-        //         } */}
-        //     </div>
-        //     <div className="friends-list">
-        //         <h4>Friends List</h4>
-        //         {props.friendsData.length === 0
-        //         ? <p className="text">Add friends and invite them to watch a movie!</p>
-        //         : <FriendsList friendsData={friendsData} friendsList={friendsList} setFriendsList={setFriendsList} setFriendsData={setFriendsData}/>
-        //         }
-        //     </div>
-
-
 
     )
 }
