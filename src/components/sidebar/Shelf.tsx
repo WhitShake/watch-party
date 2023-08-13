@@ -12,10 +12,6 @@ export const Shelf = (props: ShelfProps) => {
     props.setPlaylistPage(playlist)
   }
 
-  const handleAddPlaylist = (newPlaylist: string) => {
-    props.setShelf(prevshelf => [...prevshelf, newPlaylist])
-  }
-
   return (
     <div>
       <p>Your Shelf</p>

@@ -14,7 +14,7 @@ type AddPlaylistFormProps = {
     setShelf: Dispatch<SetStateAction<string[]>>
 }
 
-export const AddPlaylistForm = ({setShelf}: AddPlaylistFormProps) => {
+export const AddPlaylistForm = ({ setShelf }: AddPlaylistFormProps) => {
     const [user] = useAuthState(auth)
     const [inputValue, setInputValue] = useState('')
 
