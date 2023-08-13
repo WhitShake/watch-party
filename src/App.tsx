@@ -3,19 +3,19 @@ import './App.css';
 import { SideBar } from './components/sidebar/SideBar';
 import { db, auth } from './firebase_setup/firebase';
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Home } from './components/home - randomizer/Home';
 import { Search } from './components/pages/search_pages/Search';
 import { Profile } from './components/users/Profile';
-import { Playlist } from './components/sidebar/Playlist';
-import { MovieObject, MovieProps, FriendsListProps, UserProfileData, UserData } from './components/prop_types/propsTypes';
-import { getUserData, getFriendsList, fetchFriendData, fetchPlaylistMovies, initializeNewUser, fetchShelf, updateUserDoc, addFriend, deleteFriend} from './firestore_functions/firestore_calls';
+import { Playlist } from './components/pages/Playlist';
+import { MovieObject, MovieProps, UserProfileData } from './components/prop_types/propsTypes';
+import { getUserData, getFriendsList, fetchPlaylistMovies, initializeNewUser, fetchShelf, updateUserDoc, addFriend, deleteFriend, addMovieToPlaylist} from './firestore_functions/firestore_calls';
 import { onAuthStateChanged } from 'firebase/auth';
-import { Login } from './components/sidebar/Login';
 import { useNavigate } from 'react-router-dom';
+import { MoviePage } from './components/movie_data/MoviePage';
+import { FriendPage } from './components/pages/FriendProfile';
 
 // import { seedData, testSeed } from './firebase_setup/seedData';
-
 
 // code below is for seeding. uncomment the import of seedData 
 // // fetchMovies acts similarly to fetchData, just grabs ids and poster paths
@@ -64,7 +64,6 @@ const App = () => {
   const [playlistMovies, setPlaylistMovies] = useState<MovieProps[] | null>(null); 
   const [friendsList, setFriendsList] = useState<Record<string, any> | undefined>({})
 
-  // console.log("Env:", process.env);
 
   onAuthStateChanged(auth, async (user) => {
     if (user) {
@@ -93,8 +92,8 @@ const App = () => {
           };
         });
         
-        const friendsData = await Promise.all(friendsDataPromises);
-        setFriendsData(friendsData as UserProfileData[]);
+        const friendsInfo = await Promise.all(friendsDataPromises);
+        setFriendsData(friendsInfo as UserProfileData[]);
         setFriendsList(friendsObject)
       });
 
@@ -116,7 +115,7 @@ const App = () => {
       .then(data => {
         setShelf(data)
       })
-      navigate("/profile")
+      // navigate("/profile")
     } else {
       setUserData(null)
       setFriendsData([])
@@ -124,13 +123,6 @@ const App = () => {
       setShelf([])
     }
   },[userId]);
-
-  // useEffect(() => {
-  // re-render friends when friend gets added or deleted
-  // }[friendsList])
-
-
-  
 
   // this is just to view the state variables, delete later 
   useEffect(() => {
@@ -228,6 +220,7 @@ const App = () => {
       });
   };
 
+  
   const fetchById = (id: number, selectedSearchForm: string) => {
 
     let idsAndPosterPaths: MovieProps[] = []
@@ -313,7 +306,9 @@ const App = () => {
                                             results={searchResults} 
                                             selectedSearchForm={selectedSearchForm}
                                             // handleAdvancedSearchTerms={hanndleAdvancedSearchTerms}
-                                            />} />                        
+                                            />} />     
+          <Route path="/movie-details/:id" element={<MoviePage apiKey={apiKey} shelf={shelf} />} />
+          <Route path = "friend-details/:id" element={<FriendPage friendsList={friendsList} setFriendsList={setFriendsList} setFriendsData={setFriendsData}/>} />
           {/* <Route path="/login" element={<Login />}/> */}
         </Routes>
     </div>

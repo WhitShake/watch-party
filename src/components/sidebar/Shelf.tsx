@@ -1,16 +1,10 @@
 import React from "react";
 import './Shelf.css'
-import { Playlist } from "./Playlist";
+import { Playlist } from "../pages/Playlist";
 import { AddPlaylistForm } from "./AddPlaylistForm";
 import { Link } from "react-router-dom";
+import { ShelfProps } from "../prop_types/propsTypes";
 
-
-type ShelfProps = {
-  shelf: string[]
-  handleAddPlaylist: (newPlaylist: string) => void
-  setPlaylistTitle: (currentPlaylist: string) => void
-  setPlaylistPage: (playlistPage: string) => void
-}
 
 export const Shelf = (props: ShelfProps) => {
   const populatePlaylistPage = (playlist: string) => {

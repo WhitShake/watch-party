@@ -1,8 +1,25 @@
 import React from "react";
 import { MovieProps } from "../prop_types/propsTypes";
 import './Movie.css'
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { addMovieToPlaylist } from "../../firestore_functions/firestore_calls";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase_setup/firebase";
 
-export const Movie = ({posterPath}: MovieProps) => {
+export const Movie = ({posterPath, id}: MovieProps) => {
+    const [user] = useAuthState(auth);
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate("/movie-details")
+    }
+
+    const handleMarkAsWatched = () => {
+        addMovieToPlaylist(user?.uid, 'Watched', {id: id, posterPath: posterPath})
+        console.log("marked as watched")
+    }
+
+
     return (
             <div className="movie-container">
                 {/* <button className="dot-button">...</button> */}
@@ -13,9 +30,10 @@ export const Movie = ({posterPath}: MovieProps) => {
                         <span className="dot"></span>
                     </div>
                     <div className="dropdown-content">
-                        <a href="#">View More Details</a>
-                        <a href="#">Mark As Watched</a>
-                        <a href="#">Add Movie to Playlist</a>
+                        {/* <button onClick={handleClick}>View More Details</button> */}
+                        <Link to= {`/movie-details/${id}`}>View More Details</Link>
+                        <button onClick={handleMarkAsWatched}>Mark As Watched</button>
+                        {/* <a href="#">Add Movie to Playlist</a> */}
                     </div>
                 </div>
                 <img className="card" alt="movie cover" src={posterPath === null 

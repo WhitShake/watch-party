@@ -33,6 +33,19 @@ export type FriendsListProps = {
     setMatchingUsers?: Dispatch<SetStateAction<UserProfileData[]>>
 }
 
+export type FriendProps = {
+    data: UserProfileData
+    friendsList: {} | undefined
+    setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
+    setFriendsData: Dispatch<SetStateAction<UserProfileData[]>>
+    setMatchingUsers?: Dispatch<SetStateAction<UserProfileData[]>>
+}
+
+export type FriendPageProps = {
+    friendsList: {} | undefined
+    setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
+    setFriendsData: Dispatch<SetStateAction<UserProfileData[]>>
+}
 
 export type MovieProps = {
     id: number
@@ -51,3 +64,16 @@ export type MovieObject = {
     vote_average: number
     vote_count: number
 };
+
+export type ShelfProps = {
+    shelf: string[]
+    handleAddPlaylist: (newPlaylist: string) => void
+    setPlaylistTitle: (currentPlaylist: string) => void
+    setPlaylistPage: (playlistPage: string) => void
+}
+
+export type ShelfPlaylistProps = {
+    title: string
+    setPlaylistTitle: (currentPlaylist: string) => void
+    setPlaylistPage: (playlistPage: string) => void 
+}

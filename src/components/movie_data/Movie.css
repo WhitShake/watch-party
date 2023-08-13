@@ -87,6 +87,18 @@
     background-color: #f5f5f5;
 }
 
+.dropdown-content button {
+    display: block;
+    color: black;
+    font-size: 14px;
+    padding: 5px 5px;
+    border: none; 
+    background-color: transparent;
+}
+
+.dropdown-content button:hover {
+    background-color: #f5f5f5;
+}
 
 /* .movie-container {
     width: 100%;

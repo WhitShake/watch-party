@@ -1,6 +1,6 @@
 import { watch } from "fs"
 import { db } from "../firebase_setup/firebase"
-import { doc, getDoc, setDoc, collection, getDocs, updateDoc, where, query, deleteDoc } from "firebase/firestore"
+import { doc, getDoc, setDoc, collection, getDocs, updateDoc, where, query, deleteDoc, arrayUnion } from "firebase/firestore"
 import { MovieProps, UserData, UserProfileData } from "../components/prop_types/propsTypes"
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { v4 } from "uuid"
@@ -156,8 +156,12 @@ export const fetchShelf = async (userId: string) => {
 
 
 // need to make this 
-export const handleAddMovie = (movie: MovieProps) => {
-    console.log(movie)
+export const addMovieToPlaylist = async (userId: string | undefined, playlistTitle: string, movie: MovieProps) => {
+    if (!userId) return;
+    const playlistDocRef = doc(db, 'users', userId, 'Shelf', playlistTitle);
+    await updateDoc(playlistDocRef, {
+        movies: arrayUnion(movie)
+    })
 }
 
 
