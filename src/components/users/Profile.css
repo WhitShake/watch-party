@@ -19,8 +19,8 @@
   height: auto;
   border-radius: 30px;
   /* overflow: hidden; */
-  border: white 1px solid;
-  box-shadow: 4.0px 8.0px 8.0px hsla(0, 0%, 39%, 0.81);
+  border: aqua 1px solid;
+  box-shadow: 4.0px 8.0px 8.0px hsla(179, 37%, 53%, 0.698);
   object-fit: cover;
 }
 
@@ -36,7 +36,7 @@
   width: 620px;
   height: 230px;
   /* align-items: center; */
-  margin-bottom: 35px;
+  margin-bottom: 75px;
 }
 
 
@@ -51,7 +51,7 @@
   display: flex;
   gap: 15px;
   color: white;
-  text-shadow: 2px 2px 4px #aaa8b3;
+  /* text-shadow: 2px 2px 4px #aaa8b3; */
   font-family: 'Bruno Ace SC', cursive;
   /* font-family: 'Montserrat', sans-serif; */
   /* font-family: 'Montserrat Alternates', sans-serif; */
@@ -70,11 +70,14 @@
   font-family: 'Montserrat Alternates', sans-serif;
   letter-spacing: 2px;
 }
-h4 {
+
+.profile h4 {
   font-family: 'Montserrat Alternates', sans-serif;
   font-size: 20px;
   margin-top: 20px;
   letter-spacing: 2px;
+  margin-bottom: 10px;
+  /* color: aqua; */
   /* text-decoration: underline; */
 }
 
@@ -83,27 +86,15 @@ h4 {
   font-size: 15px;
 }
 
-<<<<<<< HEAD
-/* .easy-edit-hover-on {
-=======
 .name .easy-edit-hover-on {
->>>>>>> d5c6dde4b9536e4b90bba64888489b8b7f94c711
   font-style: normal;
-} */
+} 
 
 
 
-.profile-card {
+/* .profile-card {
   height: 120px;
-}
-
-hr {
-  border: 0;
-  height: 1px;
-  background-color: lightslategray;
-  margin-top: 50px;
-  width: 300px;
-}
+} */
 
 /* .rw-underline {
   text-align: left;
@@ -122,4 +113,21 @@ hr {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  /* text-align: left; */
+  background-image: linear-gradient(90deg, black, aqua, black);
+  width: 900px;
+  margin-left: 0;
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
 }

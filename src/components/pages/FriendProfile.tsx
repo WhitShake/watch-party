@@ -54,32 +54,35 @@ export const FriendPage = (props: FriendPageProps) => {
 
 
     return (
-        <div className="friend-profile">
-            <div className="friend-profile-container">
-                <div className="friend-profile-info">
-                    <img className="friend-avatar" src={userData?.profilePic} />
-                    <div className="friend-user-info">
-                        <h1 className="friend-name">{userData?.firstName} {userData?.lastName}</h1>
-                        <h4 className="friend-quote">{userData?.quote}</h4>
+        <div className='user-profile'>
+            <div className="user-profile-container">
+                <div className="user-profile-info">
+                    <img className="user-avatar" src={userData?.profilePic} alt="avatar"/>
+                    <div className="user-friend-info">
+                        <h1 className="user-friend-name">{userData?.firstName} {userData?.lastName}</h1>
+                        <h4 className="user-friend-quote">{userData?.quote}</h4>
                     </div>
                 </div>
+                <div className='section-header'>
                 <h4>Recently Watched</h4>
-                <div className="watched-list">
+                <hr></hr>
+                </div>
+                <div className="watched-display">
                     {recentlyWatched.length === 0 
                     ? <p>This user has not watched any movies recently</p>
                     : <ProfileWatched movies={recentlyWatched} />}
                 </div>
-                <div className="friend-profile-friends">
+                <div className="friends-list">
+                <div className='section-header'>
                     <h4>Friends List</h4>
+                    <hr></hr>
+                    </div>
                     {userFriendsData.length === 0 
                     ? <p>This user has not added any friends yet</p>
                     : <FriendsList friendsData={userFriendsData} friendsList={props.friendsList} setFriendsList={props.setFriendsList} setFriendsData={props.setFriendsData}/> }
                     
                 </div>
             </div>
-
-
         </div>
-
     )
 }

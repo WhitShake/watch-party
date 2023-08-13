@@ -12,7 +12,7 @@ type ProfileWatchedProps = {
 export const ProfileWatched = (props: ProfileWatchedProps) => {
     return (
         // <div className="watched-container">
-            <div className="watched-display">
+            <div className="profile-watched-display">
                 {props.movies.map((movie: {id: number; posterPath: string}, index: number) => (
                     <Movie key={index} id={movie.id} posterPath={movie.posterPath} />
                 ))}
