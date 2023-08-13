@@ -84,7 +84,9 @@ export const addFriend = async (userId: string, idToAdd: string) => {
 export const deleteFriend = async (userId: string, idToDelete: string) => {
     try {
         const docToDelete = doc(db, 'users', userId, 'Friends', idToDelete)
+        const userDoc = doc(db, 'users', idToDelete, 'Friends', userId)
         await deleteDoc(docToDelete)
+        await deleteDoc(userDoc)
     } catch (error) {
         throw error;
     }
