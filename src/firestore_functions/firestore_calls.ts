@@ -174,6 +174,18 @@ export const addShelfPlaylist = async (userId: string | null | undefined, title:
     }
 }
 
+
+export const deleteShelfPlaylist = async (userId:string, title: string) => {
+    try {
+        const playlistToDelete = doc(db, 'users', userId, 'Shelf', title)
+        await deleteDoc(playlistToDelete)
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+
 export const updateUserDoc = async (userId: string, value: string, field: keyof UserProfileData) => {
     const userDocRef = doc(db, 'users', userId)
     const userDocSnapshot = await getDoc(userDocRef)
