@@ -68,15 +68,15 @@ export const getFriendsList = async (userId: string | undefined) => {
 
 
 export const addFriend = async (userId: string, idToAdd: string) => {
-    // const friendsRef = collection(db, 'users', userId, 'Friends');
     try { 
         const friendToAddRef = doc(db, 'users', userId, 'Friends', idToAdd)
-        const newFriend = await setDoc(friendToAddRef, {exists: true})
-        console.log(newFriend)
-        return newFriend
+        await setDoc(friendToAddRef, {exists: true})
+        
+        const userRef = doc(db, 'users', idToAdd, 'Friends', userId)
+        await setDoc(userRef, {exists: true})
     } catch (error) { 
         console.log("Issue with adding friend")
-        return error;
+        throw error;
     }
 }
 
