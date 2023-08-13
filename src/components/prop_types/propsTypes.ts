@@ -33,6 +33,19 @@ export type FriendsListProps = {
     setMatchingUsers?: Dispatch<SetStateAction<UserProfileData[]>>
 }
 
+export type FriendProps = {
+    data: UserProfileData
+    friendsList: {} | undefined
+    setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
+    setFriendsData: Dispatch<SetStateAction<UserProfileData[]>>
+    setMatchingUsers?: Dispatch<SetStateAction<UserProfileData[]>>
+}
+
+export type FriendPageProps = {
+    friendsList: {} | undefined
+    setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
+    setFriendsData: Dispatch<SetStateAction<UserProfileData[]>>
+}
 
 export type MovieProps = {
     id: number

@@ -1,4 +1,4 @@
-import { UserProfileData } from '../prop_types/propsTypes'
+import { FriendProps, UserProfileData } from '../prop_types/propsTypes'
 import { addFriend, deleteFriend } from '../../firestore_functions/firestore_calls'
 import { auth } from '../../firebase_setup/firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
@@ -8,14 +8,6 @@ import { getUserData } from '../../firestore_functions/firestore_calls'
 import { FriendsList } from './FriendsList'
 import { Link, useParams } from 'react-router-dom'
 
-
-type FriendProps = {
-    data: UserProfileData
-    friendsList: {} | undefined
-    setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
-    setFriendsData: Dispatch<SetStateAction<UserProfileData[]>>
-    setMatchingUsers?: Dispatch<SetStateAction<UserProfileData[]>>
-}
 
 export const Friend = ({data, friendsList, setFriendsList, setFriendsData}: FriendProps)  => {
     const [user] = useAuthState(auth);

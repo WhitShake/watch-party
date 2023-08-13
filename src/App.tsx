@@ -115,7 +115,7 @@ const App = () => {
       .then(data => {
         setShelf(data)
       })
-      navigate("/profile")
+      // navigate("/profile")
     } else {
       setUserData(null)
       setFriendsData([])
@@ -308,7 +308,7 @@ const App = () => {
                                             // handleAdvancedSearchTerms={hanndleAdvancedSearchTerms}
                                             />} />     
           <Route path="/movie-details/:id" element={<MoviePage apiKey={apiKey} shelf={shelf} />} />
-          <Route path = "friend-details/:id" element={<FriendPage />} />
+          <Route path = "friend-details/:id" element={<FriendPage friendsList={friendsList} setFriendsList={setFriendsList} setFriendsData={setFriendsData}/>} />
           {/* <Route path="/login" element={<Login />}/> */}
         </Routes>
     </div>

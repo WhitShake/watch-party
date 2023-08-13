@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getUserData, getFriendsList } from '../../firestore_functions/firestore_calls';
+import { getUserData, getFriendsList, fetchPlaylistMovies } from '../../firestore_functions/firestore_calls';
 import './FriendProfile.css'
-import { UserProfileData } from '../prop_types/propsTypes';
+import { FriendPageProps, MovieProps, UserProfileData } from '../prop_types/propsTypes';
+import { ProfileWatched } from '../movie_data/ProfileWatched';
+import { FriendsList } from '../users/FriendsList';
 
-export const FriendPage = () => {
+
+export const FriendPage = (props: FriendPageProps) => {
     const { id } = useParams(); 
     const [userData, setUserData] = useState<UserProfileData>();
-    const [friendsData, setFriendsData] = useState<UserProfileData[]>();
+    const [userFriendsData, setUserFriendsData] = useState<UserProfileData[]>([]);
+    const [recentlyWatched, setRecentlyWatched] = useState<MovieProps[]>([])
 
 
     const fetchUserData = () => {
@@ -27,8 +31,20 @@ export const FriendPage = () => {
                     };
                 });
                 const friendsInfo = await Promise.all(friendsDataPromises);
-                setFriendsData(friendsInfo as UserProfileData[])
+                setUserFriendsData(friendsInfo as UserProfileData[])
             });
+
+            fetchPlaylistMovies(id, "Watched")
+            .then(data => {
+                if (data && data.movies) {
+                    const movies = data.movies;
+                    let recentlyWatchedMovies: MovieProps[] = []
+                    for (let i = movies.length - 1; i >= Math.max(movies.length - 10, 0); i--) {
+                        recentlyWatchedMovies.push(movies[i])
+                    }
+                    setRecentlyWatched(recentlyWatchedMovies)
+                }
+            })
         }
     }
 
@@ -37,8 +53,35 @@ export const FriendPage = () => {
     }, [id])
 
 
+    useEffect(() => {
+        console.log("this user's watched:", recentlyWatched)
+        console.log("this user's friends:", userFriendsData)
+    }, [recentlyWatched, userFriendsData])
+
+
     return (
-        <h2>{userData?.firstName}</h2>
+        <div className="friend-profile">
+            <div className="friend-profile-container">
+                <div className="friend-profile-info">
+                    <img className="friend-avatar" src={userData?.profilePic} />
+                    <div className="friend-user-info">
+                        <h1 className="friend-name">{userData?.firstName} {userData?.lastName}</h1>
+                        <h4 className="friend-quote">{userData?.quote}</h4>
+                    </div>
+                </div>
+                <h4>Recently Watched</h4>
+                <div className="watched-list">
+                    <ProfileWatched movies={recentlyWatched} />
+                </div>
+                <div className="friend-profile-friends">
+                    <h4>Friends List</h4>
+                    <FriendsList friendsData={userFriendsData} friendsList={props.friendsList} setFriendsList={props.setFriendsList} setFriendsData={props.setFriendsData}/>
+                    
+                </div>
+            </div>
+
+
+        </div>
 
         // <div className="profile-info">
         //         <Picture urlPath={profilePic} handleUpdate={props.handleUpdate}/>
