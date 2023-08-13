@@ -33,7 +33,7 @@ export const Movie = ({posterPath, id}: MovieProps) => {
                         {/* <button onClick={handleClick}>View More Details</button> */}
                         <Link to= {`/movie-details/${id}`}>View More Details</Link>
                         <button onClick={handleMarkAsWatched}>Mark As Watched</button>
-                        <a href="#">Add Movie to Playlist</a>
+                        {/* <a href="#">Add Movie to Playlist</a> */}
                     </div>
                 </div>
                 <img className="card" alt="movie cover" src={posterPath === null 
