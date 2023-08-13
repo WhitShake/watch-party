@@ -12,6 +12,10 @@ export const Shelf = (props: ShelfProps) => {
     props.setPlaylistPage(playlist)
   }
 
+  const handleAddPlaylist = (newPlaylist: string) => {
+    props.setShelf(prevshelf => [...prevshelf, newPlaylist])
+  }
+
   return (
     <div>
       <p>Your Shelf</p>
@@ -25,7 +29,7 @@ export const Shelf = (props: ShelfProps) => {
         })}
       </ul>
       <div className="playlist-form">
-        <AddPlaylistForm handleAddPlaylist={props.handleAddPlaylist}/>
+        <AddPlaylistForm setShelf={props.setShelf}/>
       </div>
     </div>
   )

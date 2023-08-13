@@ -4,17 +4,17 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { auth } from "../../firebase_setup/firebase"
 import { addShelfPlaylist } from "../../firestore_functions/firestore_calls"
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 interface AddPlaylistFormData {
     title: string
 }
 
 type AddPlaylistFormProps = {
-    handleAddPlaylist: (newPlaylist: string) => void
+    setShelf: Dispatch<SetStateAction<string[]>>
 }
 
-export const AddPlaylistForm = ({handleAddPlaylist}: AddPlaylistFormProps) => {
+export const AddPlaylistForm = ({setShelf}: AddPlaylistFormProps) => {
     const [user] = useAuthState(auth)
     const [inputValue, setInputValue] = useState('')
 
@@ -38,7 +38,8 @@ export const AddPlaylistForm = ({handleAddPlaylist}: AddPlaylistFormProps) => {
             return;
         }
         schema.validate({ title: inputValue }).then(() => {
-            addShelfPlaylist(user?.uid, inputValue, handleAddPlaylist);
+            addShelfPlaylist(user?.uid, inputValue);
+            setShelf(prevshelf => [...prevshelf, inputValue])
             setInputValue('')
         }).catch((err) => {
             console.log(err);

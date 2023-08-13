@@ -165,11 +165,10 @@ export const addMovieToPlaylist = async (userId: string | undefined, playlistTit
 }
 
 
-export const addShelfPlaylist = async (userId: string | null | undefined, title: string, updateState: (title: string) => void) => {
+export const addShelfPlaylist = async (userId: string | null | undefined, title: string) => {
     if (userId) {
         const playlistDocRef = doc(db, 'users', userId, 'Shelf', title)
         await setDoc(playlistDocRef, {movies: []})
-        updateState(title)
     } else {
         console.log("Issue with validating user")
     }

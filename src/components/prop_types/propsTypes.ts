@@ -65,15 +65,48 @@ export type MovieObject = {
     vote_count: number
 };
 
-export type ShelfProps = {
+export type SideBarProps = {
+    signedInStatus: boolean
     shelf: string[]
-    handleAddPlaylist: (newPlaylist: string) => void
+    firstName: string | undefined
+    lastName: string | undefined
+    profilePic: string | undefined
     setPlaylistTitle: (currentPlaylist: string) => void
     setPlaylistPage: (playlistPage: string) => void
+    setShelf: Dispatch<SetStateAction<string[]>>
+}
+
+export type ShelfProps = {
+    shelf: string[]
+    setPlaylistTitle: (currentPlaylist: string) => void
+    setPlaylistPage: (playlistPage: string) => void
+    setShelf: Dispatch<SetStateAction<string[]>>
 }
 
 export type ShelfPlaylistProps = {
     title: string
     setPlaylistTitle: (currentPlaylist: string) => void
     setPlaylistPage: (playlistPage: string) => void 
+    setShelf: Dispatch<SetStateAction<string[]>>
+}
+
+export type MoviePageProps = {
+    apiKey: string | undefined
+    shelf: string[]
+    // do i need set playlist movies in here? 
+}
+
+export type MovieDetails = {
+    genres: Genre[];
+    original_title: string;
+    overview: string;
+    release_date: string;
+    runtime: number;
+    tagline: string;
+    poster_path: string;
+}
+
+export type Genre = {
+    id: number;
+    name: string;
 }

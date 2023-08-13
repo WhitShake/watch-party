@@ -151,9 +151,6 @@ const App = () => {
     } as UserProfileData))
   }
 
-  const handleAddPlaylist = (newPlaylist: string) => {
-    setShelf(prevshelf => [...prevshelf, newPlaylist])
-  }
 
   const setCurrentPlaylistMovies = async (title: string) => {
     if (userId) {
@@ -282,7 +279,7 @@ const App = () => {
             lastName={userData?.lastName} 
             setPlaylistTitle={setPlaylistTitle} 
             setPlaylistPage={setCurrentPlaylistMovies} 
-            handleAddPlaylist={handleAddPlaylist} 
+            setShelf={setShelf}
             />
         <Routes>
           <Route path="/" element={<Home 
