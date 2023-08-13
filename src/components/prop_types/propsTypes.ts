@@ -64,3 +64,16 @@ export type MovieObject = {
     vote_average: number
     vote_count: number
 };
+
+export type ShelfProps = {
+    shelf: string[]
+    handleAddPlaylist: (newPlaylist: string) => void
+    setPlaylistTitle: (currentPlaylist: string) => void
+    setPlaylistPage: (playlistPage: string) => void
+}
+
+export type ShelfPlaylistProps = {
+    title: string
+    setPlaylistTitle: (currentPlaylist: string) => void
+    setPlaylistPage: (playlistPage: string) => void 
+}
