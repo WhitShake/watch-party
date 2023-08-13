@@ -1,6 +1,6 @@
 import React from "react";
 import './Shelf.css'
-import { Playlist } from "./Playlist";
+import { Playlist } from "../pages/Playlist";
 import { AddPlaylistForm } from "./AddPlaylistForm";
 import { Link } from "react-router-dom";
 

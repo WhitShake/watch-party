@@ -6,6 +6,7 @@ import './Friend.css'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { getUserData } from '../../firestore_functions/firestore_calls'
 import { FriendsList } from './FriendsList'
+import { Link, useParams } from 'react-router-dom'
 
 
 type FriendProps = {
@@ -71,7 +72,7 @@ export const Friend = ({data, friendsList, setFriendsList, setFriendsData}: Frie
                     <span className="dot"></span>
                 </div>
                 <div className="dropdown-content">
-                    <button>View Profile</button>
+                    <Link to= {`/friend-details/${data.id}`}>View {data.firstName}'s Profile</Link>
                     {friendStatus
                     ? <button onClick={handleDeleteFriend}>Delete Friend</button>
                     : <button onClick={handleAddFriend}>Add Friend</button>} 

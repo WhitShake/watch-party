@@ -7,12 +7,13 @@ import { Routes, Route } from "react-router-dom";
 import { Home } from './components/home - randomizer/Home';
 import { Search } from './components/pages/search_pages/Search';
 import { Profile } from './components/users/Profile';
-import { Playlist } from './components/sidebar/Playlist';
+import { Playlist } from './components/pages/Playlist';
 import { MovieObject, MovieProps, UserProfileData } from './components/prop_types/propsTypes';
 import { getUserData, getFriendsList, fetchPlaylistMovies, initializeNewUser, fetchShelf, updateUserDoc, addFriend, deleteFriend, addMovieToPlaylist} from './firestore_functions/firestore_calls';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { MoviePage } from './components/movie_data/MoviePage';
+import { FriendPage } from './components/pages/FriendProfile';
 
 // import { seedData, testSeed } from './firebase_setup/seedData';
 
@@ -91,8 +92,8 @@ const App = () => {
           };
         });
         
-        const friendsData = await Promise.all(friendsDataPromises);
-        setFriendsData(friendsData as UserProfileData[]);
+        const friendsInfo = await Promise.all(friendsDataPromises);
+        setFriendsData(friendsInfo as UserProfileData[]);
         setFriendsList(friendsObject)
       });
 
@@ -307,6 +308,7 @@ const App = () => {
                                             // handleAdvancedSearchTerms={hanndleAdvancedSearchTerms}
                                             />} />     
           <Route path="/movie-details/:id" element={<MoviePage apiKey={apiKey} shelf={shelf} />} />
+          <Route path = "friend-details/:id" element={<FriendPage />} />
           {/* <Route path="/login" element={<Login />}/> */}
         </Routes>
     </div>
