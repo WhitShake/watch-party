@@ -295,7 +295,7 @@ const App = () => {
                                               setFriendsList={setFriendsList}
                                               watchedMovies={recentlyWatchedData} 
                                               handleUpdate={handleInfoUpdated}/>} />
-          <Route path="/playlist" element={<Playlist title={playlistTitle}  movies={playlistMovies}/>}/>
+          <Route path="/playlist/:id" element={<Playlist title={playlistTitle}  movies={playlistMovies}/>}/>
           <Route path="/search" element={<Search 
                                             handleChange={handleChange} 
                                             handleSubmit={handleSubmit} 
@@ -304,7 +304,7 @@ const App = () => {
                                             selectedSearchForm={selectedSearchForm}
                                             // handleAdvancedSearchTerms={hanndleAdvancedSearchTerms}
                                             />} />     
-          <Route path="/movie-details/:id" element={<MoviePage apiKey={apiKey} shelf={shelf} />} />
+          <Route path="/movie-details/:title" element={<MoviePage apiKey={apiKey} shelf={shelf} />} />
           <Route path = "friend-details/:id" element={<FriendPage friendsList={friendsList} setFriendsList={setFriendsList} setFriendsData={setFriendsData}/>} />
           {/* <Route path="/login" element={<Login />}/> */}
         </Routes>

@@ -6,10 +6,13 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../firebase_setup/firebase';
 import { Menu, Item, useContextMenu} from 'react-contexify';
 import 'react-contexify/dist/ReactContexify.css';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const ShelfPlaylist = ({title, setPlaylistTitle, setPlaylistPage, setShelf}: ShelfPlaylistProps) => {
     const [user] = useAuthState(auth);
     const shelfMenuId = `shelf-menu-${title}`;
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const populatePlaylistPage = (playlist: string) => {
         setPlaylistTitle(playlist)
@@ -23,6 +26,9 @@ export const ShelfPlaylist = ({title, setPlaylistTitle, setPlaylistPage, setShel
             if (user) {
                 deleteShelfPlaylist(user?.uid, title)
                 setShelf(prev => prev.filter(playlist => playlist != title))
+                if (location.pathname.includes(`/playlist/${title}`)) {
+                    navigate("/profile");
+                }
             }
         }
     }
@@ -41,7 +47,7 @@ export const ShelfPlaylist = ({title, setPlaylistTitle, setPlaylistPage, setShel
     return (
         <li className="shelf-playlist">
             <div onContextMenu={displayMenu} >
-                <Link onClick={() => populatePlaylistPage(title)} to="/playlist">{title}</Link>
+                <Link onClick={() => populatePlaylistPage(title)} to={`/playlist/${title}`}>{title}</Link>
             </div>
             <Menu id={shelfMenuId}>
                 <Item onClick={handleDeletePlaylist}>
