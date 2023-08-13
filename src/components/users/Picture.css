@@ -3,13 +3,37 @@
     flex-direction: column;
     gap: 10px;
     align-items: center;
+    font-family: 'Montserrat Alternates', sans-serif;
 }
 
-.menu-button {
-    width: 5vw;
+.img-button-container {
+    transition: all .2s ease-in-out;
+}
+.img-button-container:hover {
+    transform: scale(1.1);
+    z-index: 1;
+}
+
+.img-menu-button {
+    width: 200px;
     font-size: 10px;
+    background-color: #1d1f24;
+    color: white;
+    border: 1px solid aqua;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: 'Montserrat Alternates', sans-serif;
+    margin-top: 10px;
+    letter-spacing: 1px;
+    box-shadow: 4.0px 8.0px 8.0px hsla(0, 0%, 39%, 0.81);
+    z-index: 999;
+    
 }
+/* Check out before/after for when menu is open and closed */
 
+/* .img-menu-button:hover {
+
+} */
 .file-buttons {
     display: flex;
     flex-direction: column;

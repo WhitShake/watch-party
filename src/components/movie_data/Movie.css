@@ -3,7 +3,6 @@
     margin-top: 5px;
     margin-bottom: 5px;
     margin-left: 5px;
-    filter: drop-shadow(2px 2px 7px #f7f2fc);
     border: #f7f2fc 2px;
     transition: all .2s ease-in-out;
     position: relative;
@@ -13,6 +12,12 @@
 .movie-container:hover {
     transform: scale(1.1);
     z-index: 1;
+}
+
+.card {
+    box-shadow: 4.0px 8.0px 8.0px hsla(0, 0%, 39%, 0.81);
+    border-radius: 4px;
+    border: .5px solid aqua;
 }
 
 /* .dot-button {
@@ -40,17 +45,16 @@
     display: flex;
     flex-direction: row;
     gap: 1px;
-    /* width: 20px; */
-    /* height: auto; */
     cursor: pointer;
+    /* padding: 5px 3px; */
 }
 
-.dot {
+.movie-container .dot {
     display: block;
     width: 5px;
     height: 5px;
     background-color: white;
-    border-radius: 50%; /* Creates circular dots */
+    border-radius: 50%;
     margin: 4px auto;
 }
 
@@ -63,7 +67,6 @@
     border: 1px solid #ccc;
     color: black;
     padding: 12px 12px;
-    width: 150px;
     /* z-index: 2; */
 }
 
@@ -75,8 +78,9 @@
 .dropdown-content a {
     display: block;
     color: black;
-    font-size: 14px;
+    font-size: 12px;
     padding: 5px 5px;
+    width: 150px
 }
 
 .dropdown-content a:hover {

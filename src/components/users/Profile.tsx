@@ -66,11 +66,13 @@ const { handleUpdate, friendsData, friendsList, watchedMovies, setFriendsList, s
                     <h4 className="quote">
                         <EditableText text={quote} field="quote" handleUpdate={handleUpdate}/>
                     </h4>
+                    <hr></hr>
                 </div>
             </div>
+            
         {/* <div className="watched-and-friends"> */}
             <div>
-            <h4>Recently Watched</h4>
+            <h4 className="recently-watched">Recently Watched</h4>
             </div>
             <div className="watched-list">
                 <ProfileWatched movies={watchedMovies}/>
@@ -81,10 +83,12 @@ const { handleUpdate, friendsData, friendsList, watchedMovies, setFriendsList, s
             </div>
             <div className="friends-list">
                 <h4>Friends List</h4>
+                <div className='friend-cards'>
                 {props.friendsData.length === 0
                 ? <p className="text">Add friends and invite them to watch a movie!</p>
                 : <FriendsList friendsData={friendsData} friendsList={friendsList} setFriendsList={setFriendsList} setFriendsData={setFriendsData}/>
                 }
+                </div>
             </div>
             <div>
                 <FriendSearch 

@@ -8,6 +8,7 @@
   padding-bottom: 20px;
   position: fixed;
   z-index: 999;
+  font-family: 'Montserrat Alternates', sans-serif;
 }
 
 @media (max-width: 1024px) {
@@ -30,6 +31,9 @@
   color: white;
   font-family: sans-serif;
   font-size: 20px;
+  .sidebar-elements {
+  font-family: 'Montserrat Alternates', sans-serif;
+  }
 }
 
 

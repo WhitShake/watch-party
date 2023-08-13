@@ -77,10 +77,10 @@ export const Friend = ({data, friendsList, setFriendsList, setFriendsData}: Frie
                     : <button onClick={handleAddFriend}>Add Friend</button>} 
                 </div>
             </div>
-            <img className="friend-card" alt="avatar" src={data.profilePic === null 
-                ? 'https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg'
-                : data.profilePic} />
-            <p>{data.firstName} {data.lastName}</p>
+                <img className="friend-avatar" alt="avatar" src={data.profilePic === null 
+                    ? 'https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg'
+                    : data.profilePic} />
+                <p className="friend-name">{data.firstName} {data.lastName}</p>
         </div>
     )
 }
