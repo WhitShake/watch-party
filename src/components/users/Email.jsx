@@ -41,11 +41,11 @@ export const Email = (props) => {
             return; 
         }
     
-        alert("Email invitation sent!")
         emailjs.sendForm(serviceId, templateId, form.current, publicKey)
         .then((result) => {
             console.log(result.text);
             setIsCooldownActive(true);
+            alert("Email invitation sent!")
     
 
             setTimeout(() => {
