@@ -111,11 +111,11 @@ export const FriendPage = (props: FriendPageProps) => {
                     : <button onClick={handleAddFriend}>Add Friend</button>} 
                 </div>
                 <div className="invitation">
-                    {user && props.currentUser && <Email 
+                    {user && props.currentUser && userData && <Email 
                                                     userData={props.currentUser} 
-                                                    userEmail={user?.email} friendEmail={userData?.email} 
-                                                    friendFirstName={userData?.firstName} 
-                                                    friendLastName={userData?.lastName}/>}
+                                                    userEmail={user.email} friendEmail={userData.email} 
+                                                    friendFirstName={userData.firstName} 
+                                                    friendLastName={userData.lastName}/>}
                 </div>
                 <div className='section-header'>
                 <h4>Recently Watched</h4>
