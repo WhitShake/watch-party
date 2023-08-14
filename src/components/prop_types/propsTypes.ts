@@ -55,8 +55,32 @@ export type FriendPageProps = {
     currentUser: UserProfileData | null
 }
 
+export type FriendSearchProps = {
+    setFirstNameSearch: React.Dispatch<React.SetStateAction<string>>;
+    setLastNameSearch: React.Dispatch<React.SetStateAction<string>>;
+    handleUserSearch: (event: React.FormEvent<HTMLFormElement>) => void;
+    matchingUsers: UserProfileData[];
+    setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
+    setFriendsData: Dispatch<SetStateAction<UserProfileData[]>>
+    setMatchingUsers: Dispatch<SetStateAction<UserProfileData[]>>
+    friendsList: Record<string, any> | undefined
+}
+
+export type SearchProps = {
+    handleChange: React.ChangeEventHandler<HTMLInputElement>
+    handleSubmit: React.FormEventHandler<HTMLFormElement>
+    handleSearchSelection: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+    selectedSearchForm: string
+    results: {
+        id: number
+        posterPath: string
+    }[]
+    setRecentlyWatchedData: Dispatch<SetStateAction<MovieProps[]>>
+}
+
 export type MovieProps = {
     id: number
+    title?: string //added title
     posterPath: string
     setRecentlyWatchedData?: Dispatch<SetStateAction<MovieProps[]>>
     handleDeletion?: (id: number, posterPath: string) => void
@@ -108,7 +132,6 @@ export type PlaylistProps = {
 export type MoviePageProps = {
     apiKey: string | undefined
     shelf: string[]
-    // do i need set playlist movies in here? 
 }
 
 export type MovieDetails = {
@@ -124,4 +147,9 @@ export type MovieDetails = {
 export type Genre = {
     id: number;
     name: string;
+}
+
+export type PosterPathFillerProps = {
+    filmId: number
+    fetchTitle: (id: number) => Promise<string>
 }

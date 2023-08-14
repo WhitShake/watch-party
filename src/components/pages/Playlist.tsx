@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom';
 import { deleteMovieOffPlaylist, fetchPlaylistMovies } from '../../firestore_functions/firestore_calls';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../firebase_setup/firebase';
-import { render } from '@testing-library/react';
 
 
 export const Playlist = (props: PlaylistProps) => {

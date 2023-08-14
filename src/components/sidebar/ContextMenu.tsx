@@ -4,8 +4,6 @@ import {
     useContextMenu
 } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase_setup/firebase";
 
 const shelfMenuId = "shelf-menu"
 
@@ -14,7 +12,6 @@ type ShelfMenuProps = {
 }
 
 export const shelfMenu = ({handleDeletePlaylist}: ShelfMenuProps ) => {
-    const [user] = useAuthState(auth);
     const { show } = useContextMenu({
         id: shelfMenuId
     })

@@ -86,7 +86,7 @@ export const FriendPage = (props: FriendPageProps) => {
                 return prev
             })
             props.setFriendsData(prev => {
-                const updatedFriends = prev.filter(person => person.id != id)
+                const updatedFriends = prev.filter(person => person.id !== id)
                 return updatedFriends
             })
         }

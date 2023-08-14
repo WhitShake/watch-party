@@ -64,13 +64,14 @@
 
 .dropdown-content {
     display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
+    position: relative;
+    /* top: 100%; */
+    /* left: 500px; */
     background-color: white;
     border: 1px solid #ccc;
     color: black;
     padding: 12px 12px;
+    z-index: 1000;
     /* z-index: 2; */
 }
 
@@ -84,7 +85,7 @@
     color: black;
     font-size: 12px;
     padding: 5px 5px;
-    width: 150px
+    width: 150px;
 }
 
 .dropdown-content a:hover {

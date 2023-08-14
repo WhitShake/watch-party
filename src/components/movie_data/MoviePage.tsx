@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './MoviePage.css'
 import { useParams } from 'react-router-dom';
 import { addMovieToPlaylist } from '../../firestore_functions/firestore_calls';
@@ -66,24 +66,6 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
                     </div>
                 </div>
             </div>
-            
-
-            {/* <div className="dropdown">
-                <div className="dropdown-button">
-                    <span className="dot"></span>
-                    <span className="dot"></span>
-                    <span className="dot"></span>
-                </div>
-                <div className="dropdown-content"> */}
-                    {/* <button onClick={handleClick}>View More Details</button> */}
-                    {/* <a href="#">Add Movie to Playlist</a>
-            
-                    {shelf.map(playlist => (
-                    <a href="#" key={playlist}>{playlist}</a>
-                    ))}
-                </div>
-            </div> */}
-
         </div>
     )
 }

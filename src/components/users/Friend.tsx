@@ -3,10 +3,9 @@ import { addFriend, deleteFriend } from '../../firestore_functions/firestore_cal
 import { auth } from '../../firebase_setup/firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import './Friend.css'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getUserData } from '../../firestore_functions/firestore_calls'
-import { FriendsList } from './FriendsList'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 export const Friend = ({data, friendsList, setFriendsList, setFriendsData}: FriendProps)  => {

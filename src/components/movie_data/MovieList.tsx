@@ -13,7 +13,7 @@ export const MovieList = ({ movies, setRecentlyWatchedData, handleDeletion }: Mo
                     key={index} 
                     id={movie.id} 
                     posterPath={movie.posterPath} 
-                    setRecentlyWatchedData={setRecentlyWatchedData} 
+                    setRecentlyWatchedData={setRecentlyWatchedData}
                     handleDeletion={handleDeletion}/>
                 ))}
             </div>
