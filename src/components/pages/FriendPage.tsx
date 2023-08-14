@@ -92,8 +92,6 @@ export const FriendPage = (props: FriendPageProps) => {
         }
     }
 
-    
-
     useEffect(() => {
         fetchUserData();
     }, [id])
@@ -112,11 +110,13 @@ export const FriendPage = (props: FriendPageProps) => {
                     ? <button onClick={handleDeleteFriend}>Delete Friend</button>
                     : <button onClick={handleAddFriend}>Add Friend</button>} 
                 </div>
+                <div className="invitation">
                     {user && props.currentUser && <Email 
-                                                    userName={props.currentUser} 
+                                                    userData={props.currentUser} 
                                                     userEmail={user?.email} friendEmail={userData?.email} 
                                                     friendFirstName={userData?.firstName} 
                                                     friendLastName={userData?.lastName}/>}
+                </div>
                 <div className='section-header'>
                 <h4>Recently Watched</h4>
                 <hr></hr>

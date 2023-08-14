@@ -28,12 +28,17 @@ export const Email = (props) => {
 
     const sendEmail = (e) => {
         e.preventDefault();
+
+        if (props.userData === null) {
+            alert("You must be logged in to use this feature")
+        }
     
         if (isCooldownActive) {
             alert("Please wait before sending another email invitation");
             return; 
         }
     
+        alert("Email invitation sent!")
         emailjs.sendForm('service_ocm4k1a', 'template_gdhcj6m', form.current, 'X4vniASpzu_w1dEDH')
         .then((result) => {
             console.log(result.text);
@@ -52,7 +57,7 @@ export const Email = (props) => {
 
     return (
         <form ref={form} onSubmit={sendEmail}>
-            <input type="hidden" name="from_name" value={props.userName.firstName + " " + props.userName.lastName} />
+            <input type="hidden" name="from_name" value={props.userData.firstName + " " + props.userData.lastName} />
             <input type="hidden" name="to_email" value={props.friendEmail} />
             <input type="hidden" name="reply_to" value={props.userEmail} />
             <input type="hidden" name="to_name"value={props.friendFirstName + " " + props.friendLastName}/>
