@@ -130,6 +130,19 @@ export const addMovieToPlaylist = async (userId: string | undefined, playlistTit
 }
 
 
+export const deleteMovieOffPlaylist = async (userId: string | undefined, playlistTitle: string, movie: MovieProps) => {
+    if (!userId) return;
+    const playlistDocRef = doc(db, 'users', userId, 'Shelf', playlistTitle)
+    const playlistSnapshot = await getDoc(playlistDocRef)
+    const playlistMovies = playlistSnapshot.data()
+    console.log("movie passed in:", movie)
+    console.log("current:", playlistMovies)
+    const updatedMovies = playlistMovies?.movies.filter((currentMovie: MovieProps) => currentMovie.id !== movie.id)
+    await updateDoc(playlistDocRef, {movies: updatedMovies})
+    console.log("after deletion:", updatedMovies)
+}
+
+
 export const addShelfPlaylist = async (userId: string | null | undefined, title: string) => {
     if (userId) {
         const playlistDocRef = doc(db, 'users', userId, 'Shelf', title)
