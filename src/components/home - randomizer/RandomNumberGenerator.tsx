@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react"
-// import { fetchRandomMovieId } from "../../firestore_functions/firestore_calls"
 import './RandomNumberGenerator.css'
+import { WatchProviderIcons } from "./WatchProviderIcon";
 
+const apiKey = process.env.REACT_APP_tmdb_apiKey;
 
 type RandomNumberGeneratorProps = {
   BASE_URL: string;
@@ -9,11 +10,21 @@ type RandomNumberGeneratorProps = {
   setRandomMovieData: React.Dispatch<React.SetStateAction<{ id: number; posterPath: string | undefined; overview: string | undefined; voteCount: number; popularity: number } | null>>;
 }
 
-// React.FC
+interface Provider {
+  logo_path: string;
+  provider_id: number;
+  provider_name: string;
+  display_priority: number;
+}
+interface ProviderObject {
+  logo_path: string;
+  provider_name: string
+}
 
 
 const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
   const [randomNumber, setRandomNumber] = useState<number | null>(null);
+  const [watchProvidersList, setWatchProvidersList] = useState<ProviderObject[]>([]);
   const {BASE_URL} = props;
 
   const randomMovies: number[] = [
@@ -39,6 +50,32 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
   };
 
 
+  const fetchWatchProviders = (movieId: number) => {
+    let watchProviders: ProviderObject[] = []
+    const url = `${BASE_URL}3/movie/${movieId}/watch/providers?api_key=${apiKey}`
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        console.log("streaming services object:", data.results.US.flatrate)
+        if (data.results && data.results.US && data.results.US.flatrate) {
+          data.results.US.flatrate.forEach((watchProvider: Provider) => {
+            watchProviders.push({
+              logo_path: watchProvider.logo_path,
+              provider_name: watchProvider.provider_name
+            })
+          })
+        console.log(watchProviders)
+        setWatchProvidersList(watchProviders)
+        console.log("watchProviders list:", watchProvidersList)
+        }
+      })
+
+      .catch(error => {
+        console.error('Error fetching watch providers:', error);
+      });
+  };
 
   useEffect(() => {
     const fetchRandomMovie = async (movieId: number) => {
@@ -59,6 +96,7 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
     };
     if (randomNumber !== null) {
       fetchRandomMovie(randomNumber);
+      fetchWatchProviders(randomNumber);
     }
   }, [randomNumber, BASE_URL]);
 
@@ -76,6 +114,9 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
             {props.randomMovieData && props.randomMovieData.posterPath && (
             <p>{props.randomMovieData.overview}</p>
             )}
+            <div className='providerCardDisplay'>  
+              <WatchProviderIcons providers={watchProvidersList}/>
+            </div>
           </div>
         </div>
       </div>
