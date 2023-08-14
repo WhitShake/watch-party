@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import './RandomNumberGenerator.css'
-import { WatchProviderIcons } from "./WatchProviderIcon";
+import { WatchProviderIcons } from "./WatchProviderIcons";
 
 const apiKey = process.env.REACT_APP_tmdb_apiKey;
 
