@@ -4,10 +4,6 @@ import './FriendsList.css'
 
 export const FriendsList = ({ friendsData, friendsList, setFriendsList, setFriendsData, setMatchingUsers }: FriendsListProps) => {
 
-    // if (!friendsList) {
-    //     return <div>Log in to see your friends here</div>
-    // }
-
     return (
         <div className="friend-display">
             {friendsData.map((friend, index) => (

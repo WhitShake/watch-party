@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { uploadImage } from '../../firestore_functions/firestore_calls';
 import { auth } from '../../firebase_setup/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
