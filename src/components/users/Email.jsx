@@ -3,6 +3,9 @@ import emailjs from '@emailjs/browser';
 
 export const Email = (props) => {
     const form = useRef();
+    const serviceId = process.env.REACT_APP_emailJS_serviceId;
+    const templateId = process.env.REACT_APP_emailJS_templateId;
+    const publicKey = process.env.REACT_APP_emailJS_publicKey
     const [isCooldownActive, setIsCooldownActive] = useState(false);
 
 
@@ -39,7 +42,7 @@ export const Email = (props) => {
         }
     
         alert("Email invitation sent!")
-        emailjs.sendForm('service_ocm4k1a', 'template_gdhcj6m', form.current, 'X4vniASpzu_w1dEDH')
+        emailjs.sendForm(serviceId, templateId, form.current, publicKey)
         .then((result) => {
             console.log(result.text);
             setIsCooldownActive(true);
@@ -50,6 +53,7 @@ export const Email = (props) => {
             }, 300000); 
         })
         .catch((error) => {
+            console.log(publicKey, templateId, serviceId)
             console.log(error.text);
         });
     };
