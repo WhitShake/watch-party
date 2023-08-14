@@ -59,11 +59,12 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
             <img className="card" alt="movie cover" src={details?.poster_path === null 
                             ? 'https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg'
                             : `http://image.tmdb.org/t/p/w185${details?.poster_path}`} />
-            <h2>{details && details.original_title}</h2>
-            <h2>{details && details.overview}</h2>
-            <h2>{details && details.release_date}</h2>
-            <h2>{details && details.runtime}</h2>
-            <h2>{details && details.tagline}</h2>
+            {details && <h2> {details.original_title} </h2>}
+            {details && <h2> {details.tagline}</h2>}
+            {details && <h2> Year of release: {details.release_date.slice( 0 , 4 )}</h2>}
+            {details && <h2> Runtime: {details.runtime} min</h2>}
+            {details && <h2> Description: {details.overview} min</h2>}
+
 
             <h2>Add to Playlist</h2>
             {shelf.map(playlist => {
