@@ -64,7 +64,7 @@ export const Friend = ({data, friendsList, setFriendsList, setFriendsData}: Frie
                     <span className="dot"></span>
                 </div>
                 <div className="dropdown-content">
-                    <Link to= {`/friend-details/${data.id}`}>View {data.firstName}'s Profile</Link>
+                    <Link to= {`/friend-details/${data.id}`} className='view-profile'>View {data.firstName}'s Profile</Link>
                     {friendStatus
                     ? <button onClick={handleDeleteFriend}>Delete Friend</button>
                     : <button onClick={handleAddFriend}>Add Friend</button>} 

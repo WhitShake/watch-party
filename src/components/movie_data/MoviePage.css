@@ -1,11 +1,24 @@
-.movie-details {
-    margin-left: 30vw;
+.movie-page {
+    margin-left: 25vw;
+    padding-top: 3vh;
+    padding-right: 5vw;
     color: white;
 }
 
-.card {
+h1 {
+    font-size: 3vw;
+}
+
+.movie-page-poster {
     display: block;
+    height: 50vh;
+    width: auto;
     /* margin-left: 30vw; */
+}
+
+.movie-content {
+    display: flex;
+    gap: 20px;
 }
 
 

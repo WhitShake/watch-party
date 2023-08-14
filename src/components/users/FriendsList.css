@@ -1,20 +1,22 @@
 .friend-display {
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
   flex-direction: row;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  width: 60%;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
   align-items: center;
-  width: 825px;;
-  overflow: scroll;
-  gap: 25px;
-  top: 250px;
-  left: 400px;
-  color: white;
-  height: 300px;
-  font-family: 'Montserrat Alternates', sans-serif;
-  letter-spacing: 1px;
-  height: 300px;
-  /* padding: 20px 60px;  */
+  padding: 0px 40px;
+  gap: 30px;
+  margin-top: 0;
+  scroll-behavior: smooth;
+  height: 100%;
+  scrollbar-color: transparent;
+  overscroll-behavior-x: contain;
+  background: radial-gradient(black, black, black, aqua);
+  border-radius: 5px;
+  /* margin-bottom: 100px; */
 }
 
 

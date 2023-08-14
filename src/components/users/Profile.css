@@ -3,7 +3,7 @@
   height: 100vh;
   width: 100%;
   padding: 20px;
-  margin-left: 30vw;
+  margin-left: 25vw;
   font-family: 'Montserrat Alternates', sans-serif;
 }
 
@@ -26,16 +26,15 @@
 
 
 .profile-info {
-  border: white 5px;
+  /* border: aqua 1px solid; */
   display: flex;
+  justify-content: center;
   background-color: black;
-  width: 616px;
+  background: linear-gradient(20deg, rgba(0, 255, 255, 0.521), black, black, rgba(0, 255, 255, 0.521));
+  width: 60%;
   padding: 30px;
   border-radius: 50px;
   margin-top: 20px;
-  width: 620px;
-  height: 230px;
-  /* align-items: center; */
   margin-bottom: 75px;
 }
 
@@ -43,18 +42,22 @@
 .user-info {
   margin-left: 30px;
   text-align: center;
+  /* display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center; */
 }
 
 .name {
   letter-spacing: 3px;
-  font-size: 50px;
+  font-size: 55px;
   display: flex;
   gap: 15px;
   color: white;
   /* text-shadow: 2px 2px 4px #aaa8b3; */
-  font-family: 'Bruno Ace SC', cursive;
+  /* font-family: 'Bruno Ace SC', cursive; */
   /* font-family: 'Montserrat', sans-serif; */
-  /* font-family: 'Montserrat Alternates', sans-serif; */
+  font-family: 'Montserrat Alternates', sans-serif;
   /* font-family: 'Poiret One', cursive; */
   /* font-family: 'Raleway', sans-serif; */
 }
@@ -101,18 +104,22 @@
 } */
 
 .friends-list {
-  height: 400px;
+  height: 325px;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  flex-direction: row;
   justify-content: flex-start;
-  /* align-items: center; */
-  width: 850px;
+  width: 100%;
+  align-items: center;
 }
 
 .friend-cards {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  gap: 30px;
 }
 
 hr {
@@ -130,4 +137,11 @@ hr {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
+}
+
+.friend-search-container {
+  margin-top: 100px;
+  margin-bottom: 200px;
+  border: aqua 1px dotted;
+  width: 65%;
 }
