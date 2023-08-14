@@ -1,5 +1,5 @@
 import { db } from "../firebase_setup/firebase"
-import { doc, getDoc, setDoc, collection, getDocs, updateDoc, where, query, deleteDoc, arrayUnion } from "firebase/firestore"
+import { doc, getDoc, setDoc, collection, getDocs, updateDoc, where, query, deleteDoc, arrayUnion, getDocFromServer, arrayRemove } from "firebase/firestore"
 import { MovieProps, UserData, UserProfileData } from "../components/prop_types/propsTypes"
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { v4 } from "uuid"
@@ -96,9 +96,9 @@ export const fetchPlaylistMovies = async (userId: string | null, playlistTitle: 
     const playlistRef = doc(db, 'users', userId, 'Shelf', playlistTitle);
     
     try {
-        const playlistMovies = await getDoc(playlistRef);
+        const playlistMovies = await getDocFromServer(playlistRef)
+        console.log("from firestore:", playlistMovies.data())
         if (playlistMovies.exists()) {
-            console.log("from firestore:", playlistMovies.data())
             return playlistMovies.data()
         }  else{
             throw new Error('Error fetching the playlist');
@@ -133,15 +133,10 @@ export const addMovieToPlaylist = async (userId: string | undefined, playlistTit
 export const deleteMovieOffPlaylist = async (userId: string | undefined, playlistTitle: string, movie: MovieProps) => {
     if (!userId) return;
     const playlistDocRef = doc(db, 'users', userId, 'Shelf', playlistTitle)
-    const playlistSnapshot = await getDoc(playlistDocRef)
-    const playlistMovies = playlistSnapshot.data()
-    console.log("movie passed in:", movie)
-    console.log("current:", playlistMovies)
-    const updatedMovies = playlistMovies?.movies.filter((currentMovie: MovieProps) => currentMovie.id !== movie.id)
-    await updateDoc(playlistDocRef, {movies: updatedMovies})
-    console.log("after deletion:", updatedMovies)
+    await updateDoc(playlistDocRef, {
+        movies: arrayRemove(movie)
+    })
 }
-
 
 export const addShelfPlaylist = async (userId: string | null | undefined, title: string) => {
     if (userId) {

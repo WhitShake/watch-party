@@ -306,7 +306,7 @@ const App = () => {
                                             setRecentlyWatchedData={setRecentlyWatchedData}
                                             // handleAdvancedSearchTerms={hanndleAdvancedSearchTerms}
                                             />} />     
-          <Route path="/movie-details/:title" element={<MoviePage apiKey={apiKey} shelf={shelf} />} />
+          <Route path="/movie-details/:id" element={<MoviePage apiKey={apiKey} shelf={shelf} />} />
           <Route path = "friend-details/:id" element={<FriendPage 
                                                           friendsList={friendsList} 
                                                           setFriendsList={setFriendsList} 

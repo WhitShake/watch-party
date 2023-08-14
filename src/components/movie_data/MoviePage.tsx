@@ -47,9 +47,9 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
             <h2>{details && details.tagline}</h2>
 
             <h2>Add to Playlist</h2>
-            {shelf.map(playlist => {
+            {shelf.map((playlist, i) => {
                 return (
-                    <div>
+                    <div key={i}>
                         <button onClick={() => {
                             if (movieId && details) {
                                 handleAddMovieToPlaylist(playlist, {id: movieId, posterPath: details.poster_path})}

@@ -58,7 +58,14 @@ export type MovieProps = {
     id: number
     posterPath: string
     setRecentlyWatchedData?: Dispatch<SetStateAction<MovieProps[]>>
+    handleDeletion?: (id: number, posterPath: string) => void
 };
+
+export type MovieListProps = {
+    movies: MovieProps[]
+    setRecentlyWatchedData: Dispatch<SetStateAction<MovieProps[]>>
+    handleDeletion?: (id: number, posterPath: string) => void
+}
 
 export type MovieObject = {
     id: number
@@ -73,10 +80,7 @@ export type MovieObject = {
     vote_count: number
 };
 
-export type MovieListProps = {
-    movies: MovieProps[]
-    setRecentlyWatchedData: Dispatch<SetStateAction<MovieProps[]>>
-}
+
 
 export type SideBarProps = {
     signedInStatus: boolean

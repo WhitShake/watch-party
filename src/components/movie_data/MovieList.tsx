@@ -4,12 +4,17 @@ import { MovieListProps, MovieProps } from '../prop_types/propsTypes';
 import './MovieList.css';
 
 
-export const MovieList = ({ movies, setRecentlyWatchedData }: MovieListProps) => {
+export const MovieList = ({ movies, setRecentlyWatchedData, handleDeletion }: MovieListProps) => {
     return (
         <div className="container">
             <div className="card-display">
-                {movies.map((movie: {id: number; posterPath: string}, index: number) => (
-                    <Movie key={index} id={movie.id} posterPath={movie.posterPath} setRecentlyWatchedData={setRecentlyWatchedData}/>
+                {movies.map((movie: MovieProps, index: number) => (
+                    <Movie 
+                    key={index} 
+                    id={movie.id} 
+                    posterPath={movie.posterPath} 
+                    setRecentlyWatchedData={setRecentlyWatchedData} 
+                    handleDeletion={handleDeletion}/>
                 ))}
             </div>
         </div>

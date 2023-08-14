@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MovieProps } from "../prop_types/propsTypes";
 import './Movie.css'
 import { useLocation, useParams } from "react-router-dom";
@@ -7,23 +7,16 @@ import { addMovieToPlaylist, deleteMovieOffPlaylist } from "../../firestore_func
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase_setup/firebase";
 
-export const Movie = ({posterPath, id, setRecentlyWatchedData}: MovieProps) => {
+export const Movie = ({posterPath, id, setRecentlyWatchedData, handleDeletion}: MovieProps) => {
     const { title } = useParams();
     const [user] = useAuthState(auth);
     const location = useLocation();
+    const [movieDeleted, setMovieDeleted] = useState(false);
 
     const handleMarkAsWatched = () => {
         addMovieToPlaylist(user?.uid, 'Watched', {id: id, posterPath: posterPath})
         setRecentlyWatchedData && setRecentlyWatchedData(prev => [{id: id, posterPath: posterPath}, ...prev])
     }
-
-    const handleDeleteFromPlaylist = () => {
-        if (title) {
-            deleteMovieOffPlaylist(user?.uid, title, {id: id, posterPath: posterPath})
-            console.log("deleted")
-        }
-    }
-
 
     return (
             <div className="movie-container">
@@ -35,7 +28,7 @@ export const Movie = ({posterPath, id, setRecentlyWatchedData}: MovieProps) => {
                         <span className="dot"></span>
                     </div>
                     <div className="dropdown-content">
-                        {location.pathname.includes("/playlist") && <button onClick={handleDeleteFromPlaylist}>Remove Movie From {title}</button>}
+                        {location.pathname.includes("/playlist") && <button onClick={() => {if (handleDeletion != undefined) handleDeletion(id, posterPath)}}>Remove Movie From {title}</button>}
                         <Link to= {`/movie-details/${id}`}>View More Details</Link>
                         <button onClick={handleMarkAsWatched}>Mark As Watched</button>
                         {/* <a href="#">Add Movie to Playlist</a> */}
