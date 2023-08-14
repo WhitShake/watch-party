@@ -11,3 +11,19 @@ generator-container {
 .movie-poster {
   text-align: center;
 }
+
+.random-details {
+  /* text-align: center; */
+  display: inline-flex;
+  font-size: 16px;
+
+}
+
+.random-details-child {
+  margin-inline: 2%;
+
+}
+
+.provider-card-display {
+  font-size: 16px;
+}

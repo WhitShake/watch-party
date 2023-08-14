@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react"
 import './RandomNumberGenerator.css'
 import { WatchProviderIcons } from "./WatchProviderIcons";
+import { Link } from "react-router-dom";
 
 const apiKey = process.env.REACT_APP_tmdb_apiKey;
 
 type RandomNumberGeneratorProps = {
   BASE_URL: string;
-  randomMovieData: { id: number; posterPath: string | undefined; overview: string | undefined; voteCount: number ; popularity: number } | null;
-  setRandomMovieData: React.Dispatch<React.SetStateAction<{ id: number; posterPath: string | undefined; overview: string | undefined; voteCount: number; popularity: number } | null>>;
+  randomMovieData: { id: number; posterPath: string | undefined; overview: string | undefined; voteCount: number ; popularity: number; releaseDate: string | undefined;  runtime: number; title: string | undefined; tagline: string | undefined } | null;
+  setRandomMovieData: React.Dispatch<React.SetStateAction<{ id: number; posterPath: string | undefined; overview: string | undefined; voteCount: number; popularity: number; releaseDate: string | undefined;  runtime: number; title: string | undefined; tagline: string | undefined } | null>>;
 }
 
 interface Provider {
@@ -85,9 +86,10 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
       try {
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data);
-        const randomMovieData = { id: data.id , posterPath: data.poster_path, overview: data.overview, voteCount: data.vote_count, popularity: data.popularity }
+        console.log("json movie data:", data);
+        const randomMovieData = { id: data.id , posterPath: data.poster_path, overview: data.overview, voteCount: data.vote_count, popularity: data.popularity, releaseDate: data.release_date,  runtime: data.runtime, title: data.title, tagline: data.tagline}
         props.setRandomMovieData(randomMovieData)
+        console.log("random movie data: ", randomMovieData)
 
       } catch (error) {
         console.error('Error fetching movie:', error);
@@ -104,23 +106,38 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
     <div className="random-container">
       <div className="generator-container">
         <button onClick={generateRandomNumber}>I'm Feeling Lucky!</button>
-        <div className="random-info">
+        <div className="random-poster">
           {props.randomMovieData && props.randomMovieData.posterPath && (
             <img className="movie-poster" src={`http://image.tmdb.org/t/p/w185${props.randomMovieData.posterPath}`} alt="movie poster"/>
           )}
-          
-          <div>
-            {props.randomMovieData && props.randomMovieData.posterPath && (
+        </div>
+        <div className="random-details">
+            {/* {props.randomMovieData && props.randomMovieData.title && (
+            <p className="random-details-child">{props.randomMovieData.title}</p>
+            )} */}
+            {props.randomMovieData && props.randomMovieData.releaseDate && (
+            <p className="random-details-child">Year released: {props.randomMovieData.releaseDate.slice( 0, 4 )}</p>
+            )}
+            {props.randomMovieData && props.randomMovieData.runtime && (
+            <p className="random-details-child">Runtime: {props.randomMovieData.runtime} mins</p>
+            )}
+        </div>
+        <div className="random-overview">
+            {props.randomMovieData && props.randomMovieData.overview && (
             <p>{props.randomMovieData.overview}</p>
             )}
-            <div className='providerCardDisplay'>  
+          </div>
+          <div className="provider-card-display">  
               {props.randomMovieData && watchProvidersList && (
                 <p>Stream on: </p>
               )}
                 <WatchProviderIcons providers={watchProvidersList}/>
-            </div>
           </div>
-        </div>
+          <div>
+            {props.randomMovieData && props.randomMovieData.id && (
+              <Link to= {`/movie-details/${props.randomMovieData.id}`}>View More Details</Link>
+            )}
+          </div>
       </div>
     </div>
   );

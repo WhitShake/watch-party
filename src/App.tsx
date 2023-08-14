@@ -286,6 +286,7 @@ const App = () => {
           <Route path="/" element={<Home 
                                       // apiKey={apiKey}
                                       BASE_URL={BASE_URL}
+                                      
                                       />}
                                       />
           <Route path="/profile" element={<Profile 
