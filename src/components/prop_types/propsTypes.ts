@@ -104,8 +104,6 @@ export type ShelfPlaylistProps = {
 }
 
 export type PlaylistProps = {
-    title: string
-    movies: MovieProps[] | null
     setRecentlyWatchedData: Dispatch<SetStateAction<MovieProps[]>>
 }
 

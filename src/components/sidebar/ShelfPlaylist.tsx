@@ -8,16 +8,16 @@ import { Menu, Item, useContextMenu} from 'react-contexify';
 import 'react-contexify/dist/ReactContexify.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-export const ShelfPlaylist = ({title, setPlaylistTitle, setPlaylistPage, setShelf}: ShelfPlaylistProps) => {
+export const ShelfPlaylist = ({title, setShelf}: ShelfPlaylistProps) => {
     const [user] = useAuthState(auth);
     const shelfMenuId = `shelf-menu-${title}`;
     const location = useLocation();
     const navigate = useNavigate();
 
-    const populatePlaylistPage = (playlist: string) => {
-        setPlaylistTitle(playlist)
-        setPlaylistPage(playlist)
-    }
+    // const populatePlaylistPage = (playlist: string) => {
+    //     setPlaylistTitle(playlist)
+    //     setPlaylistPage(playlist)
+    // }
 
     const handleDeletePlaylist = () => {
         if (title === 'Watched') {
@@ -47,7 +47,7 @@ export const ShelfPlaylist = ({title, setPlaylistTitle, setPlaylistPage, setShel
     return (
         <li className="shelf-playlist">
             <div onContextMenu={displayMenu} >
-                <Link onClick={() => populatePlaylistPage(title)} to={`/playlist/${title}`}>{title}</Link>
+                <Link to={`/playlist/${title}`}>{title}</Link>
             </div>
             <Menu id={shelfMenuId}>
                 <Item onClick={handleDeletePlaylist}>

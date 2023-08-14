@@ -296,7 +296,7 @@ const App = () => {
                                               watchedMovies={recentlyWatchedData} 
                                               handleUpdate={handleInfoUpdated}
                                               setRecentlyWatchedData={setRecentlyWatchedData}/>} />
-          <Route path="/playlist/:id" element={<Playlist title={playlistTitle}  movies={playlistMovies} setRecentlyWatchedData={setRecentlyWatchedData}/>}/>
+          <Route path="/playlist/:title" element={<Playlist setRecentlyWatchedData={setRecentlyWatchedData}/>}/>
           <Route path="/search" element={<Search 
                                             handleChange={handleChange} 
                                             handleSubmit={handleSubmit} 

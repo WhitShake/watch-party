@@ -93,11 +93,12 @@ export const deleteFriend = async (userId: string, idToDelete: string) => {
 
 export const fetchPlaylistMovies = async (userId: string | null, playlistTitle: string) => {
     if (!userId) return;
-    const watchedRef = doc(db, 'users', userId, 'Shelf', playlistTitle);
+    const playlistRef = doc(db, 'users', userId, 'Shelf', playlistTitle);
     
     try {
-        const playlistMovies = await getDoc(watchedRef);
+        const playlistMovies = await getDoc(playlistRef);
         if (playlistMovies.exists()) {
+            console.log("from firestore:", playlistMovies.data())
             return playlistMovies.data()
         }  else{
             throw new Error('Error fetching the playlist');
