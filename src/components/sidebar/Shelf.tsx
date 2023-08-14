@@ -8,10 +8,6 @@ import { ShelfPlaylist } from "./ShelfPlaylist";
 
 
 export const Shelf = (props: ShelfProps) => {
-  const populatePlaylistPage = (playlist: string) => {
-    props.setPlaylistTitle(playlist)
-    props.setPlaylistPage(playlist)
-  }
 
   return (
     <div className="shelf-container">
@@ -22,7 +18,7 @@ export const Shelf = (props: ShelfProps) => {
             // <li className="playlist" key={i}>
             //   <Link onClick={() => populatePlaylistPage(playlist)} to="/playlist">{playlist}</Link>
             // </li>
-            <ShelfPlaylist key={i} title={playlist} setPlaylistPage={props.setPlaylistPage} setPlaylistTitle={props.setPlaylistTitle} setShelf={props.setShelf}/>
+            <ShelfPlaylist key={i} title={playlist} setShelf={props.setShelf}/>
           )
         })}
       </ul>

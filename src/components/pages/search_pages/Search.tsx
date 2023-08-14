@@ -1,22 +1,11 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { MovieList } from '../../movie_data/MovieList';
 import { TitleSearch } from './TitleSearch';
 import { PersonSearch } from './PersonSearch';
 import { GetRelatedSearch } from './GetRelatedSearch';
 import './Search.css'
-import { MovieProps } from '../../prop_types/propsTypes';
+import { SearchProps } from '../../prop_types/propsTypes';
 
-type SearchProps = {
-    handleChange: React.ChangeEventHandler<HTMLInputElement>
-    handleSubmit: React.FormEventHandler<HTMLFormElement>
-    handleSearchSelection: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-    selectedSearchForm: string
-    results: {
-        id: number
-        posterPath: string
-    }[]
-    setRecentlyWatchedData: Dispatch<SetStateAction<MovieProps[]>>
-}
 
 export const Search = (props: SearchProps) => {
 
@@ -73,3 +62,5 @@ export const Search = (props: SearchProps) => {
         </div>
     )
 };
+
+

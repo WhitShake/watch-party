@@ -35,8 +35,6 @@ export const SideBar = (props: SideBarProps) => {
           <li className="shelf">
             {user ? 
             <Shelf shelf={props.shelf} 
-                    setPlaylistPage={props.setPlaylistPage} 
-                    setPlaylistTitle={props.setPlaylistTitle}
                     setShelf={props.setShelf}/>
 
             : "Log in to view your Shelf!"}
@@ -47,7 +45,6 @@ export const SideBar = (props: SideBarProps) => {
               <div className="sidebar-user clickable">
                 <img className="sidebar-user-icon" src={props.profilePic || ""} alt = "avatar" width="50" height="50"/>
                 <Link to='/profile'>{props.firstName} {props.lastName}</Link>  
-                {/* <p>{props.firstName} {props.lastName}</p> */}
               </div>
               <button className="log-out-button" onClick={signUserOut}>Log Out</button>
             </li>
