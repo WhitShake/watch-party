@@ -8,27 +8,6 @@ export const Email = (props) => {
     const publicKey = process.env.REACT_APP_emailJS_publicKey
     const [isCooldownActive, setIsCooldownActive] = useState(false);
 
-
-    // const sendEmail = (e) => {
-    //     e.preventDefault();
-
-    //     if (isCooldownActive) {
-    //         alert("Please wait before sending another email invitation")
-    //         return;
-    //     }
-
-    //     emailjs.sendForm('service_ocm4k1a', 'template_gdhcj6m', form.current, 'X4vniASpzu_w1dEDH')
-    //     .then((result) => {
-    //         console.log(result.text);
-    //         setIsCooldownActive(true);
-    //         setTimeout(() => {
-    //             setIsCooldownActive(false)
-    //         }, 300000)
-    //     }, (error) => {
-    //         console.log(error.text);
-    //     });
-    // };
-
     const sendEmail = (e) => {
         e.preventDefault();
 
