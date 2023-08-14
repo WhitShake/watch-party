@@ -84,27 +84,20 @@ export type MovieObject = {
 
 
 export type SideBarProps = {
-    signedInStatus: boolean
     shelf: string[]
     firstName: string | undefined
     lastName: string | undefined
     profilePic: string | undefined
-    setPlaylistTitle: (currentPlaylist: string) => void
-    setPlaylistPage: (playlistPage: string) => void
     setShelf: Dispatch<SetStateAction<string[]>>
 }
 
 export type ShelfProps = {
     shelf: string[]
-    setPlaylistTitle: (currentPlaylist: string) => void
-    setPlaylistPage: (playlistPage: string) => void
     setShelf: Dispatch<SetStateAction<string[]>>
 }
 
 export type ShelfPlaylistProps = {
     title: string
-    setPlaylistTitle: (currentPlaylist: string) => void
-    setPlaylistPage: (playlistPage: string) => void 
     setShelf: Dispatch<SetStateAction<string[]>>
 }
 

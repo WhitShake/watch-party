@@ -60,20 +60,22 @@ const App = () => {
   const [friendsData, setFriendsData] = useState<UserProfileData[]>([]);
   const [recentlyWatchedData, setRecentlyWatchedData] = useState<MovieProps[]>([]);
   const [shelf, setShelf] = useState<string[]>([])
-  const [playlistTitle, setPlaylistTitle] = useState('') 
-  const [playlistMovies, setPlaylistMovies] = useState<MovieProps[] | null>(null); 
   const [friendsList, setFriendsList] = useState<Record<string, any> | undefined>({})
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        await initializeNewUser(user.uid, user.displayName, user.email);
+        setUserId(user.uid);
+      } else {
+        setUserId(null);
+      }
+    });
 
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      await initializeNewUser(user.uid, user.displayName, user.email)
-      setUserId(user.uid)
-    } else {
-      setUserId(null)
-    }
-  })
-
+    return () => {
+      unsubscribe(); 
+    };
+  }, []);
 
   useEffect(() => {
     if (userId !== null) {
@@ -152,12 +154,6 @@ const App = () => {
   }
 
 
-  const setCurrentPlaylistMovies = async (title: string) => {
-    if (userId) {
-        const playlistMovieList = await fetchPlaylistMovies(userId, title)
-        setPlaylistMovies(playlistMovieList?.movies as MovieProps[])
-    }
-  }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -272,13 +268,10 @@ const App = () => {
   return (
     <div className="App">
         <SideBar 
-            signedInStatus={true} 
             shelf={shelf} 
             profilePic={userData?.profilePic} 
             firstName={userData?.firstName} 
             lastName={userData?.lastName} 
-            setPlaylistTitle={setPlaylistTitle} 
-            setPlaylistPage={setCurrentPlaylistMovies} 
             setShelf={setShelf}
             />
         <Routes>
@@ -287,6 +280,15 @@ const App = () => {
                                       BASE_URL={BASE_URL}
                                       />}
                                       />
+          <Route path="/search" element={<Search 
+                                            handleChange={handleChange} 
+                                            handleSubmit={handleSubmit} 
+                                            handleSearchSelection={handleSearchSelection} 
+                                            results={searchResults} 
+                                            selectedSearchForm={selectedSearchForm}
+                                            setRecentlyWatchedData={setRecentlyWatchedData}
+                                            // handleAdvancedSearchTerms={hanndleAdvancedSearchTerms}
+                                            />} />     
           <Route path="/profile" element={<Profile 
                                               userData={userData} 
                                               friendsData={friendsData} 
@@ -297,17 +299,8 @@ const App = () => {
                                               handleUpdate={handleInfoUpdated}
                                               setRecentlyWatchedData={setRecentlyWatchedData}/>} />
           <Route path="/playlist/:title" element={<Playlist setRecentlyWatchedData={setRecentlyWatchedData}/>}/>
-          <Route path="/search" element={<Search 
-                                            handleChange={handleChange} 
-                                            handleSubmit={handleSubmit} 
-                                            handleSearchSelection={handleSearchSelection} 
-                                            results={searchResults} 
-                                            selectedSearchForm={selectedSearchForm}
-                                            setRecentlyWatchedData={setRecentlyWatchedData}
-                                            // handleAdvancedSearchTerms={hanndleAdvancedSearchTerms}
-                                            />} />     
           <Route path="/movie-details/:id" element={<MoviePage apiKey={apiKey} shelf={shelf} />} />
-          <Route path = "friend-details/:id" element={<FriendPage 
+          <Route path = "/friend-details/:id" element={<FriendPage 
                                                           friendsList={friendsList} 
                                                           currentUser={userData}
                                                           setFriendsList={setFriendsList} 
