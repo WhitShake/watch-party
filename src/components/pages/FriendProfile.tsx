@@ -70,7 +70,7 @@ export const FriendPage = (props: FriendPageProps) => {
                 <div className="watched-display">
                     {recentlyWatched.length === 0 
                     ? <p>This user has not watched any movies recently</p>
-                    : <ProfileWatched movies={recentlyWatched} />}
+                    : <ProfileWatched movies={recentlyWatched} setRecentlyWatchedData={props.setRecentlyWatchedData}/>}
                 </div>
                 <div className="friends-list">
                 <div className='section-header'>

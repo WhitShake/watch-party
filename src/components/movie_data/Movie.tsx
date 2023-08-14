@@ -7,7 +7,7 @@ import { addMovieToPlaylist } from "../../firestore_functions/firestore_calls";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase_setup/firebase";
 
-export const Movie = ({posterPath, id}: MovieProps) => {
+export const Movie = ({posterPath, id, setRecentlyWatchedData}: MovieProps) => {
     const [user] = useAuthState(auth);
     const navigate = useNavigate();
     const handleClick = () => {
@@ -16,7 +16,7 @@ export const Movie = ({posterPath, id}: MovieProps) => {
 
     const handleMarkAsWatched = () => {
         addMovieToPlaylist(user?.uid, 'Watched', {id: id, posterPath: posterPath})
-        console.log("marked as watched")
+        setRecentlyWatchedData && setRecentlyWatchedData(prev => [{id: id, posterPath: posterPath}, ...prev])
     }
 
 

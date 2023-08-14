@@ -23,7 +23,13 @@ export type ProfileProps = {
     handleUpdate: (field: keyof UserProfileData, value: string) => void
     setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
     setFriendsData: Dispatch<SetStateAction<UserProfileData[]>>
+    setRecentlyWatchedData: Dispatch<SetStateAction<MovieProps[]>>
 };
+
+export type ProfileWatchedProps = {
+    movies: MovieProps[]
+    setRecentlyWatchedData: Dispatch<SetStateAction<MovieProps[]>>
+}
 
 export type FriendsListProps = {
     friendsData: UserProfileData[]
@@ -45,11 +51,13 @@ export type FriendPageProps = {
     friendsList: {} | undefined
     setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
     setFriendsData: Dispatch<SetStateAction<UserProfileData[]>>
+    setRecentlyWatchedData: Dispatch<SetStateAction<MovieProps[]>>
 }
 
 export type MovieProps = {
     id: number
     posterPath: string
+    setRecentlyWatchedData?: Dispatch<SetStateAction<MovieProps[]>>
 };
 
 export type MovieObject = {
@@ -64,6 +72,11 @@ export type MovieObject = {
     vote_average: number
     vote_count: number
 };
+
+export type MovieListProps = {
+    movies: MovieProps[]
+    setRecentlyWatchedData: Dispatch<SetStateAction<MovieProps[]>>
+}
 
 export type SideBarProps = {
     signedInStatus: boolean
@@ -88,6 +101,12 @@ export type ShelfPlaylistProps = {
     setPlaylistTitle: (currentPlaylist: string) => void
     setPlaylistPage: (playlistPage: string) => void 
     setShelf: Dispatch<SetStateAction<string[]>>
+}
+
+export type PlaylistProps = {
+    title: string
+    movies: MovieProps[] | null
+    setRecentlyWatchedData: Dispatch<SetStateAction<MovieProps[]>>
 }
 
 export type MoviePageProps = {

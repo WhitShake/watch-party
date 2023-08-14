@@ -75,7 +75,7 @@ const { handleUpdate, friendsData, friendsList, watchedMovies, setFriendsList, s
             <hr></hr>
             </div>
             <div className="watched-list">
-                <ProfileWatched movies={watchedMovies}/>
+                <ProfileWatched movies={watchedMovies} setRecentlyWatchedData={props.setRecentlyWatchedData}/>
                 {/* {props.watchedMovies.length === 0 
                 ? <p className="text">Movies you watch will show up here!</p>
                 : <MovieList movies={props.watchedMovies}/>

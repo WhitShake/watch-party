@@ -294,18 +294,24 @@ const App = () => {
                                               friendsList={friendsList}
                                               setFriendsList={setFriendsList}
                                               watchedMovies={recentlyWatchedData} 
-                                              handleUpdate={handleInfoUpdated}/>} />
-          <Route path="/playlist/:id" element={<Playlist title={playlistTitle}  movies={playlistMovies}/>}/>
+                                              handleUpdate={handleInfoUpdated}
+                                              setRecentlyWatchedData={setRecentlyWatchedData}/>} />
+          <Route path="/playlist/:id" element={<Playlist title={playlistTitle}  movies={playlistMovies} setRecentlyWatchedData={setRecentlyWatchedData}/>}/>
           <Route path="/search" element={<Search 
                                             handleChange={handleChange} 
                                             handleSubmit={handleSubmit} 
                                             handleSearchSelection={handleSearchSelection} 
                                             results={searchResults} 
                                             selectedSearchForm={selectedSearchForm}
+                                            setRecentlyWatchedData={setRecentlyWatchedData}
                                             // handleAdvancedSearchTerms={hanndleAdvancedSearchTerms}
                                             />} />     
           <Route path="/movie-details/:title" element={<MoviePage apiKey={apiKey} shelf={shelf} />} />
-          <Route path = "friend-details/:id" element={<FriendPage friendsList={friendsList} setFriendsList={setFriendsList} setFriendsData={setFriendsData}/>} />
+          <Route path = "friend-details/:id" element={<FriendPage 
+                                                          friendsList={friendsList} 
+                                                          setFriendsList={setFriendsList} 
+                                                          setFriendsData={setFriendsData}
+                                                          setRecentlyWatchedData={setRecentlyWatchedData}/>} />
           {/* <Route path="/login" element={<Login />}/> */}
         </Routes>
     </div>

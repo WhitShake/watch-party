@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import './Playlist.css'
 import { MovieList } from '../movie_data/MovieList';
-import { MovieProps } from '../prop_types/propsTypes';
+import { MovieProps, PlaylistProps } from '../prop_types/propsTypes';
 
-type PlaylistProps = {
-    title: string
-    movies: MovieProps[] | null
-}
 
 export const Playlist = (props: PlaylistProps) => {
 
@@ -14,7 +10,7 @@ export const Playlist = (props: PlaylistProps) => {
         <div className="playlist-container">
             <h1 className="title">{props.title}</h1>
             {props.movies && props.movies.length !== 0
-            ? <MovieList movies={props.movies} />
+            ? <MovieList movies={props.movies} setRecentlyWatchedData={props.setRecentlyWatchedData} />
             : <h2 className="message">Add movies to this playlist!</h2>
             }
         </div>
