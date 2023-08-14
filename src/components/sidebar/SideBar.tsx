@@ -1,4 +1,3 @@
-import React, { useState } from "react"
 import { Shelf } from "./Shelf"
 import './SideBar.css'
 import { Link } from "react-router-dom"
@@ -7,8 +6,8 @@ import { auth } from "../../firebase_setup/firebase"
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { signOut } from 'firebase/auth'
 import { useNavigate } from "react-router-dom"
-import { MovieProps, SideBarProps } from "../prop_types/propsTypes"
-import { fetchPlaylistMovies } from "../../firestore_functions/firestore_calls"
+import { SideBarProps } from "../prop_types/propsTypes"
+
 
 
 export const SideBar = (props: SideBarProps) => {

@@ -8,8 +8,6 @@ type RandomNumberGeneratorProps = {
   setRandomMovieData: React.Dispatch<React.SetStateAction<{ id: number; posterPath: string | undefined; overview: string | undefined; voteCount: number; popularity: number } | null>>;
 }
 
-// React.FC
-
 
 const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
   

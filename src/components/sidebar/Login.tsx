@@ -2,10 +2,6 @@ import { auth, provider } from "../../firebase_setup/firebase"
 import { signInWithPopup } from "firebase/auth"
 import { useNavigate } from "react-router-dom"
 import './Login.css'
-// import { db } from "../../firebase_setup/firebase"
-// import { doc, getDoc } from "firebase/firestore"
-// import { onAuthStateChanged } from "firebase/auth"
-// import { initializeNewUser } from "../../firestore_functions/firestore_calls"
 
 export const Login = () => {
 

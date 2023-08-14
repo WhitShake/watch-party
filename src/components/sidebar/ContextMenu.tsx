@@ -1,14 +1,11 @@
 import {
     Menu,
     Item,
-    Separator,
-    Submenu,
     useContextMenu
 } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase_setup/firebase";
-import { deleteShelfPlaylist } from "../../firestore_functions/firestore_calls";
 
 const shelfMenuId = "shelf-menu"
 
