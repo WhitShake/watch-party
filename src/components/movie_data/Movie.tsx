@@ -15,7 +15,14 @@ export const Movie = ({posterPath, id, setRecentlyWatchedData, handleDeletion}: 
 
     const handleMarkAsWatched = () => {
         addMovieToPlaylist(user?.uid, 'Watched', {id: id, posterPath: posterPath})
-        setRecentlyWatchedData && setRecentlyWatchedData(prev => [{id: id, posterPath: posterPath}, ...prev])
+        setRecentlyWatchedData && setRecentlyWatchedData(prev => {
+            const newMovie = { id: id, posterPath: posterPath };
+            const updatedList = [newMovie, ...prev];
+            const uniqueMovies = Array.from(new Set(updatedList.map(movie => JSON.stringify(movie)))).map(movieString => JSON.parse(movieString));
+            return uniqueMovies;
+        })
+            
+            
     }
 
     return (
