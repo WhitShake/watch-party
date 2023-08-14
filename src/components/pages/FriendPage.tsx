@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { addFriend, deleteFriend} from '../../firestore_functions/firestore_calls'
 import { getUserData, getFriendsList, fetchPlaylistMovies } from '../../firestore_functions/firestore_calls';
-import './FriendProfile.css'
+import './FriendPage.css'
 import { FriendPageProps, MovieProps, UserProfileData } from '../prop_types/propsTypes';
 import { ProfileWatched } from '../movie_data/ProfileWatched';
 import { FriendsList } from '../users/FriendsList';
@@ -55,6 +56,43 @@ export const FriendPage = (props: FriendPageProps) => {
         }
     }
 
+    const handleAddFriend = async () => {
+        if (user && id) {
+            addFriend(user.uid, id)
+            props.setFriendsList(prev => (
+                {...prev,
+                [id]: 1
+                }
+            ))
+            const newFriend = await getUserData(id)
+            props.setFriendsData(prev => (
+                [...prev, {
+                    ...newFriend as UserProfileData,
+                    id: id
+                }]
+            ))
+        }
+    }
+
+    const handleDeleteFriend = async () => {
+        if (user && id) {
+            deleteFriend(user.uid, id)
+            props.setFriendsList(prev => {
+                if(prev) {
+                    const { [id]: _, ...updatedFriends } = prev
+                    return updatedFriends
+                }
+                return prev
+            })
+            props.setFriendsData(prev => {
+                const updatedFriends = prev.filter(person => person.id != id)
+                return updatedFriends
+            })
+        }
+    }
+
+    
+
     useEffect(() => {
         fetchUserData();
     }, [id])
@@ -69,6 +107,9 @@ export const FriendPage = (props: FriendPageProps) => {
                         <h1 className="user-friend-name">{userData?.firstName} {userData?.lastName}</h1>
                         <h4 className="user-friend-quote">{userData?.quote}</h4>
                     </div>
+                    {props.friendsList && id && id in props.friendsList
+                    ? <button onClick={handleDeleteFriend}>Delete Friend</button>
+                    : <button onClick={handleAddFriend}>Add Friend</button>} 
                 </div>
                 <div className='section-header'>
                 <h4>Recently Watched</h4>

@@ -13,7 +13,7 @@ import { getUserData, getFriendsList, fetchPlaylistMovies, initializeNewUser, fe
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { MoviePage } from './components/movie_data/MoviePage';
-import { FriendPage } from './components/pages/FriendProfile';
+import { FriendPage } from './components/pages/FriendPage';
 
 // import { seedData, testSeed } from './firebase_setup/seedData';
 
