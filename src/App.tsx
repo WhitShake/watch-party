@@ -115,7 +115,7 @@ const App = () => {
       .then(data => {
         setShelf(data)
       })
-      // navigate("/profile")
+
     } else {
       setUserData(null)
       setFriendsData([])
@@ -125,12 +125,12 @@ const App = () => {
   },[userId]);
 
   // this is just to view the state variables, delete later 
-  useEffect(() => {
-    console.log("friends:", friendsData)
-    console.log("user", userData)
-    console.log("recently watched movies", recentlyWatchedData)
-    console.log("friends list:", friendsList)
-  }, [friendsData, userData, recentlyWatchedData, friendsList])
+  // useEffect(() => {
+  //   console.log("friends:", friendsData)
+  //   console.log("user", userData)
+  //   console.log("recently watched movies", recentlyWatchedData)
+  //   console.log("friends list:", friendsList)
+  // }, [friendsData, userData, recentlyWatchedData, friendsList])
 
   
   const searchUrls = {

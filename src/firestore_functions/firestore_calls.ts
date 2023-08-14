@@ -97,7 +97,6 @@ export const fetchPlaylistMovies = async (userId: string | null, playlistTitle: 
     
     try {
         const playlistMovies = await getDocFromServer(playlistRef)
-        console.log("from firestore:", playlistMovies.data())
         if (playlistMovies.exists()) {
             return playlistMovies.data()
         }  else{
