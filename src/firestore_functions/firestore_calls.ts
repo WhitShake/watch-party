@@ -1,6 +1,5 @@
-import { watch } from "fs"
 import { db } from "../firebase_setup/firebase"
-import { doc, getDoc, setDoc, collection, getDocs, updateDoc, where, query, deleteDoc, arrayUnion } from "firebase/firestore"
+import { doc, getDoc, setDoc, collection, getDocs, updateDoc, where, query, deleteDoc, arrayUnion, getDocFromServer, arrayRemove } from "firebase/firestore"
 import { MovieProps, UserData, UserProfileData } from "../components/prop_types/propsTypes"
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { v4 } from "uuid"
@@ -27,8 +26,6 @@ export const initializeNewUser = async (userId: string, displayName: string | nu
 
         const watchedDocRef = doc(db, 'users', userId, 'Shelf', 'Watched')
         setDoc(watchedDocRef, {movies: []})
-        // const friendsDocRef = doc(db, 'users', userId, 'Friends', 'Friends List');
-        // setDoc(friendsDocRef, {friends: []})
     }
 }
 
@@ -68,15 +65,15 @@ export const getFriendsList = async (userId: string | undefined) => {
 
 
 export const addFriend = async (userId: string, idToAdd: string) => {
-    // const friendsRef = collection(db, 'users', userId, 'Friends');
     try { 
         const friendToAddRef = doc(db, 'users', userId, 'Friends', idToAdd)
-        const newFriend = await setDoc(friendToAddRef, {exists: true})
-        console.log(newFriend)
-        return newFriend
+        await setDoc(friendToAddRef, {exists: true})
+        
+        const userRef = doc(db, 'users', idToAdd, 'Friends', userId)
+        await setDoc(userRef, {exists: true})
     } catch (error) { 
         console.log("Issue with adding friend")
-        return error;
+        throw error;
     }
 }
 
@@ -85,6 +82,8 @@ export const deleteFriend = async (userId: string, idToDelete: string) => {
     try {
         const docToDelete = doc(db, 'users', userId, 'Friends', idToDelete)
         await deleteDoc(docToDelete)
+        const userDoc = doc(db, 'users', idToDelete, 'Friends', userId)
+        await deleteDoc(userDoc)
     } catch (error) {
         throw error;
     }
@@ -92,32 +91,12 @@ export const deleteFriend = async (userId: string, idToDelete: string) => {
 
 
 
-// not currently being used
-export const fetchFriendData = async (friends: string[]) => {
-    const friendData = await Promise.all(
-        friends.map(async (friend: string) => {
-            const data = await getUserData(friend);
-            if (data) {
-                return {
-                    id: friend,
-                    profilePic: data.profilePic as string,
-                    email: data.email
-                }
-            }
-            return null; 
-        })
-    );
-    console.log(friendData)
-    return friendData
-}
-
-
 export const fetchPlaylistMovies = async (userId: string | null, playlistTitle: string) => {
     if (!userId) return;
-    const watchedRef = doc(db, 'users', userId, 'Shelf', playlistTitle);
+    const playlistRef = doc(db, 'users', userId, 'Shelf', playlistTitle);
     
     try {
-        const playlistMovies = await getDoc(watchedRef);
+        const playlistMovies = await getDocFromServer(playlistRef)
         if (playlistMovies.exists()) {
             return playlistMovies.data()
         }  else{
@@ -139,23 +118,8 @@ export const fetchShelf = async (userId: string) => {
     })
     return playlists  
 }
-// userDocs.forEach(user => {
-//     playlistsToAdd.forEach(playlist => {
-//         const playlistDocRef = doc(db, 'users', user.id, 'Shelf', playlist.title)
-//         setDoc(playlistDocRef, playlist.movieObject)
-//         .then(() => {
-//             console.log(`Added ${playlist.title} to Shelf, contains ${playlist.movieObject}`)
-//         })
-//         .catch(err => {
-//             console.log(err)
-//         })
-//     })
-// })
 
 
-
-
-// need to make this 
 export const addMovieToPlaylist = async (userId: string | undefined, playlistTitle: string, movie: MovieProps) => {
     if (!userId) return;
     const playlistDocRef = doc(db, 'users', userId, 'Shelf', playlistTitle);
@@ -165,15 +129,34 @@ export const addMovieToPlaylist = async (userId: string | undefined, playlistTit
 }
 
 
-export const addShelfPlaylist = async (userId: string | null | undefined, title: string, updateState: (title: string) => void) => {
+export const deleteMovieOffPlaylist = async (userId: string | undefined, playlistTitle: string, movie: MovieProps) => {
+    if (!userId) return;
+    const playlistDocRef = doc(db, 'users', userId, 'Shelf', playlistTitle)
+    await updateDoc(playlistDocRef, {
+        movies: arrayRemove(movie)
+    })
+}
+
+export const addShelfPlaylist = async (userId: string | null | undefined, title: string) => {
     if (userId) {
         const playlistDocRef = doc(db, 'users', userId, 'Shelf', title)
         await setDoc(playlistDocRef, {movies: []})
-        updateState(title)
     } else {
         console.log("Issue with validating user")
     }
 }
+
+
+export const deleteShelfPlaylist = async (userId:string, title: string) => {
+    try {
+        const playlistToDelete = doc(db, 'users', userId, 'Shelf', title)
+        await deleteDoc(playlistToDelete)
+    } catch (error) {
+        throw error;
+    }
+}
+
+
 
 export const updateUserDoc = async (userId: string, value: string, field: keyof UserProfileData) => {
     const userDocRef = doc(db, 'users', userId)
@@ -223,21 +206,3 @@ export const searchUsersByName = async (firstName: string, lastName: string) => 
     };
 };
 
-
-// export const checkFriendStatus = async (userId: string, toCheck: UserData) => {
-//     const friendsListRef = doc(db, "users", userId, 'Friends', 'Friends List');
-//     const friendsListSnapshot = await getDoc(friendsListRef)
-//     try { 
-//         if (friendsListSnapshot.exists()) {
-//             const friendsListData = friendsListSnapshot.data() as string[];
-//             console.log("friends list", friendsListData)
-//             return friendsListData.includes(toCheck.id)
-//         } 
-//         else {
-//             throw new Error('Error fetching the playlist');
-//         }
-//     } catch (error) {
-//         console.log("Issue with checking this user's friends")
-//         return error;
-//     }
-// }

@@ -15,17 +15,17 @@
 }
 
 .img-menu-button {
-    width: 200px;
+    width: 100px;
     font-size: 10px;
     background-color: #1d1f24;
     color: white;
-    border: 1px solid aqua;
+    /* border: 1px solid aqua; */
     border-radius: 10px;
     font-size: 15px;
     font-family: 'Montserrat Alternates', sans-serif;
     margin-top: 10px;
     letter-spacing: 1px;
-    box-shadow: 4.0px 8.0px 8.0px hsla(0, 0%, 39%, 0.81);
+    /* box-shadow: 4.0px 8.0px 8.0px hsla(0, 0%, 39%, 0.81); */
     z-index: 999;
     
 }

@@ -1,0 +1,120 @@
+.user-profile {
+    color: white;
+    height: 100vh;
+    width: 100%;
+    padding: 20px;
+    margin-left: 30vw;
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.user-profile-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.user-avatar {
+    width: 200px;
+    height: auto;
+    border-radius: 30px;
+    /* overflow: hidden; */
+    border: aqua 1px solid;
+    box-shadow: 4.0px 8.0px 8.0px hsla(179, 37%, 53%, 0.698);
+    object-fit: cover;
+}
+
+.user-profile-info {
+    border: white 5px;
+    display: flex;
+    background-color: black;
+    width: 616px;
+    padding: 30px;
+    border-radius: 50px;
+    margin-top: 20px;
+    width: 620px;
+    height: 230px;
+    /* align-items: center; */
+    margin-bottom: 35px;
+}
+
+.user-friend-info {
+    margin-left: 30px;
+    text-align: center;
+    width: 500px;
+}
+
+.user-friend-name {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    letter-spacing: 3px;
+    font-size: 50px;
+    display: flex;
+    gap: 15px;
+    color: white;
+    text-shadow: 2px 2px 4px #aaa8b3;
+    font-family: 'Bruno Ace SC', cursive;
+    width: 500px;
+}
+
+.user-friend-quote {
+    font-size: 20px;
+    margin-left: 20px;
+    margin-top: -5px;
+    font-family: 'Montserrat Alternates', sans-serif;
+    letter-spacing: 2px;
+}
+
+.user-profile h4 {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 20px;
+    margin-top: 20px;
+    letter-spacing: 2px;
+}
+
+.text {
+    /* font-style: italic; */
+    font-size: 15px;
+}
+
+.user-friend-name .easy-edit-hover-on {
+    font-style: normal;
+} 
+
+.friends-list {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* align-items: center; */
+    width: 850px;
+}
+
+.friend-cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.invitation {
+    color: white;
+}
+
+/* .watched-display {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    /* padding-right: 100px; */
+    /* padding: 50px 10px;
+    gap: 25px;
+    width: 60%;
+    margin-top: 0;
+    scroll-behavior: smooth;
+    height: 230px;
+} */

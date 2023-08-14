@@ -13,7 +13,7 @@ import { getUserData, getFriendsList, fetchPlaylistMovies, initializeNewUser, fe
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { MoviePage } from './components/movie_data/MoviePage';
-import { FriendPage } from './components/pages/FriendProfile';
+import { FriendPage } from './components/pages/FriendPage';
 
 // import { seedData, testSeed } from './firebase_setup/seedData';
 
@@ -115,7 +115,7 @@ const App = () => {
       .then(data => {
         setShelf(data)
       })
-      // navigate("/profile")
+
     } else {
       setUserData(null)
       setFriendsData([])
@@ -151,9 +151,6 @@ const App = () => {
     } as UserProfileData))
   }
 
-  const handleAddPlaylist = (newPlaylist: string) => {
-    setShelf(prevshelf => [...prevshelf, newPlaylist])
-  }
 
   const setCurrentPlaylistMovies = async (title: string) => {
     if (userId) {
@@ -283,7 +280,7 @@ const App = () => {
             lastName={userData?.lastName} 
             setPlaylistTitle={setPlaylistTitle} 
             setPlaylistPage={setCurrentPlaylistMovies} 
-            handleAddPlaylist={handleAddPlaylist} 
+            setShelf={setShelf}
             />
         <Routes>
           <Route path="/" element={<Home 
@@ -298,18 +295,25 @@ const App = () => {
                                               friendsList={friendsList}
                                               setFriendsList={setFriendsList}
                                               watchedMovies={recentlyWatchedData} 
-                                              handleUpdate={handleInfoUpdated}/>} />
-          <Route path="/playlist" element={<Playlist title={playlistTitle}  movies={playlistMovies}/>}/>
+                                              handleUpdate={handleInfoUpdated}
+                                              setRecentlyWatchedData={setRecentlyWatchedData}/>} />
+          <Route path="/playlist/:title" element={<Playlist setRecentlyWatchedData={setRecentlyWatchedData}/>}/>
           <Route path="/search" element={<Search 
                                             handleChange={handleChange} 
                                             handleSubmit={handleSubmit} 
                                             handleSearchSelection={handleSearchSelection} 
                                             results={searchResults} 
                                             selectedSearchForm={selectedSearchForm}
+                                            setRecentlyWatchedData={setRecentlyWatchedData}
                                             // handleAdvancedSearchTerms={hanndleAdvancedSearchTerms}
                                             />} />     
           <Route path="/movie-details/:id" element={<MoviePage apiKey={apiKey} shelf={shelf} />} />
-          <Route path = "friend-details/:id" element={<FriendPage friendsList={friendsList} setFriendsList={setFriendsList} setFriendsData={setFriendsData}/>} />
+          <Route path = "friend-details/:id" element={<FriendPage 
+                                                          friendsList={friendsList} 
+                                                          currentUser={userData}
+                                                          setFriendsList={setFriendsList} 
+                                                          setFriendsData={setFriendsData}
+                                                          setRecentlyWatchedData={setRecentlyWatchedData}/>} />
           {/* <Route path="/login" element={<Login />}/> */}
         </Routes>
     </div>

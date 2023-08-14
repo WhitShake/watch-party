@@ -4,28 +4,9 @@ import { useParams } from 'react-router-dom';
 import { addMovieToPlaylist } from '../../firestore_functions/firestore_calls';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../firebase_setup/firebase';
-import { MovieProps } from '../prop_types/propsTypes';
+import { MovieProps, MoviePageProps, MovieDetails } from '../prop_types/propsTypes';
 
-type MoviePageProps = {
-    apiKey: string | undefined
-    shelf: string[]
-    // do i need set playlist movies in here? 
-}
 
-type MovieDetails = {
-    genres: Genre[];
-    original_title: string;
-    overview: string;
-    release_date: string;
-    runtime: number;
-    tagline: string;
-    poster_path: string;
-}
-
-type Genre = {
-    id: number;
-    name: string;
-}
 
 export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => { 
     const [user] = useAuthState(auth);
@@ -67,9 +48,9 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
 
 
             <h2>Add to Playlist</h2>
-            {shelf.map(playlist => {
+            {shelf.map((playlist, i) => {
                 return (
-                    <div>
+                    <div key={i}>
                         <button onClick={() => {
                             if (movieId && details) {
                                 handleAddMovieToPlaylist(playlist, {id: movieId, posterPath: details.poster_path})}
