@@ -57,6 +57,7 @@ export type FriendPageProps = {
 
 export type MovieProps = {
     id: number
+    title?: string //added title
     posterPath: string
     setRecentlyWatchedData?: Dispatch<SetStateAction<MovieProps[]>>
     handleDeletion?: (id: number, posterPath: string) => void
@@ -131,4 +132,9 @@ export type MovieDetails = {
 export type Genre = {
     id: number;
     name: string;
+}
+
+export type PosterPathFillerProps = {
+    filmId: number
+    fetchTitle: (id: number) => Promise<string>
 }
