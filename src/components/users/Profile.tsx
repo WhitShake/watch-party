@@ -19,22 +19,16 @@ export const Profile = (props: ProfileProps) => {
     const [firstNameSearch, setFirstNameSearch] = useState('');
     const [lastNameSearch, setLastNameSearch] = useState('');
     const [matchingUsers, setMatchingUsers] = useState<UserProfileData[]>([]);
-    const [friendStatus, setFriendStatus] = useState(false);
     
     // // delete later
-    useEffect(() => {
-        console.log("matching users:", matchingUsers)
-        const checkMatching = async () => {
-            // if (!user) return;
-            const friendsList = await getFriendsList(user?.uid)
-            matchingUsers.map(result => {
-                if (!friendsList) return;
-                if (result.id in friendsList) console.log("Friended")
-                else console.log("Not friended")
-        })
-    }
-    checkMatching()
-    }, [matchingUsers])
+    // useEffect(() => {
+    //     const checkMatching = async () => {
+    //         // if (!user) return;
+    //         const friendsList = await getFriendsList(user?.uid)
+
+    // }
+    // checkMatching()
+    // }, [matchingUsers])
 
 if (!props.userData) {
     return (<div className="profile">Log in to see your profile!</div>)
@@ -75,7 +69,7 @@ const { handleUpdate, friendsData, friendsList, watchedMovies, setFriendsList, s
                     <hr></hr>
             </div>
             <div className="watched-list">
-                <ProfileWatched movies={watchedMovies}/>
+                <ProfileWatched movies={watchedMovies} setRecentlyWatchedData={props.setRecentlyWatchedData}/>
                 {/* {props.watchedMovies.length === 0 
                 ? <p className="text">Movies you watch will show up here!</p>
                 : <MovieList movies={props.watchedMovies}/>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { MovieList } from '../../movie_data/MovieList';
 // import { Movie } from '../../movie_data/Movie';
 import { TitleSearch } from './TitleSearch';
@@ -6,6 +6,7 @@ import { PersonSearch } from './PersonSearch';
 import { GetRelatedSearch } from './GetRelatedSearch';
 import { AdvancedSearch } from './Advanced';
 import './Search.css'
+import { MovieProps } from '../../prop_types/propsTypes';
 
 type SearchProps = {
     handleChange: React.ChangeEventHandler<HTMLInputElement>
@@ -16,6 +17,7 @@ type SearchProps = {
         id: number
         posterPath: string
     }[]
+    setRecentlyWatchedData: Dispatch<SetStateAction<MovieProps[]>>
 }
 
 export const Search = (props: SearchProps) => {
@@ -77,7 +79,7 @@ export const Search = (props: SearchProps) => {
                     </button>
                 </div>
             </form>
-            <MovieList movies={props.results}/>
+            <MovieList movies={props.results} setRecentlyWatchedData={props.setRecentlyWatchedData}/>
         </div>
     )
 };

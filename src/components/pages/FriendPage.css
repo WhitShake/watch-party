@@ -97,6 +97,10 @@
     justify-content: flex-start;
 }
 
+.invitation {
+    color: white;
+}
+
 /* .watched-display {
     display: flex;
     flex-direction: row;
