@@ -309,6 +309,7 @@ const App = () => {
           <Route path="/movie-details/:id" element={<MoviePage apiKey={apiKey} shelf={shelf} />} />
           <Route path = "friend-details/:id" element={<FriendPage 
                                                           friendsList={friendsList} 
+                                                          currentUser={userData}
                                                           setFriendsList={setFriendsList} 
                                                           setFriendsData={setFriendsData}
                                                           setRecentlyWatchedData={setRecentlyWatchedData}/>} />

@@ -52,6 +52,7 @@ export type FriendPageProps = {
     setFriendsList: Dispatch<SetStateAction<Record<string, any> | undefined>>
     setFriendsData: Dispatch<SetStateAction<UserProfileData[]>>
     setRecentlyWatchedData: Dispatch<SetStateAction<MovieProps[]>>
+    currentUser: UserProfileData | null
 }
 
 export type MovieProps = {

@@ -8,6 +8,7 @@ import { ProfileWatched } from '../movie_data/ProfileWatched';
 import { FriendsList } from '../users/FriendsList';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../firebase_setup/firebase';
+import { Email } from '../users/Email';
 
 export const FriendPage = (props: FriendPageProps) => {
     const { id } = useParams(); 
@@ -111,6 +112,11 @@ export const FriendPage = (props: FriendPageProps) => {
                     ? <button onClick={handleDeleteFriend}>Delete Friend</button>
                     : <button onClick={handleAddFriend}>Add Friend</button>} 
                 </div>
+                    {user && props.currentUser && <Email 
+                                                    userName={props.currentUser} 
+                                                    userEmail={user?.email} friendEmail={userData?.email} 
+                                                    friendFirstName={userData?.firstName} 
+                                                    friendLastName={userData?.lastName}/>}
                 <div className='section-header'>
                 <h4>Recently Watched</h4>
                 <hr></hr>
