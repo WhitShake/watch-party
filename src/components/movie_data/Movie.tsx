@@ -35,9 +35,9 @@ export const Movie = ({posterPath, id, setRecentlyWatchedData, handleDeletion}: 
                         <span className="dot"></span>
                     </div>
                     <div className="dropdown-content">
-                        {location.pathname.includes("/playlist") && <button onClick={() => {if (handleDeletion != undefined) handleDeletion(id, posterPath)}}>Remove Movie From {title}</button>}
                         <Link to= {`/movie-details/${id}`}>View More Details</Link>
                         <button onClick={handleMarkAsWatched}>Mark As Watched</button>
+                        {location.pathname.includes("/playlist") && <button onClick={() => {if (handleDeletion != undefined) handleDeletion(id, posterPath)}}>Remove Movie From {title}</button>}
                         {/* <a href="#">Add Movie to Playlist</a> */}
                     </div>
                 </div>
