@@ -103,36 +103,3 @@
 .dropdown-content button:hover {
     background-color: #f5f5f5;
 }
-
-/* .movie-container {
-    width: 100%;
-    background-color: #f7f2fc;
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    height: 150px;
-    width: auto;
-    border-radius: 8px;
-    filter: drop-shadow(.5px .5px 1px #7b7580);
-} */
-
-/* .card {
-    border-radius: 8px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 5px;
-}
-
-.movie-container {
-    width: 100%;
-    background-color: #f7f2fc;
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    height: 150px;
-    width: auto;
-    border-radius: 8px;
-    filter: drop-shadow(.5px .5px 1px #7b7580);
-} */

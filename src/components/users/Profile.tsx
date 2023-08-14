@@ -69,10 +69,10 @@ const { handleUpdate, friendsData, friendsList, watchedMovies, setFriendsList, s
                 </div>
             </div>
             
-        {/* <div className="watched-and-friends"> */}
+        <div className="friends-recently-watched">
             <div className='section-header'>
-            <h4 className="recently-watched">Recently Watched</h4>
-            <hr></hr>
+                <h4 className="recently-watched">Recently Watched</h4>
+                    <hr></hr>
             </div>
             <div className="watched-list">
                 <ProfileWatched movies={watchedMovies}/>
@@ -81,18 +81,22 @@ const { handleUpdate, friendsData, friendsList, watchedMovies, setFriendsList, s
                 : <MovieList movies={props.watchedMovies}/>
                 } */}
             </div>
-            <div className="friends-list">
-                <div className='section-header'>
-                <h4>Friends List</h4>
-                <hr></hr>
-                </div>
-                <div className='friend-cards'>
-                {props.friendsData.length === 0
-                ? <p className="text">Add friends and invite them to watch a movie!</p>
-                : <FriendsList friendsData={friendsData} friendsList={friendsList} setFriendsList={setFriendsList} setFriendsData={setFriendsData}/>
-                }
-                </div>
+        </div>
+            <div className='section-header'>
+                <h4 className="friends-list-container">Friends List</h4>
+                    <hr></hr>
             </div>
+            <div className="friends-list">
+                    {props.friendsData.length === 0
+                    ? <p className="text">Add friends and invite them to watch a movie!</p>
+                    : <FriendsList friendsData={friendsData} friendsList={friendsList} setFriendsList={setFriendsList} setFriendsData={setFriendsData}/>
+                    }
+            </div>
+            <div className='friend-search-container'>       
+                <div className='section-header'>
+                    <h4 className="user-search">Find Friends</h4>
+                        <hr></hr>
+                </div>
             <div>
                 <FriendSearch 
                     setFirstNameSearch={setFirstNameSearch} 
@@ -106,6 +110,7 @@ const { handleUpdate, friendsData, friendsList, watchedMovies, setFriendsList, s
                     // handleNavigateToProfile={handleNavigateToProfile}
                     // handleFriendshipCheck={handleFriendshipCheck}
                     />
+            </div>
             </div>
         </div>
     </div>

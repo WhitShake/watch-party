@@ -1,16 +1,64 @@
-.name-inputs {
+.friend-search-form {
+  width: 100%;
+  border: 1px red solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 90px;
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.all-friend-search-elements {
   display: flex;
   flex-direction: row;
-  gap: 25px;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px purple solid;
+  width: 100%;
+}
+.name-form-inputs {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
   text-align: center;
-  margin-left: 90px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+}
+
+.first-name-info input{
+  background-color: #1d1f24;
+  border-radius: 30px;
+  width: 350px;
+  height: 40px;
+  border-style: none;
+  font-size: 20px;
+  border: 2px aqua solid;
+  font-family: inherit;
+  color: white;
+}
+
+.last-name-info input{
+  background-color: #1d1f24;
+  border-radius: 30px;
+  width: 350px;
+  height: 40px;
+  border-style: none;
+  font-size: 20px;
+  border: 2px aqua solid;
+  font-family: inherit;
+  color: white;
 }
 
 .friend-search-button {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  margin-left: 100px;
+  width: 200px;
+  background-color: aqua;
+  width: 150px;
+  height: 40px;
+  border-radius: 30px;
+  border: none;
+  font-family: inherit;
+  margin-left: 58px;
 }
+
+
+
+
