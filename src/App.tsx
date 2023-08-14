@@ -63,7 +63,6 @@ const App = () => {
   const [playlistTitle, setPlaylistTitle] = useState('') 
   const [playlistMovies, setPlaylistMovies] = useState<MovieProps[] | null>(null); 
   const [friendsList, setFriendsList] = useState<Record<string, any> | undefined>({})
-  const [watchProvidersList, setWatchProvidersList] = useState<string[]>([]);
 
 
   onAuthStateChanged(auth, async (user) => {
@@ -126,12 +125,12 @@ const App = () => {
   },[userId]);
 
   // this is just to view the state variables, delete later 
-  useEffect(() => {
-    console.log("friends:", friendsData)
-    console.log("user", userData)
-    console.log("recently watched movies", recentlyWatchedData)
-    console.log("friends list:", friendsList)
-  }, [friendsData, userData, recentlyWatchedData, friendsList])
+  // useEffect(() => {
+  //   console.log("friends:", friendsData)
+  //   console.log("user", userData)
+  //   console.log("recently watched movies", recentlyWatchedData)
+  //   console.log("friends list:", friendsList)
+  // }, [friendsData, userData, recentlyWatchedData, friendsList])
 
   
   const searchUrls = {
@@ -273,37 +272,6 @@ const App = () => {
   }
 };
 
-
-  interface Provider {
-    logo_path: string;
-    provider_id: number;
-    provider_name: string;
-    display_priority: number;
-  }
-  const fetchWatchProviders = (movieId: number) => {
-    let watchProviders: string[] = []
-    const url = `${BASE_URL}3/movie/${movieId}/watch/providers?api_key=${apiKey}`
-
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-        console.log("streaming services object:", data.results.US.flatrate)
-        if (data.results) {
-          data.results.US.flatrate.forEach((watchProvider: Provider) => {
-            watchProviders.push(watchProvider.provider_name)
-          })
-        console.log(watchProviders)
-        setWatchProvidersList(watchProviders)
-        console.log("watchProviders list:", watchProvidersList)
-        }
-      })
-
-      .catch(error => {
-        console.error('Error fetching watch providers:', error);
-      });
-  };
-  // fetchWatchProviders(370172)
 
   return (
     <div className="App">

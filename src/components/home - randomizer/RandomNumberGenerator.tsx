@@ -21,7 +21,6 @@ interface ProviderObject {
   provider_name: string
 }
 
-
 const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
   const [randomNumber, setRandomNumber] = useState<number | null>(null);
   const [watchProvidersList, setWatchProvidersList] = useState<ProviderObject[]>([]);
@@ -115,7 +114,10 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
             <p>{props.randomMovieData.overview}</p>
             )}
             <div className='providerCardDisplay'>  
-              <WatchProviderIcons providers={watchProvidersList}/>
+              {props.randomMovieData && watchProvidersList && (
+                <p>Stream on: </p>
+              )}
+                <WatchProviderIcons providers={watchProvidersList}/>
             </div>
           </div>
         </div>
