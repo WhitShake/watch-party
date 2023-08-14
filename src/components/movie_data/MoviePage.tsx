@@ -64,31 +64,8 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
                             )
                         })}
                     </div>
-<<<<<<< HEAD
-                )
-            })}
-=======
                 </div>
             </div>
-            
-
-            {/* <div className="dropdown">
-                <div className="dropdown-button">
-                    <span className="dot"></span>
-                    <span className="dot"></span>
-                    <span className="dot"></span>
-                </div>
-                <div className="dropdown-content"> */}
-                    {/* <button onClick={handleClick}>View More Details</button> */}
-                    {/* <a href="#">Add Movie to Playlist</a>
-            
-                    {shelf.map(playlist => (
-                    <a href="#" key={playlist}>{playlist}</a>
-                    ))}
-                </div>
-            </div> */}
-
->>>>>>> 937531602cdf3f6f577bbc10a05d83b8974191bd
         </div>
     )
 }
