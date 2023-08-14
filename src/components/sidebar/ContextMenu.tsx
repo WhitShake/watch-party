@@ -13,7 +13,7 @@ type ShelfMenuProps = {
     handleDeletePlaylist: () => void
 }
 
-const shelfMenu = ({handleDeletePlaylist}: ShelfMenuProps ) => {
+export const shelfMenu = ({handleDeletePlaylist}: ShelfMenuProps ) => {
     const [user] = useAuthState(auth);
     const { show } = useContextMenu({
         id: shelfMenuId

@@ -14,11 +14,6 @@ export const ShelfPlaylist = ({title, setShelf}: ShelfPlaylistProps) => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    // const populatePlaylistPage = (playlist: string) => {
-    //     setPlaylistTitle(playlist)
-    //     setPlaylistPage(playlist)
-    // }
-
     const handleDeletePlaylist = () => {
         if (title === 'Watched') {
             alert("This playlist can't be deleted!")
