@@ -46,8 +46,8 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
             {details && <h2> Runtime: {details.runtime} min</h2>}
             {details && <h2> Description: {details.overview} min</h2>}
 
-
-            <h2>Add to Playlist</h2>
+            {user &&
+            <h2>Add to Playlist</h2>}
             {shelf.map((playlist, i) => {
                 return (
                     <div key={i}>
