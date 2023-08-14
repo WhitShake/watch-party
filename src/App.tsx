@@ -265,6 +265,7 @@ const App = () => {
   }
 };
 
+
   return (
     <div className="App">
         <SideBar 
@@ -278,6 +279,7 @@ const App = () => {
           <Route path="/" element={<Home 
                                       // apiKey={apiKey}
                                       BASE_URL={BASE_URL}
+                                      
                                       />}
                                       />
           <Route path="/search" element={<Search 
@@ -299,6 +301,15 @@ const App = () => {
                                               handleUpdate={handleInfoUpdated}
                                               setRecentlyWatchedData={setRecentlyWatchedData}/>} />
           <Route path="/playlist/:title" element={<Playlist setRecentlyWatchedData={setRecentlyWatchedData}/>}/>
+          <Route path="/search" element={<Search 
+                                            handleChange={handleChange} 
+                                            handleSubmit={handleSubmit} 
+                                            handleSearchSelection={handleSearchSelection} 
+                                            results={searchResults} 
+                                            selectedSearchForm={selectedSearchForm}
+                                            setRecentlyWatchedData={setRecentlyWatchedData}
+                                            // handleAdvancedSearchTerms={hanndleAdvancedSearchTerms}
+                                            />} />  
           <Route path="/movie-details/:id" element={<MoviePage apiKey={apiKey} shelf={shelf} />} />
           <Route path = "/friend-details/:id" element={<FriendPage 
                                                           friendsList={friendsList} 

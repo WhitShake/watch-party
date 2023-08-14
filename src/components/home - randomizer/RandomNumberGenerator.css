@@ -1,7 +1,7 @@
 .random-container {
   color: white;
   font-size: 30px;
-  margin-left: 25px;
+  margin-left: 30vw;
 }
 
 generator-container {
@@ -10,4 +10,20 @@ generator-container {
 
 .movie-poster {
   text-align: center;
+}
+
+.random-details {
+  /* text-align: center; */
+  display: inline-flex;
+  font-size: 16px;
+
+}
+
+.random-details-child {
+  margin-inline: 2%;
+
+}
+
+.provider-card-display {
+  font-size: 16px;
 }

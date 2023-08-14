@@ -8,7 +8,7 @@ type HomeProps = {
 
 export const Home = (props: HomeProps) => {
 
-    const [randomMovieData, setRandomMovieData] = useState<{ id: number; posterPath: string | undefined; overview: string | undefined; voteCount: number; popularity: number } | null>(null);
+    const [randomMovieData, setRandomMovieData] = useState<{ id: number; posterPath: string | undefined; overview: string | undefined; voteCount: number; popularity: number; releaseDate: string | undefined;  runtime: number; title: string | undefined; tagline: string | undefined } | null>(null);
     
     return (
         <div className="number-generator">
