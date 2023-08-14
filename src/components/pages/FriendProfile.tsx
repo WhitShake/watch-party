@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getUserData, getFriendsList, fetchPlaylistMovies } from '../../firestore_functions/firestore_calls';
 import './FriendProfile.css'
 import { FriendPageProps, MovieProps, UserProfileData } from '../prop_types/propsTypes';
 import { ProfileWatched } from '../movie_data/ProfileWatched';
 import { FriendsList } from '../users/FriendsList';
-
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../../firebase_setup/firebase';
 
 export const FriendPage = (props: FriendPageProps) => {
     const { id } = useParams(); 
+    const [user] = useAuthState(auth);
+    const navigate = useNavigate();
     const [userData, setUserData] = useState<UserProfileData>();
     const [userFriendsData, setUserFriendsData] = useState<UserProfileData[]>([]);
     const [recentlyWatched, setRecentlyWatched] = useState<MovieProps[]>([])
+
+    if (id === user?.uid) {
+        navigate("/profile")
+    }
 
 
     const fetchUserData = () => {
