@@ -13,9 +13,13 @@
 }
 
 .playlist-title {
+    flex-wrap: wrap;
+    line-height: 1.25;
+    font-size: 5vw;
+    letter-spacing: 2px;
     color: white;
     text-align: center;
-    font-size: 70px;
+    /* font-size: 70px; */
     margin-left: 275px;
     margin-bottom: 90px;
     margin-top: 80px;
