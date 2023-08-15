@@ -1,0 +1,40 @@
+.playlist-field {
+    background-color: #1d1f24;
+    border-radius: 30px;
+    width: 10vw;
+    height: 1vh;
+    border-style: none;
+    font-family: inherit;
+    color: white;
+    padding: 12px;
+}
+
+.playlist-field:focus {
+    outline: 1px aqua solid;
+}
+
+.add-playlist-submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5vw;
+    height: 3vh;
+    border-radius: 30px;
+    border: 0.1px aqua solid;
+    font-family: inherit;
+    cursor: pointer;
+    background-color: #1d1f24;
+    color: white;
+    letter-spacing: 0.8px;
+    font-weight: bold;
+}
+
+
+.playlist-form {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    height: 4vw;
+    justify-content: space-between;
+    width: 17vw;
+}

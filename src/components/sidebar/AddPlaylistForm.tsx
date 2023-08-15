@@ -5,6 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { auth } from "../../firebase_setup/firebase"
 import { addShelfPlaylist } from "../../firestore_functions/firestore_calls"
 import { Dispatch, SetStateAction, useState } from 'react'
+import './AddPlaylistForm.css'
 
 interface AddPlaylistFormData {
     title: string
@@ -49,9 +50,9 @@ export const AddPlaylistForm = ({ setShelf }: AddPlaylistFormProps) => {
 
     return (
         <form className="playlist-form" onSubmit={handleSubmit}>
-            <input placeholder="Add a playlist" {...register("title")} onChange={handleChange} value={inputValue}/>
+            <input className="playlist-field" placeholder="Add a playlist" {...register("title")} onChange={handleChange} value={inputValue}/>
             <p style={{color: "red"}}>{errors.title?.message}</p>
-            <input type="submit" />
+            <input className="add-playlist-submit" type="submit" />
         </form>
     )
 }
