@@ -50,7 +50,7 @@ export const Friend = ({data, friendsList, setFriendsList, setFriendsData}: Frie
             return prev
         })
         setFriendsData(prev => {
-            const updatedFriends = prev.filter(person => person.id != data.id)
+            const updatedFriends = prev.filter(person => person.id !== data.id)
             return updatedFriends
         })
     }
