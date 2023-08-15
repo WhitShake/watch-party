@@ -45,7 +45,7 @@ export const SideBar = (props: SideBarProps) => {
                 <img className="sidebar-user-icon" src={props.profilePic || ""} alt = "avatar" width="50" height="50"/>
                 <Link className="clickable" to='/profile'>{props.firstName} {props.lastName}</Link>  
               </div>
-              <button className="log-out-button" onClick={signUserOut}>Log Out</button>
+              <button className="sign-in-button" onClick={signUserOut}>Log Out</button>
             </li>
           ) : <Login />
           }

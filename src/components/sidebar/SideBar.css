@@ -1,6 +1,5 @@
 .sidebar {
   height: 100vh;
-  align-items: left;
   padding-top: 20px;
   padding-bottom: 20px;
   position: fixed;
@@ -59,11 +58,6 @@ a {
   width: 40px;
 }
 
-.log-out-button { 
-  margin: 20px;
-  margin-left: 5px;
-}
-
 .clickable:hover{ 
   text-shadow:
   0 0 21px #fff,
@@ -71,4 +65,36 @@ a {
   0 0 92px aqua,
   0 0 102px aqua,
   0 0 151px aqua;
+}
+
+.sign-in-button {
+  background-color: aqua;
+  padding: 8px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 9vw;
+  height: 5vh;
+  border-radius: 30px;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 5px rgb(2, 192, 192);
+}
+
+.sign-in-button:hover {
+  background-color: rgb(2, 192, 192);
+}
+
+.sign-in-button:active {
+  background-color: rgb(2, 192, 192);
+  box-shadow: 0 5px rgb(5, 116, 116);
+  transform: translateY(4px);
+}
+
+.user-signed-in {
+  display: flex;
+  flex-direction: column;
+  height: 18vh;
+  justify-content: space-evenly;
 }
