@@ -22,41 +22,6 @@ export const FriendPage = (props: FriendPageProps) => {
         navigate("/profile")
     }
 
-
-    const fetchUserData = () => {
-        if (id) {
-            getUserData(id)
-            .then(data => setUserData(data as UserProfileData));
-
-            getFriendsList(id)
-            .then(async friendsObject => {
-                if (!friendsObject) return;
-                const friendsIds = Object.keys(friendsObject)
-                const friendsDataPromises = friendsIds.map(async friendId => {
-                    const toAdd = await getUserData(friendId);
-                    return {
-                        ...toAdd as UserProfileData,
-                        id: friendId,
-                    };
-                });
-                const friendsInfo = await Promise.all(friendsDataPromises);
-                setUserFriendsData(friendsInfo as UserProfileData[])
-            });
-
-            fetchPlaylistMovies(id, "Watched")
-            .then(data => {
-                if (data && data.movies) {
-                    const movies = data.movies;
-                    let recentlyWatchedMovies: MovieProps[] = []
-                    for (let i = movies.length - 1; i >= Math.max(movies.length - 10, 0); i--) {
-                        recentlyWatchedMovies.push(movies[i])
-                    }
-                    setRecentlyWatched(recentlyWatchedMovies)
-                }
-            })
-        }
-    }
-
     const handleAddFriend = async () => {
         if (user && id) {
             addFriend(user.uid, id)
@@ -93,7 +58,41 @@ export const FriendPage = (props: FriendPageProps) => {
     }
 
     useEffect(() => {
+        const fetchUserData = () => {
+            if (id) {
+                getUserData(id)
+                .then(data => setUserData(data as UserProfileData));
+    
+                getFriendsList(id)
+                .then(async friendsObject => {
+                    if (!friendsObject) return;
+                    const friendsIds = Object.keys(friendsObject)
+                    const friendsDataPromises = friendsIds.map(async friendId => {
+                        const toAdd = await getUserData(friendId);
+                        return {
+                            ...toAdd as UserProfileData,
+                            id: friendId,
+                        };
+                    });
+                    const friendsInfo = await Promise.all(friendsDataPromises);
+                    setUserFriendsData(friendsInfo as UserProfileData[])
+                });
+    
+                fetchPlaylistMovies(id, "Watched")
+                .then(data => {
+                    if (data && data.movies) {
+                        const movies = data.movies;
+                        let recentlyWatchedMovies: MovieProps[] = []
+                        for (let i = movies.length - 1; i >= Math.max(movies.length - 10, 0); i--) {
+                            recentlyWatchedMovies.push(movies[i])
+                        }
+                        setRecentlyWatched(recentlyWatchedMovies)
+                    }
+                })
+            }
+        }
         fetchUserData();
+
     }, [id])
 
 
