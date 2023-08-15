@@ -16,7 +16,6 @@
   /* font-family: Neon Magic; */
   font-family: 'Agelast';
   font-weight: bold;
-  transition: transform 0.5s ease-in-out;
   /* font-family: Stacker; */
 }
 
@@ -33,9 +32,6 @@ ul {
   height: 30px;
 }
 
-.clickable:hover {
-  transform: scale(1.03);
-}
 
 
 

@@ -43,7 +43,6 @@ a {
   color: white;
   font-family: 'Agelast';
   font-weight: bold;
-  transition: transform 0.3s ease;
 }
 
 .sidebar-user {
@@ -66,5 +65,10 @@ a {
 }
 
 .clickable:hover{ 
-  transform: scale(1.03);
+  text-shadow:
+  0 0 21px #fff,
+  0 0 82px aqua,
+  0 0 92px aqua,
+  0 0 102px aqua,
+  0 0 151px aqua;
 }
