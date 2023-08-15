@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { MovieProps } from "../prop_types/propsTypes";
 import './Movie.css'
 import { useLocation, useParams } from "react-router-dom";
