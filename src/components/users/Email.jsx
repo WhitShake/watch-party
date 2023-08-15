@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
+import './Email.css'
 
 export const Email = (props) => {
     const form = useRef();
@@ -39,13 +40,13 @@ export const Email = (props) => {
 
 
     return (
-        <form ref={form} onSubmit={sendEmail}>
+        <form ref={form} onSubmit={sendEmail} >
             <input type="hidden" name="from_name" value={props.userData.firstName + " " + props.userData.lastName} />
             <input type="hidden" name="to_email" value={props.friendEmail} />
             <input type="hidden" name="reply_to" value={props.userEmail} />
             <input type="hidden" name="to_name"value={props.friendFirstName + " " + props.friendLastName}/>
             <input type="hidden" name="message" value="Watch a movie with me!" />
-            <input type="submit" value="Send a watch invite" />
+            <input id="user-button" type="submit" value="Send a watch invite" />
         </form>
 );
 };

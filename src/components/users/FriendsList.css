@@ -19,5 +19,8 @@
   /* margin-bottom: 100px; */
 }
 
+.friend-display::-webkit-scrollbar {
+  display: none;
+}
 
 

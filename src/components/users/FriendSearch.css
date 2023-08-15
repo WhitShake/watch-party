@@ -1,12 +1,11 @@
 .friend-search-form {
   width: 100%;
-  border: 1px red solid;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   gap: 90px;
-  font-family: 'Montserrat Alternates', sans-serif;
+  font-family: inherit
 }
 
 .all-friend-search-elements {
@@ -14,7 +13,6 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  border: 1px purple solid;
   width: 100%;
 }
 .name-form-inputs {
@@ -22,43 +20,72 @@
   flex-direction: row;
   gap: 30px;
   text-align: center;
+  /* background-color: black; */
 }
 
-.first-name-info input{
+#firstSearch {
   background-color: #1d1f24;
   border-radius: 30px;
-  width: 350px;
-  height: 40px;
+  width: 310px;
+  height: 20px;
   border-style: none;
-  font-size: 20px;
+  font-size: 18px;
   border: 2px aqua solid;
   font-family: inherit;
   color: white;
+  padding: 12px;
 }
 
-.last-name-info input{
+#lastSearch {
   background-color: #1d1f24;
   border-radius: 30px;
-  width: 350px;
-  height: 40px;
+  width: 310px;
+  height: 20px;
   border-style: none;
-  font-size: 20px;
+  font-size: 18px;
   border: 2px aqua solid;
   font-family: inherit;
   color: white;
+  padding: 12px;
 }
 
 .friend-search-button {
-  width: 200px;
   background-color: aqua;
   width: 150px;
   height: 40px;
   border-radius: 30px;
   border: none;
   font-family: inherit;
-  margin-left: 58px;
+  font-size: 16px;
+  margin-left: 25px;
+  cursor: pointer;
+  box-shadow: 0 5px rgb(2, 192, 192);
 }
 
+.friend-search-button:hover {
+  background-color: rgb(2, 192, 192);
+}
 
+.friend-search-button:active {
+  background-color: rgb(2, 192, 192);
+  box-shadow: 0 5px rgb(5, 116, 116);
+  transform: translateY(4px);
+}
+
+.searched-friend-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.friend-search-form .friend-display {
+  width: 60%;
+  height: 100%;
+}
+
+.friend-search-form .friend {
+  margin: 40px 0;
+}
 
 

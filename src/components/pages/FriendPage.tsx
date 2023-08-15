@@ -100,22 +100,27 @@ export const FriendPage = (props: FriendPageProps) => {
     return (
         <div className='user-profile'>
             <div className="user-profile-container">
-                <div className="user-profile-info">
-                    <img className="user-avatar" src={userData?.profilePic} alt="avatar"/>
-                    <div className="user-friend-info">
-                        <h1 className="user-friend-name">{userData?.firstName} {userData?.lastName}</h1>
-                        <h4 className="user-friend-quote">{userData?.quote}</h4>
+                <div className='user-profile-about'>
+                        <img className="user-avatar" src={userData?.profilePic} alt="avatar"/>
+                        <div className="user-profile-info">
+                            <div className="user-friend-info">
+                                <h1 className="user-friend-name">{userData?.firstName} {userData?.lastName}</h1>
+                                <h4 className="user-friend-quote">{userData?.quote}</h4>
+                            </div>
+                            <div className="user-button-container">
+                                {props.friendsList && id && id in props.friendsList
+                                ? <button id="user-button" onClick={handleDeleteFriend}>Delete Friend</button>
+                                : <button id="user-button" onClick={handleAddFriend}>Add Friend</button>} 
+                        
+                                <div className="invitation">
+                                {user && props.currentUser && userData && <Email 
+                                                                userData={props.currentUser} 
+                                                                userEmail={user.email} friendEmail={userData.email} 
+                                                                friendFirstName={userData.firstName} 
+                                                                friendLastName={userData.lastName}/>}
+                            </div>                                    
+                        </div>
                     </div>
-                    {props.friendsList && id && id in props.friendsList
-                    ? <button onClick={handleDeleteFriend}>Delete Friend</button>
-                    : <button onClick={handleAddFriend}>Add Friend</button>} 
-                </div>
-                <div className="invitation">
-                    {user && props.currentUser && userData && <Email 
-                                                    userData={props.currentUser} 
-                                                    userEmail={user.email} friendEmail={userData.email} 
-                                                    friendFirstName={userData.firstName} 
-                                                    friendLastName={userData.lastName}/>}
                 </div>
                 <div className='section-header'>
                 <h4>Recently Watched</h4>
@@ -127,15 +132,17 @@ export const FriendPage = (props: FriendPageProps) => {
                     : <ProfileWatched movies={recentlyWatched} setRecentlyWatchedData={props.setRecentlyWatchedData}/>}
                 </div>
                 <div className="friends-list">
-                <div className='section-header'>
-                    <h4>Friends List</h4>
-                    <hr></hr>
+                    <div className='section-header'>
+                        <h4>Friends List</h4>
+                        <hr></hr>
                     </div>
+                    {/* <div className='friend-display'> */}
                     {userFriendsData.length === 0 
                     ? <p>This user has not added any friends yet</p>
                     : <FriendsList friendsData={userFriendsData} friendsList={props.friendsList} setFriendsList={props.setFriendsList} setFriendsData={props.setFriendsData}/> }
-                    
+                {/* </div>   */}
                 </div>
+                <footer></footer>
             </div>
         </div>
     )

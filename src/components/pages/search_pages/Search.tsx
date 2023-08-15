@@ -11,16 +11,18 @@ export const Search = (props: SearchProps) => {
 
     return (
         <div className="search">
-            <form className="search-form" onSubmit={props.handleSubmit}>
-                <h1>Search By:</h1>
-                <div className="form-selector">
-                    <label htmlFor="title search"></label>
-                    <select className="dropdown-btn" name="select type" onChange={props.handleSearchSelection} value={props.selectedSearchForm}>
-                        <option value="placeholder">Select Search Option</option>
-                        <option value="title">Search by Title</option>
-                        <option value="person">Search by Person</option>
-                        <option value="related">Search for Similar</option>
-                    </select>
+            <form className="main-search-form" onSubmit={props.handleSubmit}>
+                <div className='main-search-inputs'>
+                    <h1 className='search-title'>Search By:</h1>
+                    <div className="form-selector">
+                        <label htmlFor="title search"></label>
+                        <select className="dropdown-btn" name="select type" onChange={props.handleSearchSelection} value={props.selectedSearchForm}>
+                            <option value="placeholder">Select Search Option</option>
+                            <option value="title">Search by Title</option>
+                            <option value="person">Search by Person</option>
+                            <option value="related">Search for Similar</option>
+                        </select>
+                    </div>
                 </div>
                 <div>
                     <div>

@@ -61,8 +61,8 @@
   /* font-family: 'Poiret One', cursive; */
   /* font-family: 'Raleway', sans-serif; */
 }
-/* 
-.name :hover {
+
+/* .name :hover {
   color: #2592a4;
 } */
 
@@ -93,17 +93,7 @@
   font-style: normal;
 } 
 
-
-
-/* .profile-card {
-  height: 120px;
-} */
-
-/* .rw-underline {
-  text-align: left;
-} */
-
-.friends-list {
+.profile .friends-list {
   height: 325px;
   display: flex;
   /* flex-direction: column; */
@@ -140,8 +130,13 @@ hr {
 }
 
 .friend-search-container {
-  margin-top: 100px;
+  margin-top: 100px; 
   margin-bottom: 200px;
-  border: aqua 1px dotted;
   width: 65%;
+  width: 100%;
+}
+
+prof-friend-search-container {
+  /* border: red 1px solid; */
+  width: 100%;
 }

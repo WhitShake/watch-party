@@ -71,7 +71,7 @@ const { handleUpdate, friendsData, friendsList, watchedMovies, setFriendsList, s
                     <h4 className="user-search">Find Friends</h4>
                         <hr></hr>
                 </div>
-            <div>
+            <div className='prof-friend-search-container'>
                 <FriendSearch 
                     setFirstNameSearch={setFirstNameSearch} 
                     setLastNameSearch={setLastNameSearch} 

@@ -98,8 +98,9 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
 
   return (
     <div className="random-container">
+      <h1 className="headline">WATCH PARTY</h1>
       <div className="generator-container">
-        <button onClick={generateRandomNumber}>I'm Feeling Lucky!</button>
+        <button id="lucky-button" onClick={generateRandomNumber}>I'm Feeling Lucky!</button>
         <div className="random-poster">
           {props.randomMovieData && props.randomMovieData.posterPath && (
             <img className="movie-poster" src={`http://image.tmdb.org/t/p/w185${props.randomMovieData.posterPath}`} alt="movie poster"/>
