@@ -106,9 +106,15 @@ export const FriendPage = (props: FriendPageProps) => {
                         <h1 className="user-friend-name">{userData?.firstName} {userData?.lastName}</h1>
                         <h4 className="user-friend-quote">{userData?.quote}</h4>
                     </div>
-                    {props.friendsList && id && id in props.friendsList
-                    ? <button onClick={handleDeleteFriend}>Delete Friend</button>
-                    : <button onClick={handleAddFriend}>Add Friend</button>} 
+                    <div>
+                    {user && ( 
+                                props.friendsList && id && id in props.friendsList ? (
+                                    <button onClick={handleDeleteFriend}>Delete Friend</button>
+                                ) : (
+                                    <button onClick={handleAddFriend}>Add Friend</button>
+                                )
+                                )}
+                    </div>
                 </div>
                 <div className="invitation">
                     {user && props.currentUser && userData && <Email 
