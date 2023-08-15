@@ -36,7 +36,7 @@ export const SideBar = (props: SideBarProps) => {
             <Shelf shelf={props.shelf} 
                     setShelf={props.setShelf}/>
 
-            : "Log in to view your Shelf!"}
+            : <span></span>}
           </li>
           {user ? 
           (
