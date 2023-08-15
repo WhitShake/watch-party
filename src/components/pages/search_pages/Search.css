@@ -50,7 +50,7 @@
         linear-gradient(#fff 0 0) padding-box, 
         linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
-            mask-composite: exclude;  */
+            mask-composite: exclude;   */
 }
 
 h1 {
@@ -62,8 +62,8 @@ h1 {
 
 
 
-
-/* .search {
+/* 
+.search {
     text-align: center;
     position: relative;
     width: 100%;
@@ -71,11 +71,8 @@ h1 {
     margin-right: auto;
 }
 
-/* .search-form {
-    
-} */
 
-/* .search-button {
+.search-button {
     background-color: #dbbbfa;
     border: none;
     color: black;
@@ -89,12 +86,12 @@ h1 {
 .form-selector {
     background-color: black;
     border: none;
-    /* width: 200px;
-    height: 25px; */
-    /* border-radius: 4px; */
-/* } */
+    width: 200px;
+    height: 25px; 
+    border-radius: 4px; 
+} 
 
-/* .dropdown-btn {
+.dropdown-btn {
     background: #1d1f24;
     text-align: center;
     font-size: 18px;
@@ -113,4 +110,4 @@ h1 {
     color: white;
     font-size: 20px;
     margin-top: 50px;
-} */ 
+}  */
