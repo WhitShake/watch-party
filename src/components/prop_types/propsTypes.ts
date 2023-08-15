@@ -170,4 +170,5 @@ export interface Provider {
 export interface ProviderObject {
     logo_path: string;
     provider_name: string
+    path: string
 }

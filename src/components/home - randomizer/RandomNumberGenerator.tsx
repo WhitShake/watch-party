@@ -3,6 +3,7 @@ import './RandomNumberGenerator.css'
 import { WatchProviderIcons } from "./WatchProviderIcons";
 import { Link } from "react-router-dom";
 import { Provider, ProviderObject, RandomNumberGeneratorProps } from "../prop_types/propsTypes";
+import { providerInfo } from "../movie_data/WatchProvidersInfo";
 
 const apiKey = process.env.REACT_APP_tmdb_apiKey;
 
@@ -45,10 +46,14 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
       .then(data => {
         if (data.results && data.results.US && data.results.US.flatrate) {
           data.results.US.flatrate.forEach((watchProvider: Provider) => {
-            watchProviders.push({
-              logo_path: watchProvider.logo_path,
-              provider_name: watchProvider.provider_name
-            })
+            if (watchProvider.provider_id in providerInfo) {
+              const path = providerInfo[watchProvider.provider_id]
+              watchProviders.push({
+                logo_path: watchProvider.logo_path,
+                provider_name: watchProvider.provider_name,
+                path: path
+              })
+            }
           })
         setWatchProvidersList(watchProviders)
         }

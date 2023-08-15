@@ -6,6 +6,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../firebase_setup/firebase';
 import { MovieProps, MoviePageProps, MovieDetails, ProviderObject, Provider } from '../prop_types/propsTypes';
 import { WatchProviderIcons } from '../home - randomizer/WatchProviderIcons';
+import { providerInfo } from './WatchProvidersInfo';
 
 const apiKey = process.env.REACT_APP_tmdb_apiKey;
 const BASE_URL = 'https://api.themoviedb.org/'; 
@@ -46,10 +47,14 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
         .then(data => {
             if (data.results && data.results.US && data.results.US.flatrate) {
                 data.results.US.flatrate.forEach((watchProvider: Provider) => {
-                watchProviders.push({
-                    logo_path: watchProvider.logo_path,
-                    provider_name: watchProvider.provider_name
-                    })
+                    if (watchProvider.provider_id in providerInfo) {
+                        const path = providerInfo[watchProvider.provider_id]
+                        watchProviders.push({
+                            logo_path: watchProvider.logo_path,
+                            provider_name: watchProvider.provider_name,
+                            path: path
+                        })
+                    }
                 })
                 setWatchProvidersList(watchProviders)
                 }
