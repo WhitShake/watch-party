@@ -6,6 +6,12 @@
     justify-content: center;
 }
 
+@font-face {
+    font-family: 'Agelast';
+    font-display: auto;
+    src: url('/fonts/Agelast-mLlAm.otf') format('opentype');
+}
+
 .playlist-title {
     color: white;
     text-align: center;
@@ -15,7 +21,7 @@
     margin-top: 80px;
     /* font-family: Potra; */
     /* font-family: Neon Magic; */
-    font-family: Agelast;
+    font-family: 'Agelast';
     /* font-family: Stacker; */
     /* font-family: Objectis; */
     text-shadow:
