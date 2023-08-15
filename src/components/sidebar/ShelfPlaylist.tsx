@@ -49,7 +49,7 @@ export const ShelfPlaylist = ({title, setShelf}: ShelfPlaylistProps) => {
                 Delete Playlist
                 </Item>
             </Menu>
-            </li>
+        </li>
     );
 };
 

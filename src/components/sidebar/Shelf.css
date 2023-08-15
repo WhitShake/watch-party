@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'Agelast';
+  font-display: auto;
+  src: url('/fonts/Agelast-mLlAm.otf') format('opentype');
+}
+
 .shelf-container {
   width: 100%;
   height: 100%;
@@ -8,7 +14,9 @@
   /* font-family: Potra; */
   /* font-family: Objectis; */
   /* font-family: Neon Magic; */
-  font-family: Agelast;
+  font-family: 'Agelast';
+  font-weight: bold;
+  transition: transform 0.5s ease-in-out;
   /* font-family: Stacker; */
 }
 
@@ -25,8 +33,8 @@ ul {
   height: 30px;
 }
 
-.playlist :hover {
-  font-weight: bold;
+.shelf-playlist:hover {
+  transform: scale(1.03);
 }
 
 

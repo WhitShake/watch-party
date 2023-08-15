@@ -17,6 +17,13 @@
   }
 }
 
+@font-face {
+  font-family: 'Agelast';
+  font-display: auto;
+  src: url('/fonts/Agelast-mLlAm.otf') format('opentype');
+}
+
+
 .sidebar-elements {
   list-style: none;
   display: flex;
@@ -26,17 +33,17 @@
   height: 100vh;
   align-items: left;
   color: white;
-  font-family: sans-serif;
   font-size: 20px;
-  .sidebar-elements {
-  font-family: 'Montserrat Alternates', sans-serif;
   }
-}
+
 
 
 a {
   text-decoration: none;
   color: white;
+  font-family: 'Agelast';
+  font-weight: bold;
+  transition: transform 0.3s ease;
 }
 
 .sidebar-user {
@@ -58,6 +65,6 @@ a {
   margin-left: 5px;
 }
 
-.clickable :hover{ 
-  font-weight: bold;
+.clickable:hover{ 
+  transform: scale(1.03);
 }
