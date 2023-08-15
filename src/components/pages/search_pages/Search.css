@@ -1,47 +1,53 @@
 .search {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-
-    /* text-align: center; */
-    /* position: relative; */
+    justify-content: flex-end;
     width: 100%;
-    /* margin-left: auto; */
-    /* margin-right: auto; */
-    /* font-family: 'Montserrat Alternates', sans-serif; */
 }
 
-/* .main-search-form {
+.all-encompassing-search-container {
+    /* border: 2px yellow solid; */
+    width: 80%;
     display: flex;
-    flex-direction: row;
-    width: 100%;
-} */
+    flex-direction: column;
+    margin-left: auto;
+    /* margin-right: 0; */
+}
+
+
+.search .card-display {
+    margin-right: auto;
+    margin-left: auto;
+    width: 80%;
+}
+
 .main-search-inputs {
     text-align: center;
-    /* display: flex;
+    display: flex;
     flex-direction: column;
-    justify-content: center; */
+    justify-content: center;
     margin-left: auto;
     margin-right: auto;
 }
 
 .form-selector {
     border: none;
-    /* width: 200px;
-    height: 25px; */
     border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .dropdown-btn {
     background-color: aqua;
-    width: 400px;
-    height: 60px;
+    width: 300px;
+    height: 40px;
     border-radius: 30px;
     text-align: center;
     border: none;
     font-family: inherit;
     font-size: 24px;
-    margin-left: 25px;
+    /* margin-left: 25px; */
     cursor: pointer;
     box-shadow: 0 5px rgb(2, 192, 192);
     }
@@ -55,20 +61,6 @@
     box-shadow: 0 5px rgb(5, 116, 116);
     transform: translateY(4px);
 }
-    /* appearance: none;
-    background: #1d1f24;
-    position: relative;
-    text-align: center;
-    font-size: 18px;
-    width: 40%;
-    height: 70px;
-    color: #fff;
-    margin-bottom: 30px;
-    margin-top: 10px;
-    align-items: center;
-    padding: 0.7em 0.5em;
-    cursor: pointer;
-    border-radius: 50px; */
 
 .search-title {
     color: white;
@@ -81,61 +73,10 @@
     /* 0 0 10px #fff, */
     0 0 21px #fff,
     /* 0 0 42px aqua, */
-    /* 0 0 82px aqua, */
+    0 0 82px aqua,
     0 0 92px aqua,
     0 0 102px aqua,
     0 0 151px aqua;
 }
 
 
-
-
-/* 
-.search {
-    text-align: center;
-    position: relative;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-
-.search-button {
-    background-color: #dbbbfa;
-    border: none;
-    color: black;
-    width: 200px;
-    height: 25px;
-    border-radius: 4px;
-    margin-top: 20px;
-    margin-bottom: 100px;
-}
-
-.form-selector {
-    background-color: black;
-    border: none;
-    width: 200px;
-    height: 25px; 
-    border-radius: 4px; 
-} 
-
-.dropdown-btn {
-    background: #1d1f24;
-    text-align: center;
-    font-size: 18px;
-    width: 40%;
-    border: white;
-    color: #fff;
-    margin-bottom: 30px;
-    margin-top: 10px;
-    align-items: center;
-    padding: 0.7em 0.5em;
-    border-radius: 0.5em;
-    cursor: pointer;
-}
-
-h1 {
-    color: white;
-    font-size: 20px;
-    margin-top: 50px;
-}  */

@@ -1,4 +1,5 @@
 import React from "react"
+import './PersonSearch.css'
 
 type PersonSearchProps = {
   handleChange: React.ChangeEventHandler<HTMLInputElement>
@@ -11,9 +12,9 @@ type PersonSearchProps = {
 
 export const PersonSearch = (props: PersonSearchProps) => {
   return (
-      <div>
+      <div className="person-search-container">
         <label htmlFor="person">
-        <input type="text" id="person" name="person" placeholder="Search for a person" onChange={props.handleChange}/>
+        <input className="person-search-input" type="text" id="person" name="person" placeholder="Search for a person" onChange={props.handleChange}/>
         </label>
       </div>
 
