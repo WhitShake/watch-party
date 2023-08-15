@@ -2,25 +2,12 @@ import React, { useEffect, useState } from "react"
 import './RandomNumberGenerator.css'
 import { WatchProviderIcons } from "./WatchProviderIcons";
 import { Link } from "react-router-dom";
+import { Provider, ProviderObject, RandomNumberGeneratorProps } from "../prop_types/propsTypes";
+import { providerInfo } from "../movie_data/WatchProvidersInfo";
 
 const apiKey = process.env.REACT_APP_tmdb_apiKey;
 
-type RandomNumberGeneratorProps = {
-  BASE_URL: string;
-  randomMovieData: { id: number; posterPath: string | undefined; overview: string | undefined; voteCount: number ; popularity: number; releaseDate: string | undefined;  runtime: number; title: string | undefined; tagline: string | undefined } | null;
-  setRandomMovieData: React.Dispatch<React.SetStateAction<{ id: number; posterPath: string | undefined; overview: string | undefined; voteCount: number; popularity: number; releaseDate: string | undefined;  runtime: number; title: string | undefined; tagline: string | undefined } | null>>;
-}
 
-interface Provider {
-  logo_path: string;
-  provider_id: number;
-  provider_name: string;
-  display_priority: number;
-}
-interface ProviderObject {
-  logo_path: string;
-  provider_name: string
-}
 
 const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
   const [randomNumber, setRandomNumber] = useState<number | null>(null);
@@ -59,10 +46,14 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
       .then(data => {
         if (data.results && data.results.US && data.results.US.flatrate) {
           data.results.US.flatrate.forEach((watchProvider: Provider) => {
-            watchProviders.push({
-              logo_path: watchProvider.logo_path,
-              provider_name: watchProvider.provider_name
-            })
+            if (watchProvider.provider_id in providerInfo) {
+              const path = providerInfo[watchProvider.provider_id]
+              watchProviders.push({
+                logo_path: watchProvider.logo_path,
+                provider_name: watchProvider.provider_name,
+                path: path
+              })
+            }
           })
         setWatchProvidersList(watchProviders)
         }
@@ -98,8 +89,9 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
 
   return (
     <div className="random-container">
+      <h1 className="headline">WATCH PARTY</h1>
       <div className="generator-container">
-        <button onClick={generateRandomNumber}>I'm Feeling Lucky!</button>
+        <button id="lucky-button" onClick={generateRandomNumber}>I'm Feeling Lucky!</button>
         <div className="random-poster">
           {props.randomMovieData && props.randomMovieData.posterPath && (
             <img className="movie-poster" src={`http://image.tmdb.org/t/p/w185${props.randomMovieData.posterPath}`} alt="movie poster"/>

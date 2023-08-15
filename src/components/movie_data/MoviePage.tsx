@@ -4,13 +4,18 @@ import { useParams } from 'react-router-dom';
 import { addMovieToPlaylist } from '../../firestore_functions/firestore_calls';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../firebase_setup/firebase';
-import { MovieProps, MoviePageProps, MovieDetails } from '../prop_types/propsTypes';
+import { MovieProps, MoviePageProps, MovieDetails, ProviderObject, Provider } from '../prop_types/propsTypes';
+import { WatchProviderIcons } from '../home - randomizer/WatchProviderIcons';
+import { providerInfo } from './WatchProvidersInfo';
+import { PosterPathFiller } from './PosterPathFiller';
 
-
+const apiKey = process.env.REACT_APP_tmdb_apiKey;
+const BASE_URL = 'https://api.themoviedb.org/'; 
 
 export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => { 
     const [user] = useAuthState(auth);
     const [details, setDetails] = useState<MovieDetails>();
+    const [watchProvidersList, setWatchProvidersList] = useState<ProviderObject[]>([]);
     const { id } = useParams();
     const movieId = parseInt(id as string, 10);
 
@@ -29,43 +34,107 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
         getMovieDetails();
     },[id])
 
+    const fetchTitle = (id: number) => {
+        const url = `${BASE_URL}3/movie/${id}?api_key=${apiKey}&language=en-US`
+        console.log(url)
+        
+        return fetch(url)
+            .then(response => response.json())
+            .then((data) => {
+                console.log("data:", data)
+                if (data.original_title) {
+                    console.log("original_title:", data.original_title)
+                return data.original_title;
+                }
+                // return null;
+            });
+    }
+
     const handleAddMovieToPlaylist = (playlistTitle: string, movie: MovieProps) => {
         addMovieToPlaylist(user?.uid, playlistTitle, movie)
         console.log("movie added")
     }
+
+    const fetchWatchProviders = (movieId: number) => {
+        let watchProviders: ProviderObject[] = []
+        const url = `${BASE_URL}3/movie/${movieId}/watch/providers?api_key=${apiKey}`
+    
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.results && data.results.US && data.results.US.flatrate) {
+                data.results.US.flatrate.forEach((watchProvider: Provider) => {
+                    if (watchProvider.provider_id in providerInfo) {
+                        const path = providerInfo[watchProvider.provider_id]
+                        watchProviders.push({
+                            logo_path: watchProvider.logo_path,
+                            provider_name: watchProvider.provider_name,
+                            path: path
+                        })
+                    }
+                })
+                setWatchProvidersList(watchProviders)
+                }
+            })
+        .catch(error => {
+            console.error('Error fetching watch providers:', error);
+        });
+        };
+
+    useEffect(() => {
+        fetchWatchProviders(movieId)
+    }, [movieId, watchProvidersList])
 
 
     return (
         <div className="movie-page">
             {details && <h1> {details.original_title} </h1>}
             <div className="movie-content">
-                <img className="card movie-page-poster" alt="movie cover" src={details?.poster_path === null 
-                                ? 'https://s3-ap-southeast-1.amazonaws.com/upcode/static/default-image.jpg'
-                                : `http://image.tmdb.org/t/p/w185${details?.poster_path}`} />
+                    {details?.poster_path === null ? (
+                        <div className='poster-filler-container'>
+                            <PosterPathFiller 
+                                filmId={movieId}
+                                fetchTitle={fetchTitle}/>
+                        </div>
+                    ) : (
+                        <img className="movie-page-poster" alt="movie cover" src={`http://image.tmdb.org/t/p/w185${details?.poster_path}`} />
+                    )}
                 <div className="movie-details">
-                    {details && <p> {details.tagline}</p>}
-                    <h4>Description</h4>
-                    {details && <p> {details.overview} min</p>}
-                    <h4>Year of Release</h4>
-                    {details && <p> {details.release_date.slice( 0 , 4 )}</p>}
-                    <h4>Runtime</h4>
-                    {details && <p> {details.runtime} min</p>}
-                    <div className={"movie-page-playlists"}>
-                        {user && <h4>Add to playlist</h4>}
-                        {shelf.map((playlist, i) => {
-                            return (
-                                <div key={i}>
-                                    <button onClick={() => {
-                                        if (movieId && details) {
-                                            handleAddMovieToPlaylist(playlist, {id: movieId, posterPath: details.poster_path})}
-                                        }
-                                    }>{playlist}</button><br/>
+                    <div className='facts-add-playlist'>
+                        <div className='movie-facts-container'>
+                            {details && <p className='tagline'> {details.tagline}</p>}
+                            <h4 className='info-header'>Overview: </h4>
+                            {details && <p className='overview'> {details.overview}</p>}
+                            <div className='specs'>
+                                    <h5 className='line-info'>Released:</h5>
+                                    {details && <p className='release-date'> {details.release_date.slice( 0 , 4 )}</p>}
+                                    <h5 className='line-info'>Runtime:</h5>
+                                    {details && <p className='runtime'> {details.runtime} min</p>}
                                 </div>
-                            )
-                        })}
+                        </div>
+                        <div className="add-to-playlists-container">
+                            {user && <h4>Add to playlist: </h4>}
+                            <div className="movie-page-playlists">
+                                {shelf.map((playlist, i) => {
+                                    return (
+                                        <div key={i}>
+                                            <button onClick={() => {
+                                                if (movieId && details) {
+                                                    handleAddMovieToPlaylist(playlist, {id: movieId, posterPath: details.poster_path})}
+                                                }
+                                            }>{playlist}</button><br/>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="watch-providers">
+                        <WatchProviderIcons providers={watchProvidersList}/>
                     </div>
                 </div>
             </div>
+            <footer></footer>
         </div>
     )
 }

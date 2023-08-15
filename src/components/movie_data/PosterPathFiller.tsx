@@ -14,8 +14,8 @@ export const PosterPathFiller = ({ filmId, fetchTitle }: PosterPathFillerProps) 
 
 
   return (
-    <div className="movie-container">
-    <div className="poster-filler">{movieTitle}</div>
+    <div className="filler-movie-container">
+    <div className="poster-filler"><b>{movieTitle}</b></div>
     </div>
   )
 }

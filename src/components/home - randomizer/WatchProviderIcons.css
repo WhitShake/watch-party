@@ -1,0 +1,11 @@
+.provider-logo {
+  border: 1px solid aqua;
+}
+.provider-image-gallery {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow: scroll;
+  align-items: center;
+  gap: 15px;
+}

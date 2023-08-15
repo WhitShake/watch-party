@@ -1,9 +1,10 @@
-.title-search-container {
+.get-related-search-container {
   display: flex;
   justify-content: center;
   flex-direction: row;
 }
-.title-search-input {
+
+.get-related-search-input {
   background-color: #1d1f24;
   border-radius: 30px;
   width: 450px;

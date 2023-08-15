@@ -19,11 +19,11 @@ export const Friend = ({data, friendsList, setFriendsList, setFriendsData}: Frie
             setFriendStatus(false)
         }
     }, [data.id, friendsList])
-    
-    if (!user) return <div>Please sign in to use this feature</div>
+
     if (!friendsList) return <div>User has no friends</div>
 
     const handleAddFriend = async () => {
+        if (!user) return;
         addFriend(user?.uid, data.id)
         setFriendsList(prev => (
             {...prev,
@@ -40,6 +40,7 @@ export const Friend = ({data, friendsList, setFriendsList, setFriendsData}: Frie
     }
 
     const handleDeleteFriend = async () => {
+        if (!user) return;
         deleteFriend(user?.uid, data.id)
         setFriendsList(prev => {
             if(prev) {
@@ -49,7 +50,7 @@ export const Friend = ({data, friendsList, setFriendsList, setFriendsData}: Frie
             return prev
         })
         setFriendsData(prev => {
-            const updatedFriends = prev.filter(person => person.id != data.id)
+            const updatedFriends = prev.filter(person => person.id !== data.id)
             return updatedFriends
         })
     }

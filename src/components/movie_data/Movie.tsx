@@ -63,9 +63,11 @@ export const Movie = ({posterPath, id, setRecentlyWatchedData, handleDeletion }:
                 : `http://image.tmdb.org/t/p/w185${posterPath}`} /> */}
                 <div className="card">
                     {posterPath === null ? (
+                        <div className='poster-filler-container'>
                         <PosterPathFiller 
                             filmId={id}
                             fetchTitle={fetchTitle}/>
+                        </div>
                     ) : (
                         <img className="card" alt="movie cover" src={`http://image.tmdb.org/t/p/w185${posterPath}`} />
                     )}

@@ -1,9 +1,9 @@
-.title-search-container {
+.person-search-container {
   display: flex;
   justify-content: center;
   flex-direction: row;
 }
-.title-search-input {
+.person-search-input {
   background-color: #1d1f24;
   border-radius: 30px;
   width: 450px;

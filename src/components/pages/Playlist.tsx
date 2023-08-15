@@ -37,7 +37,7 @@ export const Playlist = (props: PlaylistProps) => {
 
     return (
         <div className="playlist-container">
-            <h1 className="title">{title}</h1>
+            <h1 className="playlist-title">{title}</h1>
             {playlistDetails && playlistDetails.length !== 0
             ? <MovieList 
                     movies={playlistDetails} 

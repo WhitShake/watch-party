@@ -36,16 +36,16 @@ export const SideBar = (props: SideBarProps) => {
             <Shelf shelf={props.shelf} 
                     setShelf={props.setShelf}/>
 
-            : "Log in to view your Shelf!"}
+            : <span></span>}
           </li>
           {user ? 
           (
             <li className="user-signed-in">
-              <div className="sidebar-user clickable">
+              <div className="sidebar-user">
                 <img className="sidebar-user-icon" src={props.profilePic || ""} alt = "avatar" width="50" height="50"/>
-                <Link to='/profile'>{props.firstName} {props.lastName}</Link>  
+                <Link className="clickable" to='/profile'>{props.firstName} {props.lastName}</Link>  
               </div>
-              <button className="log-out-button" onClick={signUserOut}>Log Out</button>
+              <button className="sign-in-button" onClick={signUserOut}>Log Out</button>
             </li>
           ) : <Login />
           }

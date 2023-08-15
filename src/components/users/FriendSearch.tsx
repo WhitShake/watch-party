@@ -20,7 +20,7 @@ export const FriendSearch = (props: FriendSearchProps) => {
           </div>
         </div>
           <div className='friend-submit'>
-          <input type="submit" value='Search for friends' className="friend-search-button"/>
+          <input type="submit" value='Search!' className="friend-search-button"/>
         </div>
       </div>
       <div className="searched-friend-container">

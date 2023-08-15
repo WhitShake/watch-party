@@ -12,9 +12,9 @@ type TitleSearchProps = {
 
 export const TitleSearch = (props: TitleSearchProps) => {
   return (
-      <div>
+      <div className="title-search-container">
         <label>
-        <input type="text" className="search-input" name="title" placeholder="Search for a title" onChange={props.handleChange}/>
+        <input type="text" className="title-search-input" name="title" placeholder="Search for a title" onChange={props.handleChange}/>
         </label>
       </div>
   )
