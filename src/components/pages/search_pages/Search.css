@@ -62,11 +62,17 @@
     transform: translateY(4px);
 }
 
+@font-face {
+    font-family: 'Agelast';
+    font-display: auto;
+    src: url('/fonts/Agelast-mLlAm.otf') format('opentype');
+}
+
 .search-title {
     color: white;
     margin-top: 75px;
     margin-bottom: 75px;
-    font-family: Agelast;
+    font-family: 'Agelast';
     font-size: 70px;
     text-shadow:
     /* 0 0 7px #fff, */
