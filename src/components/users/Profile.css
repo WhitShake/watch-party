@@ -89,6 +89,22 @@
   font-size: 15px;
 }
 
+.easy-edit-component-wrapper input {
+  background-color: #1d1f24;
+  border-radius: 30px;
+  width: 225px;
+  height: 40px;
+  border-style: none;
+  font-size: 22px;
+  outline: 2px aqua solid;
+  font-family: inherit;
+  color: white;
+  padding: 12px;
+}
+
+
+
+
 .name .easy-edit-hover-on {
   font-style: normal;
 } 
