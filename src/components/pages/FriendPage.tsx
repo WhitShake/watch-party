@@ -121,7 +121,8 @@ export const FriendPage = (props: FriendPageProps) => {
                                                     userData={props.currentUser} 
                                                     userEmail={user.email} friendEmail={userData.email} 
                                                     friendFirstName={userData.firstName} 
-                                                    friendLastName={userData.lastName}/>}
+                                                    friendLastName={userData.lastName}
+                                                    userId={user.uid}/>}
                 </div>
                 <div className='section-header'>
                 <h4>Recently Watched</h4>
@@ -139,7 +140,7 @@ export const FriendPage = (props: FriendPageProps) => {
                     </div>
                     {userFriendsData.length === 0 
                     ? <p>This user has not added any friends yet</p>
-                    : <FriendsList friendsData={userFriendsData} friendsList={props.friendsList} setFriendsList={props.setFriendsList} setFriendsData={props.setFriendsData}/> }
+                    : <FriendsList friendsData={userFriendsData} friendsList={props.friendsList} setFriendsList={props.setFriendsList} setFriendsData={props.setFriendsData} /> }
                     
                 </div>
             </div>
