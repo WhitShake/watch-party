@@ -1,5 +1,27 @@
-.poster-filler {
+.filler-movie-container {
   width: 186px;
   height: 279px;
   color: white;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(rgba(0, 255, 255, 0.727), black);
+}
+
+.poster-filler {
+  width: 90%;
+  height: 90%;
+  /* border: yellow 1px solid; */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: Agelast;
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 1px;
+  line-height: 1.25;
 }
