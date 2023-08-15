@@ -153,3 +153,21 @@ export type PosterPathFillerProps = {
     filmId: number
     fetchTitle: (id: number) => Promise<string>
 }
+
+export type RandomNumberGeneratorProps = {
+    BASE_URL: string;
+    randomMovieData: { id: number; posterPath: string | undefined; overview: string | undefined; voteCount: number ; popularity: number; releaseDate: string | undefined;  runtime: number; title: string | undefined; tagline: string | undefined } | null;
+    setRandomMovieData: React.Dispatch<React.SetStateAction<{ id: number; posterPath: string | undefined; overview: string | undefined; voteCount: number; popularity: number; releaseDate: string | undefined;  runtime: number; title: string | undefined; tagline: string | undefined } | null>>;
+} 
+
+export interface Provider {
+    logo_path: string;
+    provider_id: number;
+    provider_name: string;
+    display_priority: number;
+}
+
+export interface ProviderObject {
+    logo_path: string;
+    provider_name: string
+}

@@ -90,8 +90,8 @@
 
 
 
-
-/* .search {
+/* 
+.search {
     text-align: center;
     position: relative;
     width: 100%;
@@ -99,11 +99,8 @@
     margin-right: auto;
 }
 
-/* .search-form {
-    
-} */
 
-/* .search-button {
+.search-button {
     background-color: #dbbbfa;
     border: none;
     color: black;
@@ -117,12 +114,12 @@
 .form-selector {
     background-color: black;
     border: none;
-    /* width: 200px;
-    height: 25px; */
-    /* border-radius: 4px; */
-/* } */
+    width: 200px;
+    height: 25px; 
+    border-radius: 4px; 
+} 
 
-/* .dropdown-btn {
+.dropdown-btn {
     background: #1d1f24;
     text-align: center;
     font-size: 18px;
@@ -141,4 +138,4 @@ h1 {
     color: white;
     font-size: 20px;
     margin-top: 50px;
-} */ 
+}  */

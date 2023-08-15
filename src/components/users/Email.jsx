@@ -45,8 +45,8 @@ export const Email = (props) => {
             <input type="hidden" name="to_email" value={props.friendEmail} />
             <input type="hidden" name="reply_to" value={props.userEmail} />
             <input type="hidden" name="to_name"value={props.friendFirstName + " " + props.friendLastName}/>
-            <input type="hidden" name="message" value="Watch a movie with me!" />
-            <input id="user-button" type="submit" value="Send a watch invite" />
+            <input type="hidden" name="message" value={`Watch a movie with me! Find me at https://ada-watch-party.netlify.app/friend-details/${props.userId}`} />
+            <input type="submit" value="Send a watch invite" />
         </form>
 );
 };
