@@ -41,7 +41,7 @@ export const ShelfPlaylist = ({title, setShelf}: ShelfPlaylistProps) => {
 
     return (
         <li className="shelf-playlist">
-            <div onContextMenu={displayMenu} >
+            <div className="clickable" onContextMenu={displayMenu} >
                 <Link to={`/playlist/${title}`}>{title}</Link>
             </div>
             <Menu id={shelfMenuId}>

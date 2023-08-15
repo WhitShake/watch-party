@@ -33,7 +33,7 @@ ul {
   height: 30px;
 }
 
-.shelf-playlist:hover {
+.clickable:hover {
   transform: scale(1.03);
 }
 
