@@ -45,21 +45,21 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 1. Fork this repository
 ![Fork Button](images/fork.png)
 
-2. Clone the repository. Copy the address to the repo in github.
+2. Clone the repository. Copy the address to the repository in Github.
 ![Clone Button](images/clone.png)
 
 3. In terminal, navigate to your desired location for the project and clone the repository into that folder: \
-        ```bash
-        $ git clone ...
-        ```
+    ```bash
+    $ git clone ...
+    ```
 
 4. Use the ls command to confirm the project is stored in your desired location.
 Navigate into the project folder using the cd command and install dependencies:
 
-        ```bash
-        $ cd watch party
-        $ npm install
-        ```
+    ```bash
+    $ cd watch party
+    $ npm install
+    ```
 
 5. Create a .env file in the project directory to store personal keys and OAuth tokens.
 
