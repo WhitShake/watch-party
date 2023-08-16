@@ -1,8 +1,19 @@
 .random-container {
   color: white;
   font-size: 30px;
-  margin-left: 25vw;
+  width: 70%;
+  margin-left: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   /* padding-top: 1px; */
+}
+
+.random-movie-results {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 40px;
 }
 
 
@@ -33,7 +44,7 @@
 }
 
 generator-container {
-  width: 40vw;
+  /* width: 40vw; */
 }
 
 .random-movie-poster {
@@ -69,14 +80,29 @@ generator-container {
   align-items: first baseline;
   gap: 10px;
 }
-
+/* 
 .random-details { 
-  padding: 30px 30px 0 30px;
-}
+  border: .5px solid aqua;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.755);
+} */
 
-.provider-card-display {
-  font-size: 16px;
+.provider-image-gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 }
+  /* padding: 30px 30px 0 30px; */
+/* } */
+
+/* .provider-card-display {
+  font-size: 16px;
+} */
 
 #lucky-button {
   background-color: aqua;
@@ -101,22 +127,11 @@ generator-container {
   transform: translateY(4px);
 }
 
-.random-movie-display {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-right: 3vw;
-}
-
-.random-movie-results {
-  display: flex;
-  padding-right: 5vw;
-  padding-bottom: 5vh;
-  gap: 15px;
-}
 
 .random-movie-display a {
   /* text-decoration: none; */
+  /* margin-left: auto;
+  margin-right: auto; */
   color: white;
   font-size: 3vw;
   font-family: 'Agelast';
@@ -142,7 +157,6 @@ generator-container {
 .random-movie-display a h2 {
   margin-bottom: 0px;
 }
-
 
 
 /* h2 {

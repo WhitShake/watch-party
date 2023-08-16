@@ -43,5 +43,8 @@
     margin-left: 335px;
     color: white;
     letter-spacing: 2px;
-    font-style: italic;
+    font-family: Agelast;
+    text-align: center;
+    position: relative;
+    right: 20px;
 }

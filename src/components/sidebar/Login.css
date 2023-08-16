@@ -1,3 +1,20 @@
-.side-login {
-  font-family: 'Montserrat Alternates', sans-serif;
+.sign-in-button {
+  background-color: aqua;
+  padding: 8px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 350px;
+  /* right: 53px; */
+  right: 100px;
+  width: 200px;;
+  height: 30px;
+  border-radius: 30px;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 5px rgb(2, 192, 192);
+  margin-right: 0;
+  font-size: 16px;
 }

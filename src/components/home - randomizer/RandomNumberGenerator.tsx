@@ -93,7 +93,7 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
       <div className="generator-container">
         <button id="lucky-button" onClick={generateRandomNumber}>I'm Feeling Lucky!</button>
         <div className="random-movie-display">
-          <Link to={`/movie-details/${props.randomMovieData?.id}`}><h3>{props.randomMovieData && props.randomMovieData.title}</h3></Link>
+          <Link to={`/movie-details/${props.randomMovieData?.id}`}><h3 className="random-title-link">{props.randomMovieData && props.randomMovieData.title}</h3></Link>
           <div className="random-movie-results">
             <div className="random-poster">
               {props.randomMovieData && props.randomMovieData.posterPath && (
@@ -129,7 +129,7 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
                   )}
                 </div>
 
-                <div className="provider-card-display">  
+                <div className="provider-image-gallery">  
                       {props.randomMovieData && watchProvidersList && 
                         <WatchProviderIcons providers={watchProvidersList}/> }
                 </div>
@@ -149,6 +149,7 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
         </div>
 
       </div>
+      <footer></footer>
 
     </div>
   );

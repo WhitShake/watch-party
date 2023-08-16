@@ -98,6 +98,7 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
                         <img className="movie-page-poster" alt="movie cover" src={`http://image.tmdb.org/t/p/w185${details?.poster_path}`} />
                     )}
                 <div className="movie-details">
+                    <div className='facts-n-providers'>
                     <div className='facts-add-playlist'>
                         <div className='movie-facts-container'>
                             {details && <p className='tagline'> {details.tagline}</p>}
@@ -129,6 +130,7 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
                     </div>
                     <div className="watch-providers">
                         <WatchProviderIcons providers={watchProvidersList}/>
+                    </div>
                     </div>
                 </div>
             </div>

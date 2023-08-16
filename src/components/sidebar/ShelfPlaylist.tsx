@@ -20,7 +20,7 @@ export const ShelfPlaylist = ({title, setShelf}: ShelfPlaylistProps) => {
         } else {
             if (user) {
                 deleteShelfPlaylist(user?.uid, title)
-                setShelf(prev => prev.filter(playlist => playlist != title))
+                setShelf(prev => prev.filter(playlist => playlist !== title))
                 if (location.pathname.includes(`/playlist/${title}`)) {
                     navigate("/profile");
                 }
