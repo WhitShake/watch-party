@@ -1,12 +1,14 @@
 .playlist-field {
     background-color: #1d1f24;
     border-radius: 30px;
-    width: 10vw;
+    width: 90%;
     height: 1vh;
     border-style: none;
     font-family: inherit;
     color: white;
     padding: 12px;
+    margin-bottom: 5px;
+    margin-top: 30px;
 }
 
 .playlist-field:focus {
@@ -17,10 +19,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 5vw;
-    height: 3vh;
+    width: 80%;
+    height: 40vh;
     border-radius: 30px;
-    border: 0.1px aqua solid;
+    border: 0.5px aqua solid;
     font-family: inherit;
     cursor: pointer;
     background-color: #1d1f24;
@@ -34,7 +36,11 @@
     margin-top: 10px;
     display: flex;
     align-items: center;
+    flex-direction: column;
     height: 4vw;
-    justify-content: space-between;
-    width: 17vw;
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 50px;
+    /* border: 2px red solid; */
+    /* width: 17vw; */
 }

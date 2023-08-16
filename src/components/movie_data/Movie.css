@@ -67,14 +67,13 @@
 .dropdown-content {
     display: none;
     position: relative;
-    /* top: 100%; */
-    /* left: 500px; */
-    background-color: white;
-    border: 1px solid #ccc;
-    color: black;
+    background-color: rgba(0, 0, 0, 0.755);
+    border: 1px solid aqua;
+    color: aqua;
     padding: 12px 12px;
-    /* right: 100%; */
     font-family: Montserrat Alternates;
+    left: 3px;
+    border-radius: 8px;
 }
 
 .dropdown-content a {
@@ -83,24 +82,20 @@
 
 .dropdown:hover .dropdown-content {
     display: block;
-    /* z-index: 2; */
 }
 
 .dropdown-content a {
     display: block;
-    color: black;
+    color: aqua;
     font-size: 12px;
     padding: 5px 5px;
     width: 150px;
 }
 
-/* .dropdown-content a:hover {
-    /* border: red 1px solid; */
-/* } */
 
 .dropdown-content button {
     display: block;
-    color: black;
+    color: aqua;
     font-size: 14px;
     padding: 5px 5px;
     border: none; 
@@ -112,7 +107,7 @@
 
 .dropdown-content button:hover {
     background-color: rgba(112, 224, 224, 0.596);
-    border-radius: 7px;
+    /* border-radius: 7px; */
 }
 
 .card .poster-filler-container {
@@ -121,9 +116,4 @@
     justify-content: center;
     align-items: center;
     background-color: transparent;
-    /* border: 3px solid blue; */
 }
-
-/* .movie-container .dropdown-content button:hover {
-    background-color: #f5f5f5;
-} */

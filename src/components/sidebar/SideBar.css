@@ -1,20 +1,27 @@
+.sidebar-container {
+  height: 100vh;
+  width: 30px;
+}
+
 .sidebar {
+  /* width: 30px; */
   height: 100vh;
   padding-top: 20px;
   padding-bottom: 20px;
   position: fixed;
   z-index: 999;
-  font-family: 'Montserrat Alternates', sans-serif;
+  /* font-family: 'Montserrat Alternates', sans-serif; */
+  margin-top: 0;
 }
 
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
   .sidebar {
     max-width: 25vw; 
 }
   .App {
     padding-left: 25vw;
   }
-}
+} */
 
 @font-face {
   font-family: 'Agelast';
@@ -27,10 +34,10 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 50px;
   width: 20vw;
   height: 100vh;
-  align-items: left;
+  align-items: flex-start;
   color: white;
   font-size: 20px;
   }
@@ -53,8 +60,8 @@
 .sidebar-user-icon { 
   border-radius: 50%;
   overflow: hidden;
-  height: 40px;
-  width: 40px;
+  height: 50px;
+  width: 50px;
 }
 
 .clickable:hover{ 
@@ -72,13 +79,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 9vw;
-  height: 5vh;
+  position: relative;
+  right: 63px;
+  width: 11vw;
+  height: 4vh;
   border-radius: 30px;
   border: none;
   font-family: inherit;
   cursor: pointer;
   box-shadow: 0 5px rgb(2, 192, 192);
+  margin-right: 0;
+  font-size: 16px;
+}
+
+.side-login {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  height: 40px;
+  margin-right: 35px;
 }
 
 .sign-in-button:hover {
@@ -94,6 +114,10 @@
 .user-signed-in {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: 0;
   height: 18vh;
-  justify-content: space-evenly;
+
 }

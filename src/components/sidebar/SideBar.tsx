@@ -23,6 +23,7 @@ export const SideBar = (props: SideBarProps) => {
 
 
   return (
+    <div className="sidebar-container">
       <nav className="sidebar">
         <ul className="sidebar-elements">
           <li className="clickable">
@@ -45,11 +46,14 @@ export const SideBar = (props: SideBarProps) => {
                 <img className="sidebar-user-icon" src={props.profilePic || ""} alt = "avatar" width="50" height="50"/>
                 <Link className="clickable" to='/profile'>{props.firstName} {props.lastName}</Link>  
               </div>
-              <button className="sign-in-button" onClick={signUserOut}>Log Out</button>
+              <div className="side-login">
+              <button className="sign-in-button" onClick={signUserOut}>LOG OUT</button>
+              </div>
             </li>
           ) : <Login />
           }
         </ul>
       </nav>
+    </div>
   )
 }

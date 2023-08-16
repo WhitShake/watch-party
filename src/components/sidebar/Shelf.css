@@ -10,6 +10,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  letter-spacing: 1px;
 
   /* font-family: Potra; */
   /* font-family: Objectis; */
@@ -24,6 +25,12 @@ ul {
   display: flex;
   gap: 20px;
   flex-direction: column;
+}
+
+.shelf-playlist-form {
+  /* border: 2px yellow solid; */
+  width: 100%;
+  margin-left: -12px;
 }
 
 

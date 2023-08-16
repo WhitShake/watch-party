@@ -4,7 +4,7 @@
   width: 100%;
   padding: 20px;
   margin-left: 25vw;
-  font-family: 'Montserrat Alternates', sans-serif;
+  margin-top: 0;
 }
 
 .profile-container {
@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 0;
 }
 
 .avatar {
@@ -26,7 +27,6 @@
 
 
 .profile-info {
-  /* border: aqua 1px solid; */
   display: flex;
   justify-content: center;
   background-color: black;
@@ -42,10 +42,6 @@
 .user-info {
   margin-left: 30px;
   text-align: center;
-  /* display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center; */
 }
 
 .name {
@@ -54,12 +50,7 @@
   display: flex;
   gap: 15px;
   color: white;
-  /* text-shadow: 2px 2px 4px #aaa8b3; */
-  /* font-family: 'Bruno Ace SC', cursive; */
-  /* font-family: 'Montserrat', sans-serif; */
-  font-family: 'Montserrat Alternates', sans-serif;
-  /* font-family: 'Poiret One', cursive; */
-  /* font-family: 'Raleway', sans-serif; */
+  margin-bottom: 0;
 }
 
 /* .name :hover {
@@ -70,7 +61,7 @@
   font-size: 20px;
   margin-left: 20px;
   margin-top: -5px;
-  font-family: 'Montserrat Alternates', sans-serif;
+  /* font-family: 'Montserrat Alternates', sans-serif; */
   letter-spacing: 2px;
 }
 
