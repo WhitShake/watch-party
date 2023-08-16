@@ -4,16 +4,16 @@
 
 Watch party is a social app to connect friends through movies. You can view the currently deployed project on: [Netlify](https://ada-watch-party.netlify.app/)
 
-All visitors to the app can:\
+All visitors to the app can:
 - Get a random suggestion for a movie to watch, along with details about that movie.
 
-When signed in, users can:\
-- Search for movies to watch by title, person (actor, director, or producer), or a similar movie.\
-- Get specific details about a movie.\
-- Create playlists of movies and store them in the user’s shelf.\
-- Record movies the user has watched.\
-- Connect with friends.\
-- View a friend’s stored data, including profile information, saved playlists and watched movies.\
+When signed in, users can:
+- Search for movies to watch by title, person (actor, director, or producer), or a similar movie.
+- Get specific details about a movie.
+- Create playlists of movies and store them in the user’s shelf.
+- Record movies the user has watched.
+- Connect with friends.
+- View a friend’s stored data, including profile information, saved playlists and watched movies.
 - Send an invitation to a friend to watch a movie.
 
 ## Getting Started
