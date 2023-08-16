@@ -5,16 +5,16 @@
 Watch party is a social app to connect friends through movies. You can view the currently deployed project on: [Netlify](https://ada-watch-party.netlify.app/)
 
 All visitors to the app can:\
--Get a random suggestion for a movie to watch, along with details about that movie.
+- Get a random suggestion for a movie to watch, along with details about that movie.
 
 When signed in, users can:\
--Search for movies to watch by title, person (actor, director, or producer), or a similar movie.\
--Get specific details about a movie.\
--Create playlists of movies and store them in the user’s shelf.\
--Record movies the user has watched.\
--Connect with friends.\
--View a friend’s stored data, including profile information, saved playlists and watched movies.\
--Send an invitation to a friend to watch a movie.
+- Search for movies to watch by title, person (actor, director, or producer), or a similar movie.\
+- Get specific details about a movie.\
+- Create playlists of movies and store them in the user’s shelf.\
+- Record movies the user has watched.\
+- Connect with friends.\
+- View a friend’s stored data, including profile information, saved playlists and watched movies.\
+- Send an invitation to a friend to watch a movie.
 
 ## Getting Started
 
@@ -24,12 +24,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm start`
+#### `npm start`
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
-### `npm test`
+#### `npm test`
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
@@ -39,6 +39,7 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
 
 ## Installation
 
