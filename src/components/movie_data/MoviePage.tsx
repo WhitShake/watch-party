@@ -21,8 +21,8 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
     const fetchDetails = async () => {
         const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`)
         const data = await response.json()
-        const { genres, original_title, overview, release_date, runtime, tagline, poster_path } = data
-        return { genres, original_title, overview, release_date, runtime, tagline, poster_path }
+        const { genres, title, overview, release_date, runtime, tagline, poster_path } = data
+        return { genres, title, overview, release_date, runtime, tagline, poster_path }
     }
 
     useEffect(() => {
@@ -33,7 +33,7 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
         getMovieDetails();
     },[id])
 
-    const fetchTitle = (id: number) => {
+    const fetchTitle = async (id: number) => {
         const url = `${BASE_URL}3/movie/${id}?api_key=${apiKey}&language=en-US`
         console.log(url)
         
@@ -41,9 +41,9 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
             .then(response => response.json())
             .then((data) => {
                 console.log("data:", data)
-                if (data.original_title) {
-                    console.log("original_title:", data.original_title)
-                return data.original_title;
+                if (data.title) {
+                    console.log("title:", data.title)
+                return data.title;
                 }
             });
     }
@@ -86,7 +86,7 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
 
     return (
         <div className="movie-page">
-            {details && <h1> {details.original_title} </h1>}
+            {details && <h1> {details.title} </h1>}
             <div className="movie-content">
                     {details?.poster_path === null ? (
                         <div className='poster-filler-container'>

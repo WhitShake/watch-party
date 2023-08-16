@@ -13,8 +13,8 @@ export const Login = () => {
     navigate("/profile")
   }
   return (
-    <div className="side-login">
-      <button className="sign-in-button" onClick={signInWithGoogle}>Sign In With Google</button>
+    <div className="sign-in-container">
+      <button className="sign-in-button" onClick={signInWithGoogle}>SIGN IN WITH GOOGLE</button>
     </div>
   )
 }
