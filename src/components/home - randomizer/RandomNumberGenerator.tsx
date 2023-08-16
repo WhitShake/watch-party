@@ -90,10 +90,11 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
   return (
     <div className="random-container">
       <h1 className="headline">WATCH PARTY</h1>
+      <div className="sub-head"><p>Films and Friends</p></div>
       <div className="generator-container">
         <div className="why-watch-party">
-        <p>Sick of scrolling? </p>
-        <p>Seeking something new?</p>
+          <p className="A">Sick of scrolling? </p>
+          <p className="B">Seeking something new?</p>
         </div>
         <button id="lucky-button" onClick={generateRandomNumber}>I'm Feeling Lucky!</button>
         <div className="random-movie-display">
