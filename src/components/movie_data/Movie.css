@@ -74,6 +74,11 @@
     color: black;
     padding: 12px 12px;
     /* right: 100%; */
+    font-family: Montserrat Alternates;
+}
+
+.dropdown-content a {
+    text-decoration: none;
 }
 
 .dropdown:hover .dropdown-content {

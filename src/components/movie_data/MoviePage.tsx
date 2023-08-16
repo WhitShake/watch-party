@@ -9,7 +9,6 @@ import { WatchProviderIcons } from '../home - randomizer/WatchProviderIcons';
 import { providerInfo } from './WatchProvidersInfo';
 import { PosterPathFiller } from './PosterPathFiller';
 
-const apiKey = process.env.REACT_APP_tmdb_apiKey;
 const BASE_URL = 'https://api.themoviedb.org/'; 
 
 export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => { 
@@ -46,7 +45,6 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
                     console.log("original_title:", data.original_title)
                 return data.original_title;
                 }
-                // return null;
             });
     }
 

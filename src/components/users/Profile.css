@@ -103,8 +103,6 @@
 }
 
 
-
-
 .name .easy-edit-hover-on {
   font-style: normal;
 } 
@@ -145,14 +143,14 @@ hr {
   flex-direction: column;
 }
 
-.friend-search-container {
+friend-search-container {
   margin-top: 100px; 
   margin-bottom: 200px;
   width: 65%;
   width: 100%;
 }
 
-prof-friend-search-container {
+.prof-friend-search-container {
   /* border: red 1px solid; */
   width: 100%;
 }
