@@ -136,7 +136,7 @@ export type MoviePageProps = {
 
 export type MovieDetails = {
     genres: Genre[];
-    original_title: string;
+    title: string;
     overview: string;
     release_date: string;
     runtime: number;

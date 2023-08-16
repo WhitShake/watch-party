@@ -9,7 +9,6 @@ import { WatchProviderIcons } from '../home - randomizer/WatchProviderIcons';
 import { providerInfo } from './WatchProvidersInfo';
 import { PosterPathFiller } from './PosterPathFiller';
 
-const apiKey = process.env.REACT_APP_tmdb_apiKey;
 const BASE_URL = 'https://api.themoviedb.org/'; 
 
 export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => { 
@@ -22,8 +21,8 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
     const fetchDetails = async () => {
         const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`)
         const data = await response.json()
-        const { genres, original_title, overview, release_date, runtime, tagline, poster_path } = data
-        return { genres, original_title, overview, release_date, runtime, tagline, poster_path }
+        const { genres, title, overview, release_date, runtime, tagline, poster_path } = data
+        return { genres, title, overview, release_date, runtime, tagline, poster_path }
     }
 
     useEffect(() => {
@@ -34,7 +33,7 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
         getMovieDetails();
     },[id])
 
-    const fetchTitle = (id: number) => {
+    const fetchTitle = async (id: number) => {
         const url = `${BASE_URL}3/movie/${id}?api_key=${apiKey}&language=en-US`
         console.log(url)
         
@@ -42,11 +41,10 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
             .then(response => response.json())
             .then((data) => {
                 console.log("data:", data)
-                if (data.original_title) {
-                    console.log("original_title:", data.original_title)
-                return data.original_title;
+                if (data.title) {
+                    console.log("title:", data.title)
+                return data.title;
                 }
-                // return null;
             });
     }
 
@@ -88,7 +86,7 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
 
     return (
         <div className="movie-page">
-            {details && <h1> {details.original_title} </h1>}
+            {details && <h1> {details.title} </h1>}
             <div className="movie-content">
                     {details?.poster_path === null ? (
                         <div className='poster-filler-container'>
@@ -100,6 +98,7 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
                         <img className="movie-page-poster" alt="movie cover" src={`http://image.tmdb.org/t/p/w185${details?.poster_path}`} />
                     )}
                 <div className="movie-details">
+                    <div className='facts-n-providers'>
                     <div className='facts-add-playlist'>
                         <div className='movie-facts-container'>
                             {details && <p className='tagline'> {details.tagline}</p>}
@@ -131,6 +130,7 @@ export const MoviePage = ({ apiKey, shelf }: MoviePageProps) => {
                     </div>
                     <div className="watch-providers">
                         <WatchProviderIcons providers={watchProvidersList}/>
+                    </div>
                     </div>
                 </div>
             </div>

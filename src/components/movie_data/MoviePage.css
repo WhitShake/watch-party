@@ -1,15 +1,18 @@
 .movie-page {
-    margin-left: 25vw;
+    /* margin-left: 25vw;
     padding-top: 6vh;
-    padding-right: 5vw;
+    padding-right: 5vw; */
     color: white;
+    width: 60%;
+    margin-left: 30%;
 }
 
 h1 {
     font-size: 5vw;
-    font-family: Agelast;
+    font-family: 'Agelast';
     letter-spacing: 2px;
     line-height: 1.25;
+    text-align: center;
     text-shadow:
         /* 0 0 7px #fff, */
         /* 0 0 10px #fff, */
@@ -25,7 +28,8 @@ h1 {
 
 .movie-content {
     display: flex;
-    gap: 20px;
+    gap: 40px;
+    /* align-items: center; */
 }
 
 .movie-page .filler-movie-container {
@@ -64,7 +68,7 @@ h1 {
 
 .info-header {
     font-size: 23px;
-    margin-bottom: 0px;;
+    margin-bottom: 0px;
 }
 
 .specs {
@@ -95,7 +99,7 @@ h1 {
 }
 
 .facts-add-playlist {
-    border: .5px aqua solid;
+    /* border: .5px aqua solid; */
     border-radius: 30px;
     padding-bottom: 30px;
 }
@@ -142,6 +146,23 @@ h1 {
     justify-content: flex-start;
     font-family: Montserrat;
     padding-left: 30px;
+}
+
+.facts-n-providers {
+    border: .5px solid aqua;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.755);
+}
+
+.provider-image-gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 

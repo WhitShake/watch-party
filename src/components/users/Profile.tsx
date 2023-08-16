@@ -47,15 +47,15 @@ const { handleUpdate, friendsData, friendsList, watchedMovies, setFriendsList, s
                 </div>
             </div>
             
-        <div className="friends-recently-watched">
-            <div className='section-header'>
-                <h4 className="recently-watched">Recently Watched</h4>
-                    <hr></hr>
+            <div className="friends-recently-watched">
+                <div className='section-header'>
+                    <h4 className="recently-watched">Recently Watched</h4>
+                        <hr></hr>
+                </div>
+                <div className="watched-list">
+                    <ProfileWatched movies={watchedMovies} setRecentlyWatchedData={props.setRecentlyWatchedData}/>
+                </div>
             </div>
-            <div className="watched-list">
-                <ProfileWatched movies={watchedMovies} setRecentlyWatchedData={props.setRecentlyWatchedData}/>
-            </div>
-        </div>
             <div className='section-header'>
                 <h4 className="friends-list-container">Friends List</h4>
                     <hr></hr>
@@ -83,6 +83,7 @@ const { handleUpdate, friendsData, friendsList, watchedMovies, setFriendsList, s
                     friendsList={friendsList}
                     />
             </div>
+            <footer></footer>
             </div>
         </div>
     </div>

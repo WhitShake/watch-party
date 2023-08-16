@@ -1,5 +1,6 @@
 .provider-logo {
   border: 1px solid aqua;
+  border-radius: 7px;
 }
 .provider-image-gallery {
   display: flex;

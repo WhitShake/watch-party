@@ -90,38 +90,72 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
   return (
     <div className="random-container">
       <h1 className="headline">WATCH PARTY</h1>
+      <div className="sub-head"><p>Films and Friends</p></div>
       <div className="generator-container">
+        <div className="why-watch-party">
+          <p className="A">Sick of scrolling? </p>
+          <p className="B">Seeking something new?</p>
+        </div>
         <button id="lucky-button" onClick={generateRandomNumber}>I'm Feeling Lucky!</button>
-        <div className="random-poster">
-          {props.randomMovieData && props.randomMovieData.posterPath && (
-            <img className="movie-poster" src={`http://image.tmdb.org/t/p/w185${props.randomMovieData.posterPath}`} alt="movie poster"/>
-          )}
-        </div>
-        <div className="random-details">
-            {props.randomMovieData && props.randomMovieData.releaseDate && (
-            <p className="random-details-child">Year released: {props.randomMovieData.releaseDate.slice( 0, 4 )}</p>
-            )}
-            {props.randomMovieData && props.randomMovieData.runtime && (
-            <p className="random-details-child">Runtime: {props.randomMovieData.runtime} mins</p>
-            )}
-        </div>
-        <div className="random-overview">
-            {props.randomMovieData && props.randomMovieData.overview && (
-            <p>{props.randomMovieData.overview}</p>
-            )}
-          </div>
-          <div className="provider-card-display">  
-              {props.randomMovieData && watchProvidersList && (
-                <p>Stream on: </p>
+        <div className="random-movie-display">
+          <Link to={`/movie-details/${props.randomMovieData?.id}`}><h3 className="random-title-link">{props.randomMovieData && props.randomMovieData.title}</h3></Link>
+          <div className="random-movie-results">
+            <div className="random-poster">
+              {props.randomMovieData && props.randomMovieData.posterPath && (
+                <img className="random-movie-poster" src={`http://image.tmdb.org/t/p/w185${props.randomMovieData.posterPath}`} alt="movie poster"/>
               )}
-                <WatchProviderIcons providers={watchProvidersList}/>
+            </div>
+
+            <div className="random-movie-information">
+              <div className="random-details">
+                  {props.randomMovieData && <p className='tagline'> {props.randomMovieData.tagline}</p>}
+                <div className="random-overview">
+                    {props.randomMovieData && props.randomMovieData.overview && (
+                    <div>
+                        <h4 className='info-header'>Overview: </h4>
+                        <p>{props.randomMovieData.overview}</p>
+                    </div>
+                    )}
+                </div>
+                <div className="random-tidbits">
+                  
+                  {props.randomMovieData && props.randomMovieData.releaseDate && (
+                  <div className="random-specs">
+                    <h5 className='line-info'>Released:</h5>
+                    <p className="random-details-child">{props.randomMovieData.releaseDate.slice( 0, 4 )}</p>
+                  </div>
+                  )}
+                  
+                  {props.randomMovieData && props.randomMovieData.runtime && (
+                    <div className="random-specs">
+                      <h5 className='line-info'>Runtime:</h5>
+                      <p className="random-details-child">{props.randomMovieData.runtime} mins</p>
+                    </div>
+                  )}
+                </div>
+
+                <div className="provider-image-gallery">  
+                      {props.randomMovieData && watchProvidersList && 
+                        <WatchProviderIcons providers={watchProvidersList}/> }
+                </div>
+              </div>
+
+
+
+              {/* <div>
+                  {props.randomMovieData && props.randomMovieData.id && (
+                    <Link to= {`/movie-details/${props.randomMovieData.id}`}>View More Details</Link>
+                  )}
+              </div> */}
+            </div>
           </div>
-          <div>
-            {props.randomMovieData && props.randomMovieData.id && (
-              <Link to= {`/movie-details/${props.randomMovieData.id}`}>View More Details</Link>
-            )}
-          </div>
+
+
+        </div>
+
       </div>
+      <footer></footer>
+
     </div>
   );
 };

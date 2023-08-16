@@ -1,46 +1,39 @@
+
 .sidebar {
+  /* width: 30px; */
   height: 100vh;
   padding-top: 20px;
   padding-bottom: 20px;
   position: fixed;
   z-index: 999;
-  font-family: 'Montserrat Alternates', sans-serif;
+  margin-top: 0;
 }
 
-@media (max-width: 1024px) {
-  .sidebar {
-    max-width: 25vw; 
-}
-  .App {
-    padding-left: 25vw;
-  }
-}
 
-@font-face {
+/* @font-face {
   font-family: 'Agelast';
   font-display: auto;
   src: url('/fonts/Agelast-mLlAm.otf') format('opentype');
-}
+} */
 
 
 .sidebar-elements {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 50px;
   width: 20vw;
   height: 100vh;
-  align-items: left;
+  align-items: flex-start;
   color: white;
   font-size: 20px;
   }
 
 
-
-a {
+.sidebar a {
   text-decoration: none;
   color: white;
-  font-family: 'Agelast';
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
 }
 
@@ -54,8 +47,8 @@ a {
 .sidebar-user-icon { 
   border-radius: 50%;
   overflow: hidden;
-  height: 40px;
-  width: 40px;
+  height: 50px;
+  width: 50px;
 }
 
 .clickable:hover{ 
@@ -67,20 +60,77 @@ a {
   0 0 151px aqua;
 }
 
+.side-login {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  height: 40px;
+  margin-right: 35px;
+}
+
+.sign-out-button {
+  background-color: aqua;
+  padding: 8px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  right: 30px;
+  width: 11vw;
+  height: 4vh;
+  border-radius: 30px;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 5px rgb(2, 192, 192);
+  margin-right: 0;
+  font-size: 16px;
+}
+
+
+.sign-out-button:hover {
+  background-color: rgb(2, 192, 192);
+}
+
+.sign-out-button:active {
+  background-color: rgb(2, 192, 192);
+  box-shadow: 0 5px rgb(5, 116, 116);
+  transform: translateY(4px);
+}
+
+.user-signed-in {
+  display: flex;
+  position: relative;
+  bottom: 200px;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: 0;
+  height: 18vh;
+
+}
+
 .sign-in-button {
   background-color: aqua;
   padding: 8px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 9vw;
+  position: relative;
+  right: 63px;
+  width: 11vw;
   height: 5vh;
   border-radius: 30px;
   border: none;
-  font-family: inherit;
+  font-family: 'Montserrat', sans-serif;
   cursor: pointer;
   box-shadow: 0 5px rgb(2, 192, 192);
+  margin-right: 0;
+  font-size: 14px;
 }
+
 
 .sign-in-button:hover {
   background-color: rgb(2, 192, 192);
@@ -92,9 +142,11 @@ a {
   transform: translateY(4px);
 }
 
-.user-signed-in {
+.sign-in-container {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  height: 18vh;
-  justify-content: space-evenly;
+  flex-direction: row;
+  justify-content: center;
+  height: 40px;
+  margin-right: 35px;
 }

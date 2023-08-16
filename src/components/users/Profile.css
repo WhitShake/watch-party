@@ -1,10 +1,10 @@
 .profile {
   color: white;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   padding: 20px;
-  margin-left: 25vw;
-  font-family: 'Montserrat Alternates', sans-serif;
+  margin-left: 27%;
+  margin-top: 0;
 }
 
 .profile-container {
@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 0;
 }
 
 .avatar {
@@ -22,11 +23,11 @@
   border: aqua 1px solid;
   box-shadow: 4.0px 8.0px 8.0px hsla(179, 37%, 53%, 0.698);
   object-fit: cover;
+  max-height: 250px;
 }
 
 
 .profile-info {
-  /* border: aqua 1px solid; */
   display: flex;
   justify-content: center;
   background-color: black;
@@ -42,10 +43,6 @@
 .user-info {
   margin-left: 30px;
   text-align: center;
-  /* display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center; */
 }
 
 .name {
@@ -54,34 +51,23 @@
   display: flex;
   gap: 15px;
   color: white;
-  /* text-shadow: 2px 2px 4px #aaa8b3; */
-  /* font-family: 'Bruno Ace SC', cursive; */
-  /* font-family: 'Montserrat', sans-serif; */
-  font-family: 'Montserrat Alternates', sans-serif;
-  /* font-family: 'Poiret One', cursive; */
-  /* font-family: 'Raleway', sans-serif; */
+  margin-bottom: 0;
 }
-
-/* .name :hover {
-  color: #2592a4;
-} */
 
 .quote {
   font-size: 20px;
   margin-left: 20px;
   margin-top: -5px;
-  font-family: 'Montserrat Alternates', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   letter-spacing: 2px;
 }
 
 .profile h4 {
-  font-family: 'Montserrat Alternates', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 20px;
   margin-top: 20px;
   letter-spacing: 2px;
   margin-bottom: 10px;
-  /* color: aqua; */
-  /* text-decoration: underline; */
 }
 
 .text {
@@ -102,9 +88,6 @@
   padding: 12px;
 }
 
-
-
-
 .name .easy-edit-hover-on {
   font-style: normal;
 } 
@@ -117,6 +100,7 @@
   justify-content: flex-start;
   width: 100%;
   align-items: center;
+  margin-bottom: 70px;
 }
 
 .friend-cards {
@@ -131,7 +115,6 @@
 hr {
   border: 0;
   height: 1px;
-  /* text-align: left; */
   background-image: linear-gradient(90deg, black, aqua, black);
   width: 900px;
   margin-left: 0;
@@ -145,14 +128,13 @@ hr {
   flex-direction: column;
 }
 
-.friend-search-container {
-  margin-top: 100px; 
-  margin-bottom: 200px;
+friend-search-container {
+  /* margin-top: 100px;  */
   width: 65%;
   width: 100%;
+  /* margin-bottom: 70px; */
 }
 
-prof-friend-search-container {
-  /* border: red 1px solid; */
-  width: 100%;
+.user-search {
+  margin-top: 70px;
 }

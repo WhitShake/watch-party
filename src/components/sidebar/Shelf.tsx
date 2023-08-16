@@ -9,7 +9,7 @@ export const Shelf = (props: ShelfProps) => {
 
   return (
     <div className="shelf-container">
-      <p>Your Shelf</p>
+      <p>Your Shelf:</p>
       <ul>
         {props.shelf.map((playlist, i) => {
           return (
@@ -17,9 +17,10 @@ export const Shelf = (props: ShelfProps) => {
           )
         })}
       </ul>
-      <div className="playlist-form">
+      <div className="shelf-playlist-form">
         <AddPlaylistForm setShelf={props.setShelf}/>
       </div>
+      <footer></footer>
     </div>
   )
 };

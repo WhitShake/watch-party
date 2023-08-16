@@ -1,10 +1,10 @@
-#user-button {
+.user-button {
   background-color: aqua;
   width: 200px;
   height: 40px;
   border-radius: 30px;
   border: none;
-  font-family: inherit;
+  font-family: 'Montserrat', sans-serif;
   font-size: 15px;
   cursor: pointer;
   box-shadow: 0 5px rgb(2, 192, 192);
