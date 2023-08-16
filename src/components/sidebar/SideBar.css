@@ -73,7 +73,16 @@
   0 0 151px aqua;
 }
 
-.sign-in-button {
+.side-login {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  height: 40px;
+  margin-right: 35px;
+}
+
+.sign-out-button {
   background-color: aqua;
   padding: 8px 20px;
   display: flex;
@@ -92,20 +101,12 @@
   font-size: 16px;
 }
 
-.side-login {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  height: 40px;
-  margin-right: 35px;
-}
 
-.sign-in-button:hover {
+.sign-out-button:hover {
   background-color: rgb(2, 192, 192);
 }
 
-.sign-in-button:active {
+.sign-out-button:active {
   background-color: rgb(2, 192, 192);
   box-shadow: 0 5px rgb(5, 116, 116);
   transform: translateY(4px);
@@ -120,4 +121,43 @@
   margin-right: 0;
   height: 18vh;
 
+}
+
+.sign-in-button {
+  background-color: aqua;
+  padding: 8px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  right: 63px;
+  width: 11vw;
+  height: 5vh;
+  border-radius: 30px;
+  border: none;
+  font-family: Montserrat Alternates;
+  cursor: pointer;
+  box-shadow: 0 5px rgb(2, 192, 192);
+  margin-right: 0;
+  font-size: 14px;
+}
+
+
+.sign-in-button:hover {
+  background-color: rgb(2, 192, 192);
+}
+
+.sign-in-button:active {
+  background-color: rgb(2, 192, 192);
+  box-shadow: 0 5px rgb(5, 116, 116);
+  transform: translateY(4px);
+}
+
+.sign-in-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 40px;
+  margin-right: 35px;
 }

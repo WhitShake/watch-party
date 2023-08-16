@@ -47,10 +47,10 @@ export const SideBar = (props: SideBarProps) => {
                 <Link className="clickable" to='/profile'>{props.firstName} {props.lastName}</Link>  
               </div>
               <div className="side-login">
-              <button className="sign-in-button" onClick={signUserOut}>LOG OUT</button>
+              <button className="sign-out-button" onClick={signUserOut}>LOG OUT</button>
               </div>
             </li>
-          ) : <Login />
+          ) :<Login />
           }
         </ul>
       </nav>
