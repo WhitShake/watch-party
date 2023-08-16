@@ -91,6 +91,10 @@ const RandomNumberGenerator = (props: RandomNumberGeneratorProps) => {
     <div className="random-container">
       <h1 className="headline">WATCH PARTY</h1>
       <div className="generator-container">
+        <div className="why-watch-party">
+        <p>Sick of scrolling? </p>
+        <p>Seeking something new?</p>
+        </div>
         <button id="lucky-button" onClick={generateRandomNumber}>I'm Feeling Lucky!</button>
         <div className="random-movie-display">
           <Link to={`/movie-details/${props.randomMovieData?.id}`}><h3 className="random-title-link">{props.randomMovieData && props.randomMovieData.title}</h3></Link>

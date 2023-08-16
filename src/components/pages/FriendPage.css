@@ -30,6 +30,7 @@
     border-radius: 50px;
     margin-top: 20px;
     margin-bottom: 75px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .user-avatar {
@@ -40,6 +41,7 @@
     border: aqua 1px solid;
     box-shadow: 4.0px 8.0px 8.0px hsla(179, 37%, 53%, 0.698);
     object-fit: cover;
+    max-height: 250px;
 }
 
 .user-profile-info {
@@ -69,6 +71,7 @@
     font-size: 12px;
     cursor: pointer;
     box-shadow: 0 5px rgb(2, 192, 192);
+    font-family: 'Montserrat', sans-serif;
 }
 
 .user-button:hover {
@@ -84,6 +87,7 @@
 .user-friend-info {
     margin-left: 30px;
     text-align: center;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .user-friend-name {
@@ -115,13 +119,15 @@
     margin-top: -5px;
     font-family: inherit;
     letter-spacing: 2px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .user-profile h4 {
-    font-family: inherit;
+    font-family: 'Montserrat Alternates', sans-serif;
     font-size: 20px;
     margin-top: 20px;
     letter-spacing: 2px;
+    margin-bottom: 10px;
 }
 
 .text {
@@ -134,6 +140,7 @@
 } 
 
 .user-profile .friends-list {
+    font-family: 'Montserrat', sans-serif;
     height: 400px;
     display: flex;
     flex-direction: column;
@@ -141,6 +148,7 @@
 }
 
 .friend-cards {
+    font-family: 'Montserrat', sans-serif;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;

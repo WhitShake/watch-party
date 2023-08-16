@@ -1,7 +1,3 @@
-/* .sidebar-container {
-  height: 100vh;
-  width: 30px;
-} */
 
 .sidebar {
   /* width: 30px; */
@@ -13,20 +9,12 @@
   margin-top: 0;
 }
 
-/* @media (max-width: 1024px) {
-  .sidebar {
-    max-width: 25vw; 
-}
-  .App {
-    padding-left: 25vw;
-  }
-} */
 
-@font-face {
+/* @font-face {
   font-family: 'Agelast';
   font-display: auto;
   src: url('/fonts/Agelast-mLlAm.otf') format('opentype');
-}
+} */
 
 
 .sidebar-elements {
@@ -45,7 +33,7 @@
 .sidebar a {
   text-decoration: none;
   color: white;
-  font-family: 'Agelast';
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
 }
 
@@ -88,12 +76,12 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  right: 63px;
+  right: 30px;
   width: 11vw;
   height: 4vh;
   border-radius: 30px;
   border: none;
-  font-family: inherit;
+  font-family: 'Montserrat', sans-serif;
   cursor: pointer;
   box-shadow: 0 5px rgb(2, 192, 192);
   margin-right: 0;
@@ -113,6 +101,8 @@
 
 .user-signed-in {
   display: flex;
+  position: relative;
+  bottom: 200px;
   flex-direction: column;
   width: 100%;
   height: 100%;
@@ -134,7 +124,7 @@
   height: 5vh;
   border-radius: 30px;
   border: none;
-  font-family: Montserrat Alternates;
+  font-family: 'Montserrat', sans-serif;
   cursor: pointer;
   box-shadow: 0 5px rgb(2, 192, 192);
   margin-right: 0;

@@ -83,9 +83,9 @@ const { handleUpdate, friendsData, friendsList, watchedMovies, setFriendsList, s
                     friendsList={friendsList}
                     />
             </div>
+            <footer></footer>
             </div>
         </div>
-        <footer></footer>
     </div>
     )
 };

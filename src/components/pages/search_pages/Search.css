@@ -6,12 +6,10 @@
 }
 
 .all-encompassing-search-container {
-    /* border: 2px yellow solid; */
     width: 80%;
     display: flex;
     flex-direction: column;
     margin-left: auto;
-    /* margin-right: 0; */
 }
 
 
@@ -28,6 +26,7 @@
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .form-selector {
@@ -62,11 +61,11 @@
     transform: translateY(4px);
 }
 
-@font-face {
+/* @font-face {
     font-family: 'Agelast';
     font-display: auto;
     src: url('/fonts/Agelast-mLlAm.otf') format('opentype');
-}
+} */
 
 .search-title {
     color: white;

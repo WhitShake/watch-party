@@ -20,6 +20,7 @@ export const Shelf = (props: ShelfProps) => {
       <div className="shelf-playlist-form">
         <AddPlaylistForm setShelf={props.setShelf}/>
       </div>
+      <footer></footer>
     </div>
   )
 };

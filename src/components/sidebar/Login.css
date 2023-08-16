@@ -5,14 +5,14 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  top: 350px;
+  top: 320px;
   /* right: 53px; */
-  right: 100px;
+  right: 40px;
   width: 200px;;
-  height: 30px;
+  height: 45px;
   border-radius: 30px;
   border: none;
-  font-family: inherit;
+  font-family: 'Montserrat', sans-serif;
   cursor: pointer;
   box-shadow: 0 5px rgb(2, 192, 192);
   margin-right: 0;

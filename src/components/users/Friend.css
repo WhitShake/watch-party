@@ -56,15 +56,11 @@
 .friend .dropdown-content {
     /* Dropwdown menu itself */
     display: none;
-    /* position: absolute; */
     position: relative;
     background-color: rgba(0, 0, 0, 0.755);
     border: 1px solid aqua;
     padding: 12px 12px;
     border-radius: 8px;
-    /* bottom: 100%; */
-    /* right: 100%; */
-    /* left: 3.5%; */
 }
 
 .friend .dropdown-content button{
@@ -72,7 +68,6 @@
     color: aqua;
     border: none; 
     width: 100%;
-    /* background-color: rgba(0, 0, 0, 0.755); */
     font-family: 'Montserrat Alternates', sans-serif;
 }
 
@@ -80,15 +75,12 @@
     background-color: rgba(112, 224, 224, 0.596);
 }
 
-/* .friend .dropdown:hover .dropdown-content {
-    display: block;
-    width: 90%
-} */
 
 .friend .dropdown-content .view-profile {
     font-family: 'Montserrat Alternates', sans-serif;
     color: aqua;
     /* border: red 1px solid; */
+    font-size: 14px;
     background-color: transparent;
     text-decoration: none;
 }
